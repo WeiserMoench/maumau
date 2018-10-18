@@ -3,7 +3,7 @@ package de.htwberlin.MauMau.model;
 /**
  * Created by Dustin on 12.10.2018
  */
-public class baseEntity {
+public class BaseEntity {
 
     private int id;
     private String name;

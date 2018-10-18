@@ -1,6 +1,6 @@
 package de.htwberlin.MauMau.model;
 
-public class Spiel extends baseEntity{
+public class Spiel extends BaseEntity {
 	
 	private int ID_aktiver_Spieler;
 	private int Spielrichtung;
