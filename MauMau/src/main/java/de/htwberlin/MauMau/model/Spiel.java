@@ -1,7 +1,7 @@
 package de.htwberlin.MauMau.model;
 /**
  * 
- * @author Studium
+ * @author Christian
  *
  */
 
