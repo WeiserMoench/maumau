@@ -8,7 +8,7 @@ public class Karte extends BaseEntity {
 
     private String farbe;
     private String wert;
-    private String punkte;
+
 
 
     public String getFarbe() {
@@ -27,11 +27,5 @@ public class Karte extends BaseEntity {
         this.wert = wert;
     }
 
-    public String getPunkte() {
-        return punkte;
-    }
 
-    public void setPunkte(String punkte) {
-        this.punkte = punkte;
-    }
 }

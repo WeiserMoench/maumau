@@ -7,6 +7,7 @@ public class Kartendeck extends BaseEntity {
 
 
     private String beschreibung;
+    private String name;
 
     public String getBeschreibung() {
         return beschreibung;
@@ -15,4 +16,14 @@ public class Kartendeck extends BaseEntity {
     public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+    
+    
 }

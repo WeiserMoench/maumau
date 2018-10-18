@@ -5,7 +5,7 @@ package de.htwberlin.MauMau.model;
  */
 public class Spieler extends BaseEntity {
 
-
+	private String name;
     private String email;
 
 
@@ -16,5 +16,13 @@ public class Spieler extends BaseEntity {
     public void setEmail(String email) {
         this.email = email;
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }
