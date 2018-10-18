@@ -1,5 +1,7 @@
 package de.htwberlin.MauMau.model;
 
+import java.util.List;
+
 /**
  * Created by Dustin on 12.10.2018
  */
@@ -8,8 +10,17 @@ public class Kartendeck extends BaseEntity {
 
     private String beschreibung;
     private String name;
+    private List<Karte> karten;
 
-    public String getBeschreibung() {
+    public List<Karte> getKarten() {
+		return karten;
+	}
+
+	public void setKarten(List<Karte> karten) {
+		this.karten = karten;
+	}
+
+	public String getBeschreibung() {
         return beschreibung;
     }
 
