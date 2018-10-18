@@ -1,29 +1,34 @@
 package de.htwberlin.MauMau.model;
+/**
+ * 
+ * @author Studium
+ *
+ */
 
 public class Spiel extends baseEntity{
 	
-	private int ID_aktiver_Spieler;
-	private int Spielrichtung;
-	private int Summe_Ziehende_Karten;
+	private int idAktiverSpieler;
+	private int spielrichtung;
+	private int summeZuziehendeKarten;
 	
 	
-	public int getID_aktiver_Spieler() {
-		return ID_aktiver_Spieler;
+	public int getIdAktiverSpieler() {
+		return idAktiverSpieler;
 	}
-	public void setID_aktiver_Spieler(int iD_aktiver_Spieler) {
-		ID_aktiver_Spieler = iD_aktiver_Spieler;
+	public void setIdAktiverSpieler(int idAktiverSpieler) {
+		this.idAktiverSpieler = idAktiverSpieler;
 	}
 	public int getSpielrichtung() {
-		return Spielrichtung;
+		return spielrichtung;
 	}
 	public void setSpielrichtung(int spielrichtung) {
-		Spielrichtung = spielrichtung;
+		this.spielrichtung = spielrichtung;
 	}
-	public int getSumme_Ziehende_Karten() {
-		return Summe_Ziehende_Karten;
+	public int getSummeZuziehendeKarten() {
+		return summeZuziehendeKarten;
 	}
-	public void setSumme_Ziehende_Karten(int summe_Ziehende_Karten) {
-		Summe_Ziehende_Karten = summe_Ziehende_Karten;
+	public void setSummeZuziehendeKarten(int summeZuziehendeKarten) {
+		this.summeZuziehendeKarten = summeZuziehendeKarten;
 	}
 	
 	
