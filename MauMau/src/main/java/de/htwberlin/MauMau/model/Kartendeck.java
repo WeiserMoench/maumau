@@ -3,7 +3,7 @@ package de.htwberlin.MauMau.model;
 /**
  * Created by Dustin on 12.10.2018
  */
-public class kartendeck extends BaseEntity {
+public class Kartendeck extends BaseEntity {
 
 
     private String beschreibung;
