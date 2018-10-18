@@ -83,7 +83,7 @@
     </plugins>
     <resources>
       <resource>
-        <directory>srs/main/resources</directory>
+        <directory>src/main/java/resources</directory>
       </resource>
     </resources>
   </build>
