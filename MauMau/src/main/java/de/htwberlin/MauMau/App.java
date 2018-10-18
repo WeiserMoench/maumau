@@ -11,5 +11,6 @@ public class App
         System.out.println( "Hello World!" );
         System.out.println( "Git ist scheisse....!" );
         System.out.println("hoffe nicht wir...");
+        System.out.println("Eclipse ist trotzdem scheisse");
     }
 }
