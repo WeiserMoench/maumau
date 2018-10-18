@@ -7,9 +7,7 @@ public class karte extends baseEntity {
 
 
     private String farbe;
-
     private String wert;
-
     private String punkte;
 
 

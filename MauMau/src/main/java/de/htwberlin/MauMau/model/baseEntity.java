@@ -6,8 +6,8 @@ package de.htwberlin.MauMau.model;
 public class baseEntity {
 
     private int id;
-
     private String name;
+    
 
     public int getId() {
         return id;
