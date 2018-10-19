@@ -1,142 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="de.htwberlin.MauMau.model.Spiel" project="MauMau" 
-    file="/MauMau/src/main/java/de/htwberlin/MauMau/model/Spiel.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="676" y="473"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="de.htwberlin.MauMau.model.Handkarten" project="MauMau" 
-    file="/MauMau/src/main/java/de/htwberlin/MauMau/model/Handkarten.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="648" y="130"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="3" language="java" name="de.htwberlin.MauMau.model.Ziehstapel" project="MauMau" 
-    file="/MauMau/src/main/java/de/htwberlin/MauMau/model/Ziehstapel.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="683" y="470"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="4" language="java" name="de.htwberlin.MauMau.model.Ablagestapel" project="MauMau" 
-    file="/MauMau/src/main/java/de/htwberlin/MauMau/model/Ablagestapel.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="678" y="509"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="5" language="java" name="de.htwberlin.MauMau.model.Kartendeck" project="MauMau" 
+  <class id="1" language="java" name="de.htwberlin.MauMau.model.Kartendeck" project="MauMau" 
     file="/MauMau/src/main/java/de/htwberlin/MauMau/model/Kartendeck.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="698" y="841"/>    
+    <position height="-1" width="-1" x="1062" y="936"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="de.htwberlin.MauMau.model.BaseEntity" project="MauMau" 
+  <class id="2" language="java" name="de.htwberlin.MauMau.model.BaseEntity" project="MauMau" 
     file="/MauMau/src/main/java/de/htwberlin/MauMau/model/BaseEntity.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="352" y="279"/>    
+    <position height="-1" width="-1" x="559" y="202"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="de.htwberlin.MauMau.model.Karte" project="MauMau" 
+  <class id="3" language="java" name="de.htwberlin.MauMau.model.Karte" project="MauMau" 
     file="/MauMau/src/main/java/de/htwberlin/MauMau/model/Karte.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1551" y="780"/>    
+    <position height="-1" width="-1" x="1592" y="775"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="de.htwberlin.MauMau.model.Spieler" project="MauMau" 
+  <class id="4" language="java" name="de.htwberlin.MauMau.model.Spieler" project="MauMau" 
     file="/MauMau/src/main/java/de/htwberlin/MauMau/model/Spieler.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="682" y="134"/>    
+    <position height="-1" width="-1" x="1094" y="134"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="9">    
+  <class id="5" language="java" name="de.htwberlin.MauMau.model.Spiel" project="MauMau" 
+    file="/MauMau/src/main/java/de/htwberlin/MauMau/model/Spiel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1096" y="532"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="6">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <association id="7">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="10" name="karten">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="11" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
+      <attribute id="8" name="ziehstapelkarten"/>      
+      <multiplicity id="9" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="12">    
+  <generalization id="10">    
     <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="6"/>  
+    <end type="TARGET" refId="2"/>  
   </generalization>  
-  <association id="13">    
+  <association id="11">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="14" name="ablagestapelkarten">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="15" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
+      <attribute id="12" name="handkarten"/>      
+      <multiplicity id="13" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="16">    
+  <association id="14">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="15" name="karten"/>      
+      <multiplicity id="16" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="17">    
     <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="6"/>  
+    <end type="TARGET" refId="2"/>  
   </generalization>  
-  <association id="17">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="18" name="ziehstapelkarten">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="19" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
+  <generalization id="18">    
+    <bendpoint x="1354" y="290"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <association id="19">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="20" name="ablagestapelkarten"/>      
+      <multiplicity id="21" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="20">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
-  <association id="21">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="22" name="handkarten">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="23" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="24">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

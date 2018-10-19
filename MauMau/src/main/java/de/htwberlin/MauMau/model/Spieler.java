@@ -1,5 +1,7 @@
 package de.htwberlin.MauMau.model;
 
+import java.util.List;
+
 /**
  * Created by Dustin on 12.10.2018
  */
@@ -7,6 +9,7 @@ public class Spieler extends BaseEntity {
 
 	private String name;
     private String email;
+	private List<Karte> handkarten;
 
 
     public String getEmail() {
@@ -23,6 +26,14 @@ public class Spieler extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Karte> getHandkarten() {
+		return handkarten;
+	}
+
+	public void setHandkarten(List<Karte> handkarten) {
+		this.handkarten = handkarten;
 	}
 
 }
