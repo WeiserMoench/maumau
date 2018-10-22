@@ -10,6 +10,7 @@ public class Spieler extends BaseEntity {
     private String name;
     private String email;
     private List<Karte> handkarten;
+    private int spielerID;
 
 
     public String getEmail() {
@@ -36,4 +37,11 @@ public class Spieler extends BaseEntity {
         this.handkarten = handkarten;
     }
 
+    public int getSpielerID() {
+        return spielerID;
+    }
+
+    public void setSpielerID(int spielerID) {
+        this.spielerID = spielerID;
+    }
 }

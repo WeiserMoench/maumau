@@ -11,6 +11,7 @@ public class Kartendeck extends BaseEntity {
     private String beschreibung;
     private String name;
     private List<Karte> karten;
+    private int kartendeckID;
 
     public List<Karte> getKarten() {
         return karten;
@@ -36,5 +37,11 @@ public class Kartendeck extends BaseEntity {
         this.name = name;
     }
 
+    public int getKartendeckID() {
+        return kartendeckID;
+    }
 
+    public void setKartendeckID(int kartendeckID) {
+        this.kartendeckID = kartendeckID;
+    }
 }

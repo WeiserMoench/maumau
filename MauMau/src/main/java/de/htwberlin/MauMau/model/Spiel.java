@@ -14,6 +14,7 @@ public class Spiel {
     private List<Karte> ablagestapelkarten;
     private List<Karte> ziehstapelkarten;
     private int kartendeckID;
+    private int spielID;
 
 
     public int getIdAktiverSpieler() {
@@ -64,5 +65,11 @@ public class Spiel {
         this.kartendeckID = kartendeckID;
     }
 
+    public int getSpielID() {
+        return spielID;
+    }
 
+    public void setSpielID(int spielID) {
+        this.spielID = spielID;
+    }
 }
