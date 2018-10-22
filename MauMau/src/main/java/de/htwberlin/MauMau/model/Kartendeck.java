@@ -13,14 +13,14 @@ public class Kartendeck extends BaseEntity {
     private List<Karte> karten;
 
     public List<Karte> getKarten() {
-		return karten;
-	}
+        return karten;
+    }
 
-	public void setKarten(List<Karte> karten) {
-		this.karten = karten;
-	}
+    public void setKarten(List<Karte> karten) {
+        this.karten = karten;
+    }
 
-	public String getBeschreibung() {
+    public String getBeschreibung() {
         return beschreibung;
     }
 
@@ -28,13 +28,13 @@ public class Kartendeck extends BaseEntity {
         this.beschreibung = beschreibung;
     }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-    
-    
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
 }
