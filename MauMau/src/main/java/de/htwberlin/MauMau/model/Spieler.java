@@ -7,9 +7,9 @@ import java.util.List;
  */
 public class Spieler extends BaseEntity {
 
-	private String name;
+    private String name;
     private String email;
-	private List<Karte> handkarten;
+    private List<Karte> handkarten;
 
 
     public String getEmail() {
@@ -20,20 +20,20 @@ public class Spieler extends BaseEntity {
         this.email = email;
     }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public List<Karte> getHandkarten() {
-		return handkarten;
-	}
+    public List<Karte> getHandkarten() {
+        return handkarten;
+    }
 
-	public void setHandkarten(List<Karte> handkarten) {
-		this.handkarten = handkarten;
-	}
+    public void setHandkarten(List<Karte> handkarten) {
+        this.handkarten = handkarten;
+    }
 
 }

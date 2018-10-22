@@ -10,7 +10,6 @@ public class Karte extends BaseEntity {
     private String wert;
 
 
-
     public String getFarbe() {
         return farbe;
     }
