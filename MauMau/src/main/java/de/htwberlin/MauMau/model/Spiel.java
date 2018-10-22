@@ -8,30 +8,14 @@ import java.util.List;
 
 public class Spiel {
 
-    private int idAktiverSpieler;
-    private int spielrichtung;
+    private Spieler aktiverSpieler;
+    private boolean istSpielrichtungRechts;
     private int summeZuziehendeKarten;
     private List<Karte> ablagestapelkarten;
     private List<Karte> ziehstapelkarten;
-    private int kartendeckID;
-    private int spielID;
+    private List<Spieler> spielerDesSpieles;
+    private Kartendeck kartendeck;
 
-
-    public int getIdAktiverSpieler() {
-        return idAktiverSpieler;
-    }
-
-    public void setIdAktiverSpieler(int idAktiverSpieler) {
-        this.idAktiverSpieler = idAktiverSpieler;
-    }
-
-    public int getSpielrichtung() {
-        return spielrichtung;
-    }
-
-    public void setSpielrichtung(int spielrichtung) {
-        this.spielrichtung = spielrichtung;
-    }
 
     public int getSummeZuziehendeKarten() {
         return summeZuziehendeKarten;
@@ -57,19 +41,35 @@ public class Spiel {
         this.ziehstapelkarten = ziehstapelkarten;
     }
 
-    public int getKartendeckID() {
-        return kartendeckID;
-    }
+	public Spieler getAktiverSpieler() {
+		return aktiverSpieler;
+	}
 
-    public void setKartendeckID(int kartendeckID) {
-        this.kartendeckID = kartendeckID;
-    }
+	public void setAktiverSpieler(Spieler aktiverSpieler) {
+		this.aktiverSpieler = aktiverSpieler;
+	}
 
-    public int getSpielID() {
-        return spielID;
-    }
+	public boolean isIstSpielrichtungRechts() {
+		return istSpielrichtungRechts;
+	}
 
-    public void setSpielID(int spielID) {
-        this.spielID = spielID;
-    }
+	public void setIstSpielrichtungRechts(boolean istSpielrichtungRechts) {
+		this.istSpielrichtungRechts = istSpielrichtungRechts;
+	}
+
+	public List<Spieler> getSpielerDesSpieles() {
+		return spielerDesSpieles;
+	}
+
+	public void setSpielerDesSpieles(List<Spieler> spielerDesSpieles) {
+		this.spielerDesSpieles = spielerDesSpieles;
+	}
+
+	public Kartendeck getKartendeck() {
+		return kartendeck;
+	}
+
+	public void setKartendeck(Kartendeck kartendeck) {
+		this.kartendeck = kartendeck;
+	}
 }
