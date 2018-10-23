@@ -21,9 +21,6 @@ public interface services {
 	 */
 	public void auswaehlenKartendeck(Spiel spiel, Kartendeck kartendeck);
 	
-	// kann doch weg, einfach new auf Klasse Spiel
-	// public Spiel anlegenNeuesSpiel();
-	
 	/**
 	 * Diese Methode fuegt einen gewuenschten Spieler hinzu und speichert diesen im Spiel
 	 * 
