@@ -3,9 +3,9 @@ package de.htwberlin.MauMau.model;
 import java.util.List;
 
 /**
- * Created by Dustin on 12.10.2018
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  */
-public class Spieler extends BaseEntity {
+public class Spieler{
 
     private String name;
     private String email;

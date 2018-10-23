@@ -1,9 +1,9 @@
 package de.htwberlin.MauMau.model;
 
 /**
- * Created by Dustin on 12.10.2018
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  */
-public class Karte extends BaseEntity {
+public class Karte{
 
 
     private String farbe;

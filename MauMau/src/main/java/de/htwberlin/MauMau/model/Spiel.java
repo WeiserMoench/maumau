@@ -3,7 +3,7 @@ package de.htwberlin.MauMau.model;
 import java.util.List;
 
 /**
- * @author Christian
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  */
 
 public class Spiel {
@@ -15,6 +15,7 @@ public class Spiel {
     private List<Karte> ziehstapelkarten;
     private List<Spieler> spielerDesSpieles;
     private Kartendeck kartendeck;
+    private int farbe; //0 Herz, 1 Karo, 2 Pik, 3 Kreuz
 
 
     public int getSummeZuziehendeKarten() {
@@ -71,5 +72,13 @@ public class Spiel {
 
 	public void setKartendeck(Kartendeck kartendeck) {
 		this.kartendeck = kartendeck;
+	}
+
+	public int getFarbe() {
+		return farbe;
+	}
+
+	public void setFarbe(int farbe) {
+		this.farbe = farbe;
 	}
 }
