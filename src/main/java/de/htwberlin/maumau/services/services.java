@@ -6,6 +6,7 @@ import de.htwberlin.maumau.spieler.entity.Spieler;
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  * Diese Klasse enthaelt alle Methoden, die fuer den Spielablauf noetig sind.
+ * Jo
  */
 public interface services {
 
