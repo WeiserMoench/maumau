@@ -1,4 +1,6 @@
-package de.htwberlin.maumau.model;
+package de.htwberlin.maumau.spieler.entity;
+
+import de.htwberlin.maumau.karten.entity.Karte;
 
 import java.util.List;
 

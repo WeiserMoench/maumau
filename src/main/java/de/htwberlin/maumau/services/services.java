@@ -1,7 +1,7 @@
 package de.htwberlin.maumau.services;
 
-import de.htwberlin.maumau.model.Spiel;
-import de.htwberlin.maumau.model.Spieler;
+import de.htwberlin.maumau.spiel.entity.Spiel;
+import de.htwberlin.maumau.spieler.entity.Spieler;
 
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange

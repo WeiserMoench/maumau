@@ -1,4 +1,4 @@
-package de.htwberlin.maumau.model;
+package de.htwberlin.maumau.karten.entity;
 
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
