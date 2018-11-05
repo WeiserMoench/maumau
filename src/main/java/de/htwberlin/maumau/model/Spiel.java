@@ -1,4 +1,4 @@
-package de.htwberlin.MauMau.model;
+package de.htwberlin.maumau.model;
 
 import java.util.List;
 

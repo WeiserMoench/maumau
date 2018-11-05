@@ -1,4 +1,4 @@
-package de.htwberlin.MauMau;
+package de.htwberlin.maumau;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

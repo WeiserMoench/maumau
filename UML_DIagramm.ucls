@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="de.htwberlin.MauMau.model.Kartendeck" project="MauMau" 
+  <class id="1" language="java" name="de.htwberlin.maumau.model.Kartendeck" project="MauMau"
     file="/MauMau/src/main/java/de/htwberlin/MauMau/model/Kartendeck.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="821" y="681"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -10,7 +10,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="de.htwberlin.MauMau.model.Karte" project="MauMau" 
+  <class id="2" language="java" name="de.htwberlin.maumau.model.Karte" project="MauMau"
     file="/MauMau/src/main/java/de/htwberlin/MauMau/model/Karte.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1192" y="450"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -19,7 +19,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="de.htwberlin.MauMau.model.Spieler" project="MauMau" 
+  <class id="3" language="java" name="de.htwberlin.maumau.model.Spieler" project="MauMau"
     file="/MauMau/src/main/java/de/htwberlin/MauMau/model/Spieler.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="791" y="180"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -28,7 +28,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="de.htwberlin.MauMau.model.Spiel" project="MauMau" 
+  <class id="4" language="java" name="de.htwberlin.maumau.model.Spiel" project="MauMau"
     file="/MauMau/src/main/java/de/htwberlin/MauMau/model/Spiel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="310" y="477"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

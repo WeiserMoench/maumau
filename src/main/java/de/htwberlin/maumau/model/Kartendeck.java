@@ -1,11 +1,11 @@
-package de.htwberlin.MauMau.model;
+package de.htwberlin.maumau.model;
 
 import java.util.List;
 
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  */
-public class Kartendeck{
+public class Kartendeck {
 
 
     private String beschreibung;

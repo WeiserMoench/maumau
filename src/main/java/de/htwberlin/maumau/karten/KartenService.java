@@ -1,4 +1,4 @@
-package de.htwberlin.MauMau.karten;
+package de.htwberlin.maumau.karten;
 
 public interface KartenService {
 }

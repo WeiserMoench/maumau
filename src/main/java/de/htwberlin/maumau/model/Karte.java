@@ -1,9 +1,9 @@
-package de.htwberlin.MauMau.model;
+package de.htwberlin.maumau.model;
 
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  */
-public class Karte{
+public class Karte {
 
 
     private String farbe;

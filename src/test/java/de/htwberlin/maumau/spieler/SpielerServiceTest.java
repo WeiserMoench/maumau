@@ -1,4 +1,4 @@
-package de.htwberlin.MauMau.spieler;
+package de.htwberlin.maumau.spieler;
 
 public class SpielerServiceTest {
 }

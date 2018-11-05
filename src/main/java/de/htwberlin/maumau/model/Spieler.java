@@ -1,12 +1,11 @@
-package de.htwberlin.MauMau.model;
+package de.htwberlin.maumau.model;
 
 import java.util.List;
 
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  */
-public class Spieler{
-
+public class Spieler {
     private String name;
     private String email;
     private List<Karte> handkarten;

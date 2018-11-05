@@ -1,4 +1,4 @@
-package de.htwberlin.MauMau.regeln;
+package de.htwberlin.maumau.regeln;
 
 public interface RegelnService {
 }
