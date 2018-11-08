@@ -35,5 +35,5 @@ public interface KartenService {
      */
     Kartendeck austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler);
 
-    void anlegenNeueKarte(String farbe, String wert);
+    Karte erstellenNeuerKarte(String farbe, String wert);
 }

@@ -1,6 +1,6 @@
 package de.htwberlin.maumau.spiel;
 
-import de.htwberlin.maumau.karten.entity.Kartendeck;
+import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spieler.entity.Spieler;
 
@@ -16,7 +16,7 @@ public interface SpielService {
      * @param spiel       - Es wird das zuvor erzeugte Spiel uebergeben
      * @param kartenblatt - int Wert aus Listener
      */
-    void auswaehlenKartendeck(Spiel spiel, int kartenblatt);
+    List<Karte> auswaehlenKartendeck(Spiel spiel, int kartenblatt);//Klärung ob Spiel drinne ist oder nicht
 
     /**
      * Diese Methode soll die Anzahl der benoetigten Karten aus dem
@@ -29,18 +29,14 @@ public interface SpielService {
      * @param anzahlKarten - Es ist 0 anzugeben, wenn der spieler aus Voraktionen, bspw. Strafkarten, ziehen muss.
      *                     Wenn der spieler nicht legen kann und daher ziehen muss, ist die 1 zu uebergeben.
      */
-    void ziehenKarteVomZiehstapel(Spiel spiel, Spieler spieler, int anzahlKarten);
+    Karte ziehenKarteVomZiehstapel(List<Karte> ziehStapel);
 
-    void austeilenStart(Kartendeck kartenDeck, List<Spieler> spielerListe);
+    List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte);
 
 
-    /**
-     * Diese Methode prueft, ob der am Zug seiende spieler, vor dem Auslegen eigener Karten, Karten ziehen muss.
-     *
-     * @param spiel - Das laufende Spiel wird übergeben.
-     * @return - true, wenn gezogen werden muss, sonst false.
-     */
-    boolean ziehenVonKarteNotwendig(Spiel spiel);
+    void austeilenStart(List<Karte> kartenDeck, List<Spieler> spielerListe, int durchgaenge);
+
+    void zuZiehendeKarte(int anzahl, List<Karte> karteStapel, Spieler spieler);
 
 
     /**
@@ -51,16 +47,9 @@ public interface SpielService {
      * @param sichtbarLegen    - boolean, der angibt, ob die Karte sichtbar gelegt werden soll.
      * @param abzulegendeKarte - Die Karte, die aus dem Handkartenstapel herausgenommen und auf den Ablagestapel gelegt werden soll
      */
-    void legenKarteAufAblageStapel(Spiel spiel, Spieler spieler, boolean sichtbarLegen, int abzulegendeKarte);
+    void legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte);
 
-
-    /**
-     * Diese Methode aendert die Anzahl der Karten, die der naechste spieler ziehen muss.
-     *
-     * @param spiel        - Das Spiel, indem die Anzahl der zu ziehenden Karten geaendert werden soll.
-     * @param anzahlKarten - Die Anzahl zusaetzlich zu ziehender Karten.
-     */
-    void aendernAnzahlZiehkarten(Spiel spiel, int anzahlKarten);
+    boolean spielerLegtKarteAb(Spieler spieler, Karte karte);
 
 
     /**
@@ -68,7 +57,7 @@ public interface SpielService {
      *
      * @param spiel - Das Spiel, indem die Spielrichtung geaendert werden soll.
      */
-    void aendernSpielrichtung(Spiel spiel);//da methode nur aufgerufen wird, wenn benoetigt, tauscht er einfach true gegen fals, somit ist kein Parameter erforderlich
+    void aendernSpielrichtung();//da methode nur aufgerufen wird, wenn benoetigt, tauscht er einfach true gegen fals, somit ist kein Parameter erforderlich
 
 
     /**
@@ -77,7 +66,24 @@ public interface SpielService {
      * @param spiel     - Laufendes Spiel.
      * @param neueFarbe - 0 Herz, 1 Karo, 2 Pik, 3 Kreuz.
      */
-    void aendernFarbe(Spiel spiel, int neueFarbe);
+    void aendernFarbe(int neueFarbe);
 
     void ermittleSpielende(List<Spieler> spielerList);
+
+    /**
+     * Prüfe handkarte gleich 1
+     * auf mau gesetzt
+     * true weiter
+     * false ziehe karte
+     *
+     * @param spieler
+     */
+    void pruefeAufMau(Spieler spieler);
+
+
+    boolean istMauNoetig(Spieler spieler);
+
+    void setzeMau(Spieler spieler);
+
+    int anzahlStartkartenbestimmen(List<Spieler> spielerListe);
 }

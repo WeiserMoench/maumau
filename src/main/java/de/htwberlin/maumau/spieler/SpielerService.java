@@ -6,6 +6,13 @@ import de.htwberlin.maumau.spieler.entity.Spieler;
 
 public interface SpielerService {
 
+
+
+
+    void karteZuHandblatthinzufuegen(Karte karte, Spieler spieler);
+
+    void karteausHandblattentfernden(Karte karte, Spieler spieler);
+
     /**
      * Diese Methode fuegt einen gewuenschten spieler hinzu und speichert diesen im Spiel.
      *
@@ -23,9 +30,6 @@ public interface SpielerService {
     Spieler neuerSpielerAnlegen(String name, String email);
 
 
-    void karteZumHandblatthinzufügen(Karte karte, Spieler spieler);
 
-    void kartevomHandblattentfernen(Karte karte, Spieler spieler);
 
-    void setzeMau(Spieler spieler);
 }
