@@ -1,14 +1,13 @@
-package de.htwberlin.maumau.regelnmaumau;
+package de.htwberlin.maumau.regeln;
 
 import de.htwberlin.maumau.karten.entity.Karte;
 
 public interface RegelnService {
 
 
+    boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, String farbe);
 
-    boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, int farbe);
-
-    int mussSichFarbeWuenschen(Karte bubenKarte);
+    boolean mussSichFarbeWuenschen(Karte bubenKarte);
 
     int mussZweiKartenZiehen(Karte gelegteKarte, int zuziehendeKarte);
 

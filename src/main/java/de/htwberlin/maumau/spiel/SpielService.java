@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SpielService {
 
-    void anlegenSpiel();
+    Spiel anlegenSpiel();
 
     /**
      * Diese Methode sorgt dafuer, dass ein gewuenschtes Kartenblatt dem Spiel hinzugefuegt wird.
@@ -47,7 +47,7 @@ public interface SpielService {
      * @param sichtbarLegen    - boolean, der angibt, ob die Karte sichtbar gelegt werden soll.
      * @param abzulegendeKarte - Die Karte, die aus dem Handkartenstapel herausgenommen und auf den Ablagestapel gelegt werden soll
      */
-    void legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte);
+    Spiel legenKarteAufAblageStapel(Spiel spiel, Spieler spieler, List<Karte> kartenAblagestapel, Karte karte);
 
     boolean spielerLegtKarteAb(Spieler spieler, Karte karte);
 
@@ -57,7 +57,7 @@ public interface SpielService {
      *
      * @param spiel - Das Spiel, indem die Spielrichtung geaendert werden soll.
      */
-    void aendernSpielrichtung();//da methode nur aufgerufen wird, wenn benoetigt, tauscht er einfach true gegen fals, somit ist kein Parameter erforderlich
+    Spiel aendernSpielrichtung(Spiel spiel);//da methode nur aufgerufen wird, wenn benoetigt, tauscht er einfach true gegen fals, somit ist kein Parameter erforderlich
 
 
     /**
@@ -66,7 +66,7 @@ public interface SpielService {
      * @param spiel     - Laufendes Spiel.
      * @param neueFarbe - 0 Herz, 1 Karo, 2 Pik, 3 Kreuz.
      */
-    void aendernFarbe(int neueFarbe);
+    Spiel aendernFarbe(Spiel spiel, int neueFarbe);
 
     void ermittleSpielende(List<Spieler> spielerList);
 

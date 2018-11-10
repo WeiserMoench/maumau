@@ -19,7 +19,7 @@ public class Spiel {
     private List<Karte> ziehstapelkarten;
     private List<Spieler> spielerDesSpieles;
     private Kartendeck kartendeck;
-    private int farbe; //0 Herz, 1 Karo, 2 Pik, 3 Kreuz
+    private String farbe; //0 Herz, 1 Karo, 2 Pik, 3 Kreuz
 
 
     public int getSummeZuziehendeKarten() {
@@ -78,11 +78,11 @@ public class Spiel {
         this.kartendeck = kartendeck;
     }
 
-    public int getFarbe() {
+    public String getFarbe() {
         return farbe;
     }
 
-    public void setFarbe(int farbe) {
+    public void setFarbe(String farbe) {
         this.farbe = farbe;
     }
 }
