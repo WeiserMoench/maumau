@@ -16,7 +16,7 @@ public interface SpielerService {
      *
      * @param spiel - Das zuvor angelegte Spiel wird uebergeben.
      */
-    Spiel auswaehlenSpielerFuerSpiel(Spieler spieler);//registerieren von spielern, spielerparameter
+    Spiel auswaehlenSpielerFuerSpiel(Spiel spiel, Spieler spieler);//registerieren von spielern, spielerparameter
 
     /**
      * Legt einen neuen spieler an

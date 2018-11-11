@@ -1,7 +1,6 @@
 package de.htwberlin.maumau.karten;
 
 import de.htwberlin.maumau.karten.entity.Karte;
-import de.htwberlin.maumau.karten.entity.Kartendeck;
 import de.htwberlin.maumau.spieler.entity.Spieler;
 
 import java.util.List;
@@ -32,7 +31,9 @@ public interface KartenService {
      * @param spieler
      * @return
      */
-    Kartendeck austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler);
+    List<Karte> austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler);
 
     Karte erstellenNeuerKarte(String farbe, String wert);
+
+
 }

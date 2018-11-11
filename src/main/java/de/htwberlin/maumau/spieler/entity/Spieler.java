@@ -12,7 +12,15 @@ public class Spieler {
     private String email;
     private List<Karte> handkarten;
     private int spielerID;
+    private boolean mau;
 
+    public boolean isMau() {
+        return mau;
+    }
+
+    public void setMau(boolean mau) {
+        this.mau = mau;
+    }
 
     public String getEmail() {
         return email;

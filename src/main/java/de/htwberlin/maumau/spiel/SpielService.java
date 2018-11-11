@@ -16,7 +16,7 @@ public interface SpielService {
      * @param spiel       - Es wird das zuvor erzeugte Spiel uebergeben
      * @param kartenblatt - int Wert aus Listener
      */
-    List<Karte> auswaehlenKartendeck(Spiel spiel, int kartenblatt);//Klärung ob Spiel drinne ist oder nicht
+    List<Karte> auswaehlenKartendeck( int kartenblatt);//Klärung ob Spiel drinne ist oder nicht
 
     /**
      * Diese Methode soll die Anzahl der benoetigten Karten aus dem
@@ -66,7 +66,7 @@ public interface SpielService {
      * @param spiel     - Laufendes Spiel.
      * @param neueFarbe - 0 Herz, 1 Karo, 2 Pik, 3 Kreuz.
      */
-    Spiel aendernFarbe(Spiel spiel, int neueFarbe);
+    Spiel aendernFarbe(Spiel spiel, String neueFarbe);
 
     void ermittleSpielende(List<Spieler> spielerList);
 
@@ -83,6 +83,10 @@ public interface SpielService {
 
     boolean istMauNoetig(Spieler spieler);
 
+    /**
+     * Wenn der Spieler nur eine Karte auf der Hand hat, wird is Mau gesetzt
+     * @param spieler
+     */
     void setzeMau(Spieler spieler);
 
     int anzahlStartkartenbestimmen(List<Spieler> spielerListe);
