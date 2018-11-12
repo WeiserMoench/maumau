@@ -11,26 +11,24 @@ import org.junit.Test;
 public class RegelnServiceTest {
 
     private static RegelnService service;
-    Karte pik8 = new Karte();
-    Karte pikkoenig = new Karte();
-    Karte pik7 = new Karte();
-    Karte herz7 = new Karte();
+    Karte pik8;
+    Karte pikkoenig;
+    Karte pik7;
+    Karte herz7;
+    Karte herzBube;
 
     @Before
     public void initialize() {
         service = new RegelnServiceImpl();
         pik8.setFarbe(Farbe.PIK);
         pik8.setWert("8");
-        pik8.setKarteID(8);
         pikkoenig.setFarbe(Farbe.PIK);
         pikkoenig.setWert("König");
-        pikkoenig.setKarteID(12);
         pik7.setFarbe(Farbe.PIK);
         pik7.setWert("7");
-        pik7.setKarteID(7);
         herz7.setFarbe(Farbe.HERZ);
         herz7.setWert("7");
-        herz7.setKarteID(107);
+        herzBube = new Karte(Farbe.HERZ, "Bube");
     }
 
     @Test
@@ -86,15 +84,24 @@ public class RegelnServiceTest {
 
     @Test
     public void testRichtungswechsel(){
-        Karte pik9 = new Karte();
-        pik9.setFarbe(Farbe.PIK);
-        pik9.setWert("9");
-        pik9.setKarteID(9);
+        Karte pik9 = new Karte(Farbe.PIK, "9");
         assertTrue("Richtungswechsel durch pik 9", service.richtungWechsel(pik9));
     }
 
     @Test
     public void testKeinRichtungswechsel(){
         assertFalse("Kein Richtungswechsel durch pik koenig", service.richtungWechsel(pikkoenig));
+    }
+
+    @Test
+    public void testMussSichFarbeWuenschen(){
+        assertTrue("Spieler müsste sich Farbe wünschen", service.mussSichFarbeWuenschen(herzBube));
+
+    }
+
+    @Test
+    public void testMussSichKeineFarbeWuenschen(){
+        assertTrue("Spieler darf sich keine Farbe wünschen", service.mussSichFarbeWuenschen(pikkoenig));
+
     }
 }

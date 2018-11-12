@@ -8,13 +8,10 @@ public class Karte {
 
     private Farbe farbe;
     private String wert;
-    private int karteID;
 
-    public void neueKarte(Farbe farbe, String wert, int kartenID) {
-
+    public Karte(Farbe farbe, String wert) {
         this.farbe = farbe;
         this.wert = wert;
-        this.karteID = kartenID;
     }
 
     public Farbe getFarbe() {
@@ -33,11 +30,4 @@ public class Karte {
         this.wert = wert;
     }
 
-    public int getKarteID() {
-        return karteID;
-    }
-
-    public void setKarteID(int karteID) {
-        this.karteID = karteID;
-    }
 }

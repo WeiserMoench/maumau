@@ -1,7 +1,7 @@
 package de.htwberlin.maumau.spiel.entity;
 
+import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
-import de.htwberlin.maumau.karten.entity.Kartendeck;
 import de.htwberlin.maumau.spieler.entity.Spieler;
 
 import java.util.List;
@@ -18,9 +18,24 @@ public class Spiel {
     private List<Karte> ablagestapelkarten;
     private List<Karte> ziehstapelkarten;
     private List<Spieler> spielerDesSpieles;
-    private Kartendeck kartendeck;
-    private int farbe; //0 Herz, 1 Karo, 2 Pik, 3 Kreuz
+    private int kartendeck;
+    private Farbe farbe;
 
+    public Spieler getAktiverSpieler() {
+        return aktiverSpieler;
+    }
+
+    public void setAktiverSpieler(Spieler aktiverSpieler) {
+        this.aktiverSpieler = aktiverSpieler;
+    }
+
+    public boolean isIstSpielrichtungRechts() {
+        return istSpielrichtungRechts;
+    }
+
+    public void setIstSpielrichtungRechts(boolean istSpielrichtungRechts) {
+        this.istSpielrichtungRechts = istSpielrichtungRechts;
+    }
 
     public int getSummeZuziehendeKarten() {
         return summeZuziehendeKarten;
@@ -46,22 +61,6 @@ public class Spiel {
         this.ziehstapelkarten = ziehstapelkarten;
     }
 
-    public Spieler getAktiverSpieler() {
-        return aktiverSpieler;
-    }
-
-    public void setAktiverSpieler(Spieler aktiverSpieler) {
-        this.aktiverSpieler = aktiverSpieler;
-    }
-
-    public boolean isIstSpielrichtungRechts() {
-        return istSpielrichtungRechts;
-    }
-
-    public void setIstSpielrichtungRechts(boolean istSpielrichtungRechts) {
-        this.istSpielrichtungRechts = istSpielrichtungRechts;
-    }
-
     public List<Spieler> getSpielerDesSpieles() {
         return spielerDesSpieles;
     }
@@ -70,19 +69,19 @@ public class Spiel {
         this.spielerDesSpieles = spielerDesSpieles;
     }
 
-    public Kartendeck getKartendeck() {
+    public int getKartendeck() {
         return kartendeck;
     }
 
-    public void setKartendeck(Kartendeck kartendeck) {
+    public void setKartendeck(int kartendeck) {
         this.kartendeck = kartendeck;
     }
 
-    public int getFarbe() {
+    public Farbe getFarbe() {
         return farbe;
     }
 
-    public void setFarbe(int farbe) {
+    public void setFarbe(Farbe farbe) {
         this.farbe = farbe;
     }
 }

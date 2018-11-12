@@ -1,7 +1,7 @@
 package de.htwberlin.maumau.karten.export;
 
+import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
-import de.htwberlin.maumau.karten.entity.Kartendeck;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spieler.entity.Spieler;
 
@@ -16,7 +16,7 @@ public interface KartenService {
      *
      * @param spiel - Das zu spielende Spiel.
      */
-    List<Karte> anlegenAblagestapel(Spiel spiel);
+    Spiel anlegenKartenstapel(Spiel spiel);
 
     /**
      * Diese Methode mischt den Ziehstapel einmalig durch.
@@ -24,7 +24,7 @@ public interface KartenService {
      * @param spiel              - Das Spiel, dessen Kartenstapel gemischt werden soll.
      * @param obersteKarteBleibt - boolean, der angibt, dass die oberste Karte des Ablagestapels bleibt.
      */
-    List<Karte> mischenKartenstapel(Spiel spiel, boolean obersteKarteBleibt);
+    List<Karte> mischenKartenstapel(List<Karte> karten, boolean obersteKarteBleibt);
 
     /**
      * Diese Methode entscheidet welche Karte, ruft den Spieler auf und übergibt diese ihm
@@ -33,7 +33,7 @@ public interface KartenService {
      * @param spieler
      * @return
      */
-    Kartendeck austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler);
+    List austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler);
 
-    Karte erstellenNeuerKarte(String farbe, String wert);
+    Karte erstellenNeuerKarte(Farbe farbe, String wert);
 }

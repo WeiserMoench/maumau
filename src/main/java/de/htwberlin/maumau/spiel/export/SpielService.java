@@ -1,5 +1,6 @@
 package de.htwberlin.maumau.spiel.export;
 
+import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spieler.entity.Spieler;
@@ -15,7 +16,7 @@ public interface SpielService {
      *
      * @param kartenblatt - int Wert aus Listener
      */
-    List<Karte> auswaehlenKartendeck(int kartenblatt);//Klärung ob Spiel drinne ist oder nicht
+    List<Karte> auswaehlenKartendeck(int kartenblatt);
 
     /**
      * Diese Methode soll die Anzahl der benoetigten Karten aus dem
@@ -33,10 +34,9 @@ public interface SpielService {
     List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte);
 
 
-    void austeilenStart(List<Karte> kartenDeck, List<Spieler> spielerListe, int durchgaenge);
+    List<Karte> austeilenStart(List<Karte> kartenDeck, List<Spieler> spielerListe, int durchgaenge);
 
-    void zuZiehendeKarte(int anzahl, List<Karte> karteStapel, Spieler spieler);
-
+    List<Karte> zuZiehendeKarte(int anzahl, List<Karte> karteStapel, Spieler spieler); //umbennenen in karteZiehen
 
     /**
      * Diese Methode entfernt eine Handkarte aus den Handkarten des Spielers und legt diese auf den Ablagestapel.
@@ -46,17 +46,16 @@ public interface SpielService {
      * @param sichtbarLegen    - boolean, der angibt, ob die Karte sichtbar gelegt werden soll.
      * @param abzulegendeKarte - Die Karte, die aus dem Handkartenstapel herausgenommen und auf den Ablagestapel gelegt werden soll
      */
-    void legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte);
+    List<Karte> legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte);
 
-    boolean spielerLegtKarteAb(Spieler spieler, Karte karte);
-
+//    boolean spielerLegtKarteAb(Spieler spieler, Karte karte);
 
     /**
      * Methode bietet die Moeglichkeit, die Spielrichtung zu aendern.
      *
      * @param spiel - Das Spiel, indem die Spielrichtung geaendert werden soll.
      */
-    void aendernSpielrichtung();//da methode nur aufgerufen wird, wenn benoetigt, tauscht er einfach true gegen fals, somit ist kein Parameter erforderlich
+    boolean aendernSpielrichtung();//da methode nur aufgerufen wird, wenn benoetigt, tauscht er einfach true gegen fals, somit ist kein Parameter erforderlich
 
 
     /**
@@ -65,9 +64,9 @@ public interface SpielService {
      * @param spiel     - Laufendes Spiel.
      * @param neueFarbe - 0 Herz, 1 Karo, 2 Pik, 3 Kreuz.
      */
-    void aendernFarbe(int neueFarbe);
+    Spiel aendernFarbe(Spiel spiel, Farbe neueFarbe);
 
-    void ermittleSpielende(List<Spieler> spielerList);
+    boolean ermittleSpielende(Spieler spieler); //aktueller spieler reicht doch
 
     /**
      * Prüfe handkarte gleich 1
@@ -77,7 +76,7 @@ public interface SpielService {
      *
      * @param spieler
      */
-    void pruefeAufMau(Spieler spieler);
+    boolean pruefeAufMau(Spieler spieler);
 
 
     boolean istMauNoetig(Spieler spieler);

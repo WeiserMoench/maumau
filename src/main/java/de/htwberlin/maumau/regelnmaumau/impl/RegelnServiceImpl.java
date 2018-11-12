@@ -1,5 +1,6 @@
 package de.htwberlin.maumau.regelnmaumau.impl;
 
+import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.regelnmaumau.export.*;
 
@@ -10,11 +11,11 @@ public class RegelnServiceImpl implements RegelnService {
     public boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, int farbe) {//wenn bube Farbe ändert???
         String kartenwertLetzteKarte;
         kartenwertLetzteKarte=letzteKarteKartenstapel.getWert();
-        String kartenFarbeLetzteKarte;
+        Farbe kartenFarbeLetzteKarte;
         kartenFarbeLetzteKarte=letzteKarteKartenstapel.getFarbe();
         String kartenwertlegendeKarte;
         kartenwertlegendeKarte=legendeKarte.getWert();
-        String kartenFarbelegendeKarte;
+        Farbe kartenFarbelegendeKarte;
         kartenFarbelegendeKarte=legendeKarte.getFarbe();
 
         if(kartenwertLetzteKarte==kartenwertlegendeKarte){
@@ -62,4 +63,6 @@ public class RegelnServiceImpl implements RegelnService {
         kartenwert=gelegteKarte.getWert();
         return kartenwert == "9";
     }
+
+
 }

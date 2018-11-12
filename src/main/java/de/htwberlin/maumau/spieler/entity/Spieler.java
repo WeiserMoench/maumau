@@ -12,7 +12,15 @@ public class Spieler {
     private String email;
     private List<Karte> handkarten;
     private int spielerID;
+    private boolean mauistgesetzt;
 
+    public boolean isMauistgesetzt() {
+        return mauistgesetzt;
+    }
+
+    public void setMauistgesetzt(boolean mauistgesetzt) {
+        this.mauistgesetzt = mauistgesetzt;
+    }
 
     public String getEmail() {
         return email;
