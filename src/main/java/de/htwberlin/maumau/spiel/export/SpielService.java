@@ -85,4 +85,6 @@ public interface SpielService {
     void setzeMau(Spieler spieler);
 
     int anzahlStartkartenbestimmen(List<Spieler> spielerListe);
+
+    boolean mussGemischtWerden(List<Karte> ziehstapel);
 }

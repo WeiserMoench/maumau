@@ -68,6 +68,17 @@ public class RegelnServiceTest {
         assertTrue("Wert identisch Farbe nicht", service.darfKartegelegtwerden(herz7, pik7, 0));
     }
 
+    // nächste beiden Anpassen
+//    @Test
+//    public void testKarteDarfGelegtWerdenNachWunsch(){
+//        assertTrue("Wert identisch Farbe nicht", service.darfKartegelegtwerden(herz7, pik7, 0));
+//    }
+//
+//    @Test
+//    public void testKarteDarfGelegtWerdenNachWunschAberFalsch(){
+//        assertFalse("Wert identisch Farbe nicht", service.darfKartegelegtwerden(herz7, pik7, 0));
+//    }
+
     @Test
     public void testKarteDarfNICHTGelegt(){
         assertFalse("Wert identisch Farbe nicht", service.darfKartegelegtwerden(herz7, pikkoenig, 0));
