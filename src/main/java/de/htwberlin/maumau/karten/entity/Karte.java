@@ -10,6 +10,12 @@ public class Karte {
     private String wert;
     private int karteID;
 
+    public void neueKarte(String farbe, String wert, int kartenID) {
+
+        this.farbe = farbe;
+        this.wert = wert;
+        this.karteID = kartenID;
+    }
 
     public String getFarbe() {
         return farbe;
