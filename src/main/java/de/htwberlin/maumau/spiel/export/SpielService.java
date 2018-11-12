@@ -1,4 +1,4 @@
-package de.htwberlin.maumau.spiel;
+package de.htwberlin.maumau.spiel.export;
 
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.spiel.entity.Spiel;

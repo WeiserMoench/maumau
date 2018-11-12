@@ -1,4 +1,4 @@
-package de.htwberlin.maumau.karten;
+package de.htwberlin.maumau.karten.export;
 
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.karten.entity.Kartendeck;
