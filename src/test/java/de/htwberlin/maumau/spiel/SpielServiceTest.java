@@ -1,10 +1,11 @@
 package de.htwberlin.maumau.spiel;
 
 import de.htwberlin.maumau.karten.entity.Karte;
+import de.htwberlin.maumau.karten.export.KartenService;
 import de.htwberlin.maumau.spiel.export.SpielService;
 import de.htwberlin.maumau.spiel.impl.SpielServiceImpl;
 import de.htwberlin.maumau.spieler.entity.Spieler;
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ public class SpielServiceTest {
         List<Karte> handkarten = new ArrayList<>();
         handkarten.add(pik8);
         paul.setHandkarten(handkarten);
-        Assert.assertTrue("Paul muss Mau sagen", service.istMauNoetig(paul));
+        assertTrue("Paul muss Mau sagen", service.istMauNoetig(paul));
     }
 
     @Test
@@ -40,7 +41,14 @@ public class SpielServiceTest {
         handkarten.add(pik8);
         handkarten.add(pik9);
         paul.setHandkarten(handkarten);
-        Assert.assertFalse("Paul muss Mau sagen", service.istMauNoetig(paul));
+        assertFalse("Paul muss Mau sagen", service.istMauNoetig(paul));
+    }
+
+    @Test
+    public void testAuswaehlenKartenDeck(){
+        List<Karte> karten = new ArrayList<Karte>()
+        assertEquals(karten, );
+
     }
 
 }

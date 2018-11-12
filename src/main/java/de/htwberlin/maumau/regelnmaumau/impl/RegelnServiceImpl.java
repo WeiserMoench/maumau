@@ -7,7 +7,7 @@ public class RegelnServiceImpl implements RegelnService {
 
 
     @Override
-    public boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, int farbe) {//Warum ein int???
+    public boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, int farbe) {//wenn bube Farbe ändert???
         String kartenwertLetzteKarte;
         kartenwertLetzteKarte=letzteKarteKartenstapel.getWert();
         String kartenFarbeLetzteKarte;
@@ -24,15 +24,16 @@ public class RegelnServiceImpl implements RegelnService {
     }
 
     @Override
-    public int mussSichFarbeWuenschen(Karte bubenKarte) {//das macht keinen Sinn, da der Name darauf hindeutet, dass geprueft wird ob es noetig ist, dann muss aber ein True oder false erscheinen
-        return 0;
+    public boolean mussSichFarbeWuenschen(Karte bubenKarte) {//das macht keinen Sinn, da der Name darauf hindeutet, dass geprueft wird ob es noetig ist, dann muss aber ein True oder false erscheinen
+
+        return false;
     }
 
     @Override
     /**
      * Bei Kartenwert 7 muss der naechste zwei zusaetzliche Karten ziehen
      */
-    public int mussZweiKartenZiehen(Karte gelegteKarte, int zuziehendeKarte) {//evtl Int umbenennen in bisherZuZiehende Karten
+    public int mussZweiKartenZiehen(Karte gelegteKarte, int zuziehendeKarte) {//evtl Int umbenennen in bisherZuZiehendeKarten
         String kartenwert;
         kartenwert=gelegteKarte.getWert();
         if(kartenwert=="7"){

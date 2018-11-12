@@ -8,7 +8,7 @@ public interface RegelnService {
 
     boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, int farbe);
 
-    int mussSichFarbeWuenschen(Karte bubenKarte);
+    boolean mussSichFarbeWuenschen(Karte bubenKarte);
 
     int mussZweiKartenZiehen(Karte gelegteKarte, int zuziehendeKarte);
 

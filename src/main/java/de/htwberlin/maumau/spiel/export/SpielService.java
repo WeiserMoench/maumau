@@ -13,10 +13,9 @@ public interface SpielService {
     /**
      * Diese Methode sorgt dafuer, dass ein gewuenschtes Kartenblatt dem Spiel hinzugefuegt wird.
      *
-     * @param spiel       - Es wird das zuvor erzeugte Spiel uebergeben
      * @param kartenblatt - int Wert aus Listener
      */
-    List<Karte> auswaehlenKartendeck(Spiel spiel, int kartenblatt);//Klärung ob Spiel drinne ist oder nicht
+    List<Karte> auswaehlenKartendeck(int kartenblatt);//Klärung ob Spiel drinne ist oder nicht
 
     /**
      * Diese Methode soll die Anzahl der benoetigten Karten aus dem
