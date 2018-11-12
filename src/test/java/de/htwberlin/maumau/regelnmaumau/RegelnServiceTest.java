@@ -1,5 +1,6 @@
 package de.htwberlin.maumau.regelnmaumau;
 
+import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.regelnmaumau.export.RegelnService;
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.regelnmaumau.impl.RegelnServiceImpl;
@@ -18,16 +19,16 @@ public class RegelnServiceTest {
     @Before
     public void initialize() {
         service = new RegelnServiceImpl();
-        pik8.setFarbe("PIK");
+        pik8.setFarbe(Farbe.PIK);
         pik8.setWert("8");
         pik8.setKarteID(8);
-        pikkoenig.setFarbe("PIK");
+        pikkoenig.setFarbe(Farbe.PIK);
         pikkoenig.setWert("König");
         pikkoenig.setKarteID(12);
-        pik7.setFarbe("PIK");
+        pik7.setFarbe(Farbe.PIK);
         pik7.setWert("7");
         pik7.setKarteID(7);
-        herz7.setFarbe("HERZ");
+        herz7.setFarbe(Farbe.HERZ);
         herz7.setWert("7");
         herz7.setKarteID(107);
     }
@@ -75,7 +76,7 @@ public class RegelnServiceTest {
     @Test
     public void testRichtungswechsel(){
         Karte pik9 = new Karte();
-        pik9.setFarbe("PIK");
+        pik9.setFarbe(Farbe.PIK);
         pik9.setWert("9");
         pik9.setKarteID(9);
         assertTrue("Richtungswechsel durch pik 9", service.richtungWechsel(pik9));

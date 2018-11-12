@@ -6,31 +6,23 @@ package de.htwberlin.maumau.karten.entity;
 public class Karte {
 
 
-    private String farbe;
+    private Farbe farbe;
     private String wert;
     private int karteID;
 
-    public void neueKarte(String farbe, String wert, int kartenID) {
+    public void neueKarte(Farbe farbe, String wert, int kartenID) {
 
         this.farbe = farbe;
         this.wert = wert;
         this.karteID = kartenID;
     }
 
-    public String getFarbe() {
+    public Farbe getFarbe() {
         return farbe;
     }
 
-    public void setFarbe(String farbe) {
+    public void setFarbe(Farbe farbe) {
         this.farbe = farbe;
-    }
-
-    public int getKarteID() {
-        return karteID;
-    }
-
-    public void setKarteID(int karteID) {
-        this.karteID = karteID;
     }
 
     public String getWert() {
@@ -41,5 +33,11 @@ public class Karte {
         this.wert = wert;
     }
 
+    public int getKarteID() {
+        return karteID;
+    }
 
+    public void setKarteID(int karteID) {
+        this.karteID = karteID;
+    }
 }
