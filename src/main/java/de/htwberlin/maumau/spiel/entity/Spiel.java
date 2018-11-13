@@ -1,3 +1,9 @@
+/**
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
+ * @version 20181113
+ *
+ */
+
 package de.htwberlin.maumau.spiel.entity;
 
 import de.htwberlin.maumau.karten.entity.Farbe;
@@ -6,9 +12,6 @@ import de.htwberlin.maumau.spieler.entity.Spieler;
 
 import java.util.List;
 
-/**
- * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- */
 
 public class Spiel {
 

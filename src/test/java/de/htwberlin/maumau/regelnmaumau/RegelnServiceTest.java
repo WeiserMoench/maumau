@@ -1,3 +1,9 @@
+/**
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
+ * @version 20181113
+ *
+ */
+
 package de.htwberlin.maumau.regelnmaumau;
 
 import de.htwberlin.maumau.karten.entity.Farbe;
@@ -58,28 +64,23 @@ public class RegelnServiceTest {
 
     @Test
     public void testKarteDarfGelegtWerdenGleicheFarbe(){
-        assertTrue("Farbe identisch Wert nicht", service.darfKartegelegtwerden(pikkoenig, pik7, 0)); //warum int???
+        assertTrue("Farbe identisch Wert nicht", service.darfKartegelegtwerden(pikkoenig, pik7, Farbe.PIK)); //warum int???
     }
 
     @Test
     public void testKarteDarfGelegtWerdenGleicherWert(){
-        assertTrue("Wert identisch Farbe nicht", service.darfKartegelegtwerden(herz7, pik7, 0));
+        assertTrue("Wert identisch Farbe nicht", service.darfKartegelegtwerden(herz7, pik7, Farbe.HERZ));
     }
 
-    // nächste beiden Anpassen
-//    @Test
-//    public void testKarteDarfGelegtWerdenNachWunsch(){
-//        assertTrue("Wert identisch Farbe nicht", service.darfKartegelegtwerden(herz7, pik7, 0));
-//    }
-//
-//    @Test
-//    public void testKarteDarfGelegtWerdenNachWunschAberFalsch(){
-//        assertFalse("Wert identisch Farbe nicht", service.darfKartegelegtwerden(herz7, pik7, 0));
-//    }
+    @Test
+    public void testKarteDarfGelegtWerdenNachWunsch(){
+        assertTrue("Farbe passt zu Wunsch", service.darfKartegelegtwerden(herz7, pik7, Farbe.PIK));
+    }
+
 
     @Test
     public void testKarteDarfNICHTGelegt(){
-        assertFalse("Wert identisch Farbe nicht", service.darfKartegelegtwerden(herz7, pikkoenig, 0));
+        assertFalse("Weder Farbe noch wert passen", service.darfKartegelegtwerden(herz7, pikkoenig, Farbe.HERZ));
     }
 
     @Test

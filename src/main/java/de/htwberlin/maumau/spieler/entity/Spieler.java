@@ -1,12 +1,16 @@
+/**
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
+ * @version 20181113
+ *
+ */
+
 package de.htwberlin.maumau.spieler.entity;
 
 import de.htwberlin.maumau.karten.entity.Karte;
 
 import java.util.List;
 
-/**
- * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- */
+
 public class Spieler {
     private String name;
     private String email;

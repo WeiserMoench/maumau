@@ -1,3 +1,9 @@
+/**
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
+ * @version 20181113
+ *
+ */
+
 package de.htwberlin.maumau.spieler;
 
 import de.htwberlin.maumau.karten.entity.Farbe;
@@ -33,8 +39,6 @@ public class SpielerServiceTest {
         handkarten.add(karte1);
         handkarten.add(karte2);
         spieler.setHandkarten(handkarten);
-
-
     }
 
     @Test
@@ -42,7 +46,6 @@ public class SpielerServiceTest {
         spielerService.karteZuHandblatthinzufuegen(karte3, spieler);
         handkarten.add(karte3);
         assertEquals(handkarten, spieler.getHandkarten());
-
     }
 
     @Test
@@ -55,9 +58,7 @@ public class SpielerServiceTest {
     @Test
     public void testAuswaehlenSpielerFuerSpiel() {
         spielerService.auswaehlenSpielerFuerSpiel(spiel);
-
         assertTrue(!spiel.getSpielerDesSpieles().isEmpty());
-
     }
 
     @Test

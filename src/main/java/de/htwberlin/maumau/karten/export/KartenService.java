@@ -1,3 +1,9 @@
+/**
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
+ * @version 20181113
+ *
+ */
+
 package de.htwberlin.maumau.karten.export;
 
 import de.htwberlin.maumau.karten.entity.Farbe;
@@ -11,18 +17,18 @@ public interface KartenService {
 
 
     /**
-     * Diese Methode baut den Ablagestapel aus neuen Karten des ausgewaehlten Kartendecks auf.
-     * Im Anschluss wird der Stapel gemischt und dann erst ausgeteilt.
+     * Diese Methode baut den Kartenstapel aus neuen Karten des ausgewaehlten Kartendecks auf.
      *
      * @param spiel - Das zu spielende Spiel.
+     * @return Das Spiel mit der integrierten Liste an Karten
      */
     Spiel anlegenKartenstapel(Spiel spiel);
 
     /**
      * Diese Methode mischt den Ziehstapel einmalig durch.
      *
-     * @param spiel              - Das Spiel, dessen Kartenstapel gemischt werden soll.
-     * @param obersteKarteBleibt - boolean, der angibt, dass die oberste Karte des Ablagestapels bleibt.
+     * @param obersteKarteBleibt - boolean, der angibt, ob die oberste Karte des Ablagestapels bleibt.
+     * @return Gibt eine Liste an Karten zurueck, diese Liste ist dann durchgemischt
      */
     List<Karte> mischenKartenstapel(List<Karte> karten, boolean obersteKarteBleibt);
 
@@ -35,5 +41,12 @@ public interface KartenService {
      */
     List austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler);
 
+    /**
+     * Diese Methode legt neue Karten an
+     *
+     * @param farbe - Die Farbe der neuen Karte (Enum Farbe beachten)
+     * @param wert - Den Wert der neuen Karte
+     * @return Die neue Karte
+     */
     Karte erstellenNeuerKarte(Farbe farbe, String wert);
 }

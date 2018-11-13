@@ -1,3 +1,9 @@
+/**
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
+ * @version 20181113
+ *
+ */
+
 package de.htwberlin.maumau.regelnmaumau.impl;
 
 import de.htwberlin.maumau.karten.entity.Farbe;
@@ -8,7 +14,7 @@ public class RegelnServiceImpl implements RegelnService {
 
 
     @Override
-    public boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, int farbe) {//wenn bube Farbe ändert???
+    public boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, Farbe farbe) {//wenn bube Farbe ändert???
         String kartenwertLetzteKarte;
         kartenwertLetzteKarte=letzteKarteKartenstapel.getWert();
         Farbe kartenFarbeLetzteKarte;
