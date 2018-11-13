@@ -17,8 +17,10 @@ public interface SpielService {
 
     /**
      * Diese Methode legt ein neues Spiel an
+     *
+     * @return gibt das neuangelegte Spiel zurueck
      */
-    void anlegenSpiel();
+    Spiel anlegenSpiel();
 
     /**
      * Diese Methode sorgt dafuer, dass ein gewuenschtes Kartenblatt dem Spiel hinzugefuegt wird.

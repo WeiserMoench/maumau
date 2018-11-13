@@ -204,4 +204,11 @@ public class SpielServiceTest {
         service.setzeMau(paul);
         assertTrue("Mau hätte gesetzt sein müssen", paul.isMauistgesetzt());
     }
+
+    @Test
+    public void testAnlegenSpiel() {
+        Spiel testSpiel = service.anlegenSpiel();
+        assertEquals(spiel, testSpiel);
+
+    }
 }
