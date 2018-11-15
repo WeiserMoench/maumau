@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181113
+ * @version 20181115
  *
  */
 
@@ -18,8 +18,8 @@ public class SpielServiceImpl implements SpielService {
 
 
     @Override
-    public void anlegenSpiel() {
-
+    public Spiel anlegenSpiel() {
+        return null;
     }
 
     @Override
