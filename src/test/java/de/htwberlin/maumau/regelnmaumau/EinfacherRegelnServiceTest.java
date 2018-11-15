@@ -7,14 +7,15 @@
 package de.htwberlin.maumau.regelnmaumau;
 
 import de.htwberlin.maumau.karten.entity.Farbe;
-import de.htwberlin.maumau.regelnmaumau.export.RegelnService;
 import de.htwberlin.maumau.karten.entity.Karte;
-import de.htwberlin.maumau.regelnmaumau.impl.ErweiterteRegelnServiceImpl;
-import static org.junit.Assert.*;
+import de.htwberlin.maumau.regelnmaumau.export.RegelnService;
+import de.htwberlin.maumau.regelnmaumau.impl.EinfacheRegelnServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RegelnServiceTest {
+import static org.junit.Assert.*;
+
+public class EinfacherRegelnServiceTest {
 
     private static RegelnService service;
     Karte pik8;
@@ -25,21 +26,17 @@ public class RegelnServiceTest {
 
     @Before
     public void initialize() {
-        service = new ErweiterteRegelnServiceImpl();
-        pik8.setFarbe(Farbe.PIK);
-        pik8.setWert("8");
-        pikkoenig.setFarbe(Farbe.PIK);
-        pikkoenig.setWert("König");
-        pik7.setFarbe(Farbe.PIK);
-        pik7.setWert("7");
-        herz7.setFarbe(Farbe.HERZ);
-        herz7.setWert("7");
+        service = new EinfacheRegelnServiceImpl();
+        pik8 = new Karte(Farbe.PIK, "8");
+        pikkoenig = new Karte(Farbe.PIK, "König");
+        pik7 = new Karte(Farbe.PIK, "7");
+        herz7 = new Karte(Farbe.HERZ, "7");
         herzBube = new Karte(Farbe.HERZ, "Bube");
     }
 
     @Test
-    public void testMussRundeAussetzen(){
-        assertTrue("Karte pik8 naechster muss Aussetzen", service.mussRundeAussetzen(pik8));
+    public void testMussNichtRundeAussetzenBeiAcht(){
+        assertFalse("Karte pik8 naechster muss nicht aussetzen", service.mussRundeAussetzen(pik8));
     }
 
     @Test
@@ -48,13 +45,8 @@ public class RegelnServiceTest {
     }
 
     @Test
-    public void testZweiKartenZiehenBeiVorherNull(){
-        assertSame(2, service.mussZweiKartenZiehen(pik7,0));
-    }
-
-    @Test
-    public void testZweiKartenZiehenBeiVorherVier(){
-        assertSame(6, service.mussZweiKartenZiehen(herz7,4));
+    public void testKeineZweiKartenZiehenBeiSieben(){
+        assertSame(0, service.mussZweiKartenZiehen(pik7,0));
     }
 
     @Test
@@ -73,20 +65,25 @@ public class RegelnServiceTest {
     }
 
     @Test
-    public void testKarteDarfGelegtWerdenNachWunsch(){
-        assertTrue("Farbe passt zu Wunsch", service.darfKartegelegtwerden(herz7, pik7, Farbe.PIK));
+    public void testKarteDarfGelegtWerdenWeilBubeGleicherWert(){
+        assertTrue("Farbe passt zu Wunsch", service.darfKartegelegtwerden(herzBube, herz7, Farbe.PIK));
+    }
+
+    @Test
+    public void testKarteDarfNichtGelegtWerdenTrotzBube(){
+        assertFalse("Farbe passt zu Wunsch", service.darfKartegelegtwerden(herzBube, pik7, Farbe.PIK));
     }
 
 
     @Test
-    public void testKarteDarfNICHTGelegt(){
+    public void testKarteDarfNichtGelegt(){
         assertFalse("Weder Farbe noch wert passen", service.darfKartegelegtwerden(herz7, pikkoenig, Farbe.HERZ));
     }
 
     @Test
-    public void testRichtungswechsel(){
+    public void testKeinRichtungswechselTrotzNeun(){
         Karte pik9 = new Karte(Farbe.PIK, "9");
-        assertTrue("Richtungswechsel durch pik 9", service.richtungWechsel(pik9));
+        assertFalse("Richtungswechsel durch pik 9", service.richtungWechsel(pik9));
     }
 
     @Test
@@ -95,14 +92,14 @@ public class RegelnServiceTest {
     }
 
     @Test
-    public void testMussSichFarbeWuenschen(){
-        assertTrue("Spieler müsste sich Farbe wünschen", service.mussSichFarbeWuenschen(herzBube));
+    public void testMussSichKeineFarbeWuenschenTrotzBube(){
+        assertFalse("Spieler müsste sich Farbe wünschen", service.mussSichFarbeWuenschen(herzBube));
 
     }
 
     @Test
     public void testMussSichKeineFarbeWuenschen(){
-        assertTrue("Spieler darf sich keine Farbe wünschen", service.mussSichFarbeWuenschen(pikkoenig));
+        assertFalse("Spieler darf sich keine Farbe wünschen", service.mussSichFarbeWuenschen(pikkoenig));
 
     }
 }

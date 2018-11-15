@@ -29,7 +29,7 @@ public class EinfacheRegelnServiceImpl implements RegelnService {
     }
 
     @Override
-    public boolean mussSichFarbeWuenschen(Karte bubenKarte) {//das macht keinen Sinn, da der Name darauf hindeutet, dass geprueft wird ob es noetig ist, dann muss aber ein True oder false erscheinen
+    public boolean mussSichFarbeWuenschen(Karte gelegteKarte) {//das macht keinen Sinn, da der Name darauf hindeutet, dass geprueft wird ob es noetig ist, dann muss aber ein True oder false erscheinen
         return false;
     }
 

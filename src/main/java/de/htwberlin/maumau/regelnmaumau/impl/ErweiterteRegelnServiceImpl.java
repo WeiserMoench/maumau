@@ -34,9 +34,9 @@ public class ErweiterteRegelnServiceImpl implements RegelnService {
     }
 
     @Override
-    public boolean mussSichFarbeWuenschen(Karte bubenKarte) {//das macht keinen Sinn, da der Name darauf hindeutet, dass geprueft wird ob es noetig ist, dann muss aber ein True oder false erscheinen
-
-        return false;
+    public boolean mussSichFarbeWuenschen(Karte gelegteKarte) {//das macht keinen Sinn, da der Name darauf hindeutet, dass geprueft wird ob es noetig ist, dann muss aber ein True oder false erscheinen
+        String kartenwert = gelegteKarte.getWert();
+        return kartenwert == "Bube";
     }
 
     @Override

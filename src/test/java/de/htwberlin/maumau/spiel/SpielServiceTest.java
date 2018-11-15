@@ -25,6 +25,7 @@ public class SpielServiceTest {
     private SpielService service;
     private Karte pik8;
     private Karte pik9;
+    private Karte pikkoenig;
     private List<Karte> ziehstapel;
     private Spieler paul;
     private List<Spieler> spielerliste;
@@ -37,6 +38,7 @@ public class SpielServiceTest {
         service = new SpielServiceImpl();
         pik8 = new Karte(Farbe.PIK, "8");
         pik9 = new Karte(Farbe.PIK, "9");
+        pikkoenig = new Karte(Farbe.PIK, "König");
         ziehstapel = new ArrayList<Karte>();
         paul = new Spieler();
         sven = new Spieler();
@@ -127,7 +129,7 @@ public class SpielServiceTest {
     public void testAusteilenStart(){
         ziehstapel.add(pik8);
         ziehstapel.add(pik9);
-        ziehstapel.add(pik9);
+        ziehstapel.add(pikkoenig);
         spielerliste.add(paul);
         spielerliste.add(sven);
         assertEquals(1, service.austeilenStart(ziehstapel, spielerliste, 1).size());

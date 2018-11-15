@@ -26,10 +26,10 @@ public interface RegelnService {
     /**
      * Diese Methode prueft ob die letzte Karte ein Bube ist und somit eine Farbwahl noetig ist
      *
-     * @param Karte - gerade gelegte Karte
+     * @param gelegteKarte - gerade gelegte Karte
      * @return boolean, der angibt ob der Spieler sich eine Farbe wuenschen muss
      */
-    boolean mussSichFarbeWuenschen(Karte Karte);
+    boolean mussSichFarbeWuenschen(Karte gelegteKarte);
 
     /**
      * Methode, die prueft ob der naechste Spieler zwei Karten ziehen muss

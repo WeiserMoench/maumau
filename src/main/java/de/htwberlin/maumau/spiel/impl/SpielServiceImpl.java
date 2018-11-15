@@ -11,10 +11,14 @@ import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spiel.export.SpielService;
 import de.htwberlin.maumau.spieler.entity.Spieler;
+import de.htwberlin.maumau.spieler.export.SpielerService;
+import de.htwberlin.maumau.spieler.impl.SpielerServiceImpl;
 
 import java.util.List;
 
 public class SpielServiceImpl implements SpielService {
+
+    private static SpielerService spielerService = new SpielerServiceImpl();
 
 
     @Override
@@ -39,12 +43,19 @@ public class SpielServiceImpl implements SpielService {
 
     @Override
     public List<Karte> austeilenStart(List<Karte> kartenDeck, List<Spieler> spielerListe, int durchgaenge) {
-        return null;
+        for(int runden = 0; runden < durchgaenge; runden++){
+            for (int spielerzaehler = 0; spielerzaehler < spielerListe.size();spielerzaehler++) {
+                Karte karte = kartenDeck.get(kartenDeck.size()-1);
+                spielerService.karteausHandblattentfernden(karte, spielerListe.get(spielerzaehler));
+                kartenDeck.remove(karte);
+            }
+        }
+        return kartenDeck;
     }
 
     @Override
     public List<Karte> zuZiehendeKarte(int anzahl, List<Karte> karteStapel, Spieler spieler) {
-        return null;
+        return karteStapel;
     }
 
     @Override
