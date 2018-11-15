@@ -9,7 +9,7 @@ package de.htwberlin.maumau.regelnmaumau;
 import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.regelnmaumau.export.RegelnService;
 import de.htwberlin.maumau.karten.entity.Karte;
-import de.htwberlin.maumau.regelnmaumau.impl.RegelnServiceImpl;
+import de.htwberlin.maumau.regelnmaumau.impl.ErweiterteRegelnServiceImpl;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class RegelnServiceTest {
 
     @Before
     public void initialize() {
-        service = new RegelnServiceImpl();
+        service = new ErweiterteRegelnServiceImpl();
         pik8.setFarbe(Farbe.PIK);
         pik8.setWert("8");
         pikkoenig.setFarbe(Farbe.PIK);

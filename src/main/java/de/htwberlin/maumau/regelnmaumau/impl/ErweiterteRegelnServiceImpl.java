@@ -10,7 +10,7 @@ import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.regelnmaumau.export.*;
 
-public class RegelnServiceImpl implements RegelnService {
+public class ErweiterteRegelnServiceImpl implements RegelnService {
 
 
     @Override
@@ -24,10 +24,13 @@ public class RegelnServiceImpl implements RegelnService {
         Farbe kartenFarbelegendeKarte;
         kartenFarbelegendeKarte=legendeKarte.getFarbe();
 
-        if(kartenwertLetzteKarte==kartenwertlegendeKarte){
-            return true;
-        }else return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
-
+        if(kartenwertLetzteKarte == "Bube"){
+            return farbe == kartenFarbelegendeKarte;
+        }else{
+            if(kartenwertLetzteKarte == kartenwertlegendeKarte){
+                return true;
+            }else return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
+        }
     }
 
     @Override
