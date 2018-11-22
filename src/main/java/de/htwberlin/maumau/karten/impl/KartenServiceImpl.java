@@ -14,6 +14,8 @@ import de.htwberlin.maumau.spieler.entity.Spieler;
 
 import java.util.List;
 
+// Dustin bitte machen
+
 public class KartenServiceImpl implements KartenService {
     @Override
     public Spiel anlegenKartenstapel(Spiel spiel) {

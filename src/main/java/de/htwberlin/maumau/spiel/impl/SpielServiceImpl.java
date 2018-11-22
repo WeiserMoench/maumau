@@ -26,16 +26,17 @@ public class SpielServiceImpl implements SpielService {
         return null;
     }
 
+    //Dustin
     @Override
     public List<Karte> auswaehlenKartendeck(int kartenblatt) {
         return null;
     }
-
+    //Dustin
     @Override
     public Karte ziehenKarteVomZiehstapel(List<Karte> ziehStapel) {
         return null;
     }
-
+    //Dustin
     @Override
     public List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte) {
         return null;

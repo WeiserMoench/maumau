@@ -12,6 +12,9 @@ import de.htwberlin.maumau.spieler.entity.Spieler;
 import de.htwberlin.maumau.spieler.export.SpielerService;
 
 public class SpielerServiceImpl implements SpielerService {
+
+//    Jörg bitte machen
+
     @Override
     public void karteZuHandblatthinzufuegen(Karte karte, Spieler spieler) {
 

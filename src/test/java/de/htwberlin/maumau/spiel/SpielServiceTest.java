@@ -39,10 +39,11 @@ public class SpielServiceTest {
         pik8 = new Karte(Farbe.PIK, "8");
         pik9 = new Karte(Farbe.PIK, "9");
         pikkoenig = new Karte(Farbe.PIK, "König");
-        ziehstapel = new ArrayList<Karte>();
+        ziehstapel = new ArrayList<>();
         paul = new Spieler();
         sven = new Spieler();
         spiel.setFarbe(Farbe.PIK);
+        spielerliste = new ArrayList<>();
 
     }
 
