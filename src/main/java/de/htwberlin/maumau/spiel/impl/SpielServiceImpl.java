@@ -14,6 +14,7 @@ import de.htwberlin.maumau.spieler.entity.Spieler;
 import de.htwberlin.maumau.spieler.export.SpielerService;
 import de.htwberlin.maumau.spieler.impl.SpielerServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SpielServiceImpl implements SpielService {
@@ -56,6 +57,9 @@ public class SpielServiceImpl implements SpielService {
 
     @Override
     public List<Karte> zuZiehendeKarte(int anzahl, List<Karte> karteStapel, Spieler spieler) {
+        List<Spieler> spielerliste = new ArrayList<>();
+        spielerliste.add(spieler);
+        austeilenStart(karteStapel, spielerliste, anzahl);
         return karteStapel;
     }
 
