@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181113
+ * @version 20181124
  *
  */
 
@@ -8,15 +8,16 @@ package de.htwberlin.maumau.spieler.entity;
 
 import de.htwberlin.maumau.karten.entity.Karte;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Spieler {
     private String name;
     private String email;
-    private List<Karte> handkarten;
+    private List<Karte> handkarten = new ArrayList<>();
     private int spielerID;
-    private boolean mauistgesetzt;
+    private boolean mauistgesetzt = false;
 
     public boolean isMauistgesetzt() {
         return mauistgesetzt;

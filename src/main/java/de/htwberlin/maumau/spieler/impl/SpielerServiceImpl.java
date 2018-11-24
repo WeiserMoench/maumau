@@ -11,13 +11,21 @@ import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spieler.entity.Spieler;
 import de.htwberlin.maumau.spieler.export.SpielerService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SpielerServiceImpl implements SpielerService {
 
 //    Jörg bitte machen
+    private List<Karte> handkarten;
 
     @Override
+    // ob implementierung reicht, habe ich nicht geprueft Christian
     public void karteZuHandblatthinzufuegen(Karte karte, Spieler spieler) {
-
+        handkarten = new ArrayList<>();
+        handkarten = spieler.getHandkarten();
+        handkarten.add(karte);
+        spieler.setHandkarten(handkarten);
     }
 
     @Override

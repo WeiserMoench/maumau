@@ -65,46 +65,54 @@ public class SpielServiceImpl implements SpielService {
 
     @Override
     public List<Karte> legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte) {
-        return null;
+        spielerService.karteausHandblattentfernden(karte, spieler);
+        kartenAblagestapel.add(karte);
+        return kartenAblagestapel;
     }
 
     @Override
-    public boolean aendernSpielrichtung() {
-        return false;
+    public void aendernSpielrichtung(Spiel spiel) {
+        spiel.setIstSpielrichtungRechts(!spiel.isIstSpielrichtungRechts());
     }
 
     @Override
     public Spiel aendernFarbe(Spiel spiel, Farbe neueFarbe) {
-        return null;
+        spiel.setFarbe(neueFarbe);
+        return spiel;
     }
 
     @Override
     public boolean ermittleSpielende(Spieler spieler) {
-        return false;
+        return spieler.getHandkarten().size() == 0;
     }
 
     @Override
     public boolean pruefeAufMau(Spieler spieler) {
-        return false;
+        return spieler.isMauistgesetzt() == true;
     }
 
     @Override
     public boolean istMauNoetig(Spieler spieler) {
-        return false;
+        return spieler.getHandkarten().size() == 1;
     }
 
     @Override
     public void setzeMau(Spieler spieler) {
-
+        spieler.setMauistgesetzt(true);
     }
 
     @Override
-    public int anzahlStartkartenbestimmen(List<Spieler> spielerListe) {
-        return 0;
+    public int anzahlStartkartenbestimmen(List<Spieler> spielerListe, List<Karte> ziehstapel) {
+       int anzahlkarten;
+        anzahlkarten = (int) Math.floor((ziehstapel.size() - 10)/spielerListe.size());
+        if(anzahlkarten>6){
+            anzahlkarten=6;
+        }
+        return anzahlkarten;
     }
 
     @Override
     public boolean mussGemischtWerden(List<Karte> ziehstapel) {
-        return false;
+        return ziehstapel.size() == 0;
     }
 }

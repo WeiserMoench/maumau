@@ -13,6 +13,9 @@ import de.htwberlin.maumau.spiel.export.SpielService;
 import de.htwberlin.maumau.spiel.impl.SpielServiceImpl;
 import de.htwberlin.maumau.spieler.entity.Spieler;
 import static org.junit.Assert.*;
+
+import de.htwberlin.maumau.spieler.export.SpielerService;
+import de.htwberlin.maumau.spieler.impl.SpielerServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,6 +26,7 @@ import java.util.List;
 public class SpielServiceTest {
 
     private SpielService service;
+    private SpielerService spielerService;
     private Karte pik8;
     private Karte pik9;
     private Karte pikkoenig;
@@ -36,6 +40,7 @@ public class SpielServiceTest {
     @Before
     public void initialize() {
         service = new SpielServiceImpl();
+        spielerService = new SpielerServiceImpl();
         pik8 = new Karte(Farbe.PIK, "8");
         pik9 = new Karte(Farbe.PIK, "9");
         pikkoenig = new Karte(Farbe.PIK, "König");
@@ -92,25 +97,41 @@ public class SpielServiceTest {
     @Test
     public void testAnzahlStartkartenBestimmen4SpielerBei32Karten(){
         List<Spieler> spielerliste = Arrays.asList(new Spieler(),new Spieler(),new Spieler(),new Spieler());
-        assertEquals(5, service.anzahlStartkartenbestimmen(spielerliste));
+        List<Karte> stapel = new ArrayList<>();
+        for(int i = 0; i <32; i++){
+            stapel.add(new Karte(Farbe.PIK, "8"));
+        }
+        assertEquals(5, service.anzahlStartkartenbestimmen(spielerliste, stapel));
     }
 
     @Test
     public void testAnzahlStartkartenBestimmen4SpielerBei52Karten(){
         List<Spieler> spielerliste = Arrays.asList(new Spieler(),new Spieler(),new Spieler(),new Spieler());
-        assertEquals(7, service.anzahlStartkartenbestimmen(spielerliste));
+        List<Karte> stapel = new ArrayList<>();
+        for(int i = 0; i <52; i++){
+            stapel.add(new Karte(Farbe.PIK, "8"));
+        }
+        assertEquals(6, service.anzahlStartkartenbestimmen(spielerliste, stapel));
     }
 
     @Test
     public void testAnzahlStartkartenBestimmen6SpielerBei32Karten(){
         List<Spieler> spielerliste = Arrays.asList(new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler());
-        assertEquals(4, service.anzahlStartkartenbestimmen(spielerliste));
+        List<Karte> stapel = new ArrayList<>();
+        for(int i = 0; i <32; i++){
+            stapel.add(new Karte(Farbe.PIK, "8"));
+        }
+        assertEquals(3, service.anzahlStartkartenbestimmen(spielerliste, stapel));
     }
 
     @Test
     public void testAnzahlStartkartenBestimmen10SpielerBei52Karten(){
         List<Spieler> spielerliste = Arrays.asList(new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler());
-        assertEquals(4, service.anzahlStartkartenbestimmen(spielerliste));
+        List<Karte> stapel = new ArrayList<>();
+        for(int i = 0; i <52; i++){
+            stapel.add(new Karte(Farbe.PIK, "8"));
+        }
+        assertEquals(4, service.anzahlStartkartenbestimmen(spielerliste, stapel));
     }
 
     @Test
@@ -164,13 +185,17 @@ public class SpielServiceTest {
     }
 
     @Test
-    public void testAendereSpielrichtungNachNichtRechts(){
-        assertFalse("Spielrichtung müsste gegen Rechts sein", service.aendernSpielrichtung());
+    public void testAendereSpielrichtungVonRechts(){
+        spiel.setIstSpielrichtungRechts(true);
+        service.aendernSpielrichtung(spiel);
+        assertEquals(false,spiel.isIstSpielrichtungRechts());
     }
 
     @Test
-    public void testAendereSpielrichtungNachRechts(){
-        assertTrue("Spielrichtung müsste gegen Rechts sein", service.aendernSpielrichtung());
+    public void testAendereSpielrichtungVonNichtRechts(){
+        spiel.setIstSpielrichtungRechts(false);
+        service.aendernSpielrichtung(spiel);
+        assertEquals(true,spiel.isIstSpielrichtungRechts());
     }
 
     @Test
@@ -200,6 +225,11 @@ public class SpielServiceTest {
     @Test
     public void testErmittleSpielende(){
         assertTrue("das spiel hätte zu Ende sein müssen", service.ermittleSpielende(paul));
+    }
+    @Test
+    public void testErmittleSpielendeNegativ(){
+        spielerService.karteZuHandblatthinzufuegen(pik8, paul);
+        assertFalse("das spiel hätte nicht zu Ende sein müssen", service.ermittleSpielende(paul));
     }
 
     @Test

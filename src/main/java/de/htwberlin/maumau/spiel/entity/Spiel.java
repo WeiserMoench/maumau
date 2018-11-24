@@ -16,7 +16,7 @@ import java.util.List;
 public class Spiel {
 
     private Spieler aktiverSpieler;
-    private boolean istSpielrichtungRechts;
+    private boolean istSpielrichtungRechts = true;
     private int summeZuziehendeKarten;
     private List<Karte> ablagestapelkarten;
     private List<Karte> ziehstapelkarten;

@@ -85,7 +85,7 @@ public interface SpielService {
      *
      * @return der boolean gibt an, ob die Spielrichtung rechts ist, sodass dieser dann im Spiel gespeichert werden kann
      */
-    boolean aendernSpielrichtung();//da methode nur aufgerufen wird, wenn benoetigt, tauscht er einfach true gegen fals, somit ist kein Parameter erforderlich
+    void aendernSpielrichtung(Spiel spiel);//da methode nur aufgerufen wird, wenn benoetigt, tauscht er einfach true gegen fals, somit ist kein Parameter erforderlich
 
 
     /**
@@ -132,9 +132,10 @@ public interface SpielService {
      * Methode bestimmt, wie viele Handkarten jeder Spieler bei Beginn bekommen muss
      *
      * @param spielerListe - Liste der Spieler
+     * @param ziehstapel - Der Ziehstapel der verteilt verden soll
      * @return Anzahl der Handkarten zu Spielbeginn
      */
-    int anzahlStartkartenbestimmen(List<Spieler> spielerListe);
+    int anzahlStartkartenbestimmen(List<Spieler> spielerListe, List<Karte> ziehstapel);
 
     /**
      * Methode prueft, ob Karten waehrend des Spiels gemischt werden
