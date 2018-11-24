@@ -10,6 +10,7 @@ import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.spieler.entity.Spieler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,9 +19,9 @@ public class Spiel {
     private Spieler aktiverSpieler;
     private boolean istSpielrichtungRechts = true;
     private int summeZuziehendeKarten;
-    private List<Karte> ablagestapelkarten;
-    private List<Karte> ziehstapelkarten;
-    private List<Spieler> spielerDesSpieles;
+    private List<Karte> ablagestapelkarten = new ArrayList<>();
+    private List<Karte> ziehstapelkarten = new ArrayList<>();
+    private List<Spieler> spielerDesSpieles = new ArrayList<>();
     private int kartendeck;
     private Farbe farbe;
 

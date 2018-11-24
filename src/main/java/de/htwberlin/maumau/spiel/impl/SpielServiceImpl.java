@@ -40,7 +40,8 @@ public class SpielServiceImpl implements SpielService {
     //Dustin
     @Override
     public List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte) {
-        return null;
+
+        return karteStapel;
     }
 
     @Override
