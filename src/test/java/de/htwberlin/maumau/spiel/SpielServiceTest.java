@@ -12,8 +12,6 @@ import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spiel.export.SpielService;
 import de.htwberlin.maumau.spiel.impl.SpielServiceImpl;
 import de.htwberlin.maumau.spieler.entity.Spieler;
-import static org.junit.Assert.*;
-
 import de.htwberlin.maumau.spieler.export.SpielerService;
 import de.htwberlin.maumau.spieler.impl.SpielerServiceImpl;
 import org.junit.Before;
@@ -22,6 +20,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class SpielServiceTest {
 
@@ -138,12 +138,14 @@ public class SpielServiceTest {
     public void testEntfernteGezogeneKarteVomStapelRest1(){
         ziehstapel.add(pik8);
         ziehstapel.add(pik9);
+
         assertEquals(1, service.entferneGezogendeKarteVomZiehstapel(ziehstapel, pik8).size());
     }
 
     @Test
     public void testEntfernteGezogeneKarteVomStapelRest0(){
         ziehstapel.add(pik8);
+        System.out.println(ziehstapel.get(0).getFarbe());
         assertEquals(0, service.entferneGezogendeKarteVomZiehstapel(ziehstapel, pik8).size());
     }
 

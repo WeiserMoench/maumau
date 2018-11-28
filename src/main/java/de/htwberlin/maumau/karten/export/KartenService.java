@@ -8,7 +8,6 @@ package de.htwberlin.maumau.karten.export;
 
 import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
-import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spieler.entity.Spieler;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public interface KartenService {
      * @param spiel - Das zu spielende Spiel.
      * @return Das Spiel mit der integrierten Liste an Karten
      */
-    Spiel anlegenKartenstapel(Spiel spiel);
+    List<Karte> anlegenKartenstapel();
 
     /**
      * Diese Methode mischt den Ziehstapel einmalig durch.

@@ -8,6 +8,8 @@ package de.htwberlin.maumau.spiel.impl;
 
 import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
+import de.htwberlin.maumau.karten.export.KartenService;
+import de.htwberlin.maumau.karten.impl.KartenServiceImpl;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spiel.export.SpielService;
 import de.htwberlin.maumau.spieler.entity.Spieler;
@@ -21,22 +23,33 @@ public class SpielServiceImpl implements SpielService {
 
     private static SpielerService spielerService = new SpielerServiceImpl();
 
+    private KartenService kartenService = new KartenServiceImpl();
+
+
 
     @Override
+
     public Spiel anlegenSpiel() {
         return null;
     }
 
     //Dustin
+
+    //noetig?
     @Override
     public List<Karte> auswaehlenKartendeck(int kartenblatt) {
+//        kartenService.anlegenKartenstapel();
         return null;
     }
+
     //Dustin
     @Override
     public Karte ziehenKarteVomZiehstapel(List<Karte> ziehStapel) {
-        return null;
+        Karte karte = ziehStapel.get(0);
+        ziehStapel.remove(0);
+        return karte;
     }
+
     //Dustin
     @Override
     public List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte) {
@@ -46,9 +59,9 @@ public class SpielServiceImpl implements SpielService {
 
     @Override
     public List<Karte> austeilenStart(List<Karte> kartenDeck, List<Spieler> spielerListe, int durchgaenge) {
-        for(int runden = 0; runden < durchgaenge; runden++){
-            for (int spielerzaehler = 0; spielerzaehler < spielerListe.size();spielerzaehler++) {
-                Karte karte = kartenDeck.get(kartenDeck.size()-1);
+        for (int runden = 0; runden < durchgaenge; runden++) {
+            for (int spielerzaehler = 0; spielerzaehler < spielerListe.size(); spielerzaehler++) {
+                Karte karte = kartenDeck.get(kartenDeck.size() - 1);
                 spielerService.karteausHandblattentfernden(karte, spielerListe.get(spielerzaehler));
                 kartenDeck.remove(karte);
             }
@@ -104,10 +117,10 @@ public class SpielServiceImpl implements SpielService {
 
     @Override
     public int anzahlStartkartenbestimmen(List<Spieler> spielerListe, List<Karte> ziehstapel) {
-       int anzahlkarten;
-        anzahlkarten = (int) Math.floor((ziehstapel.size() - 10)/spielerListe.size());
-        if(anzahlkarten>6){
-            anzahlkarten=6;
+        int anzahlkarten;
+        anzahlkarten = (int) Math.floor((ziehstapel.size() - 10) / spielerListe.size());
+        if (anzahlkarten > 6) {
+            anzahlkarten = 6;
         }
         return anzahlkarten;
     }
