@@ -68,7 +68,7 @@ public class KartenServiceTest {
     @Test
     public void testAnlegenKartenstapel(){ //aus Testgründen erstmal nur mit 3 Karten geplant, später alle
         spiel.setKartendeck(3);
-        spiel = kartenService.anlegenKartenstapel(spiel);
-        assertEquals(karten, spiel.getAblagestapelkarten());
+//        spiel = kartenService.anlegenKartenstapel(spiel);
+        assertEquals(52, kartenService.anlegenKartenstapel().size());
     }
 }

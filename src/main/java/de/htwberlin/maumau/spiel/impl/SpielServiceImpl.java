@@ -49,11 +49,12 @@ public class SpielServiceImpl implements SpielService {
         ziehStapel.remove(0);
         return karte;
     }
+    // Einfach in eine Zusammenfügen???
 
     //Dustin
     @Override
     public List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte) {
-
+        karteStapel.remove(karte);
         return karteStapel;
     }
 
