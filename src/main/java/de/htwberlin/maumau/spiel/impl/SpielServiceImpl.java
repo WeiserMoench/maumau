@@ -46,10 +46,10 @@ public class SpielServiceImpl implements SpielService {
     @Override
     public Karte ziehenKarteVomZiehstapel(List<Karte> ziehStapel) {
         Karte karte = ziehStapel.get(0);
-        ziehStapel.remove(0);
+
         return karte;
     }
-    // Einfach in eine Zusammenfügen???
+
 
     //Dustin
     @Override
