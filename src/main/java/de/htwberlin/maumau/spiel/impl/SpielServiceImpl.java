@@ -10,6 +10,7 @@ import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.karten.export.KartenService;
 import de.htwberlin.maumau.karten.impl.KartenServiceImpl;
+import de.htwberlin.maumau.regelnmaumau.impl.ErweiterteRegelnServiceImpl;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spiel.export.SpielService;
 import de.htwberlin.maumau.spieler.entity.Spieler;
@@ -24,6 +25,7 @@ public class SpielServiceImpl implements SpielService {
     private static SpielerService spielerService = new SpielerServiceImpl();
 
     private KartenService kartenService = new KartenServiceImpl();
+    private ErweiterteRegelnServiceImpl regeln = new ErweiterteRegelnServiceImpl(); //DJ sollte hier sein
 
 
 
@@ -49,6 +51,60 @@ public class SpielServiceImpl implements SpielService {
 
         return karte;
     }
+
+    public Spiel legeKarte(Karte zulegendeKarte, Spieler spieler, Spiel spiel){
+        if(regeln.darfKartegelegtwerden(spiel.getAblagestapelkarten().get(spiel.getAblagestapelkarten().size()-1),zulegendeKarte, spiel.getFarbe())){
+            spiel.setAblagestapelkarten(legenKarteAufAblageStapel(spieler, spiel.getAblagestapelkarten(), zulegendeKarte));
+            spiel.setSummeZuziehendeKarten(regeln.mussZweiKartenZiehen(zulegendeKarte, spiel.getSummeZuziehendeKarten()));
+            spiel.setIstSpielrichtungRechts(regeln.richtungWechsel(zulegendeKarte));
+            if(regeln.mussSichFarbeWuenschen(zulegendeKarte)){
+                spiel.setMussFarbeWuenschen(true);
+            }else{
+                 spiel=naechsterSpieler(spiel);
+            }
+//            spiel.setMussFarbeWuenschen(regeln.mussSichFarbeWuenschen(zulegendeKarte));
+            return spiel;
+        }
+        return spiel;
+
+    }
+
+
+    public Spiel farbeGewaehlt(Spiel spiel, Farbe farbe){
+        spiel.setFarbe(farbe);
+        spiel.setMussFarbeWuenschen(false);
+        spiel=naechsterSpieler(spiel);
+        return spiel;
+    }
+
+
+    private Spiel naechsterSpieler(Spiel spiel){
+        int veraenderung = 1;
+        int indexNaechsterSpieler;
+        int laengeSpielerliste = spiel.getSpielerDesSpieles().size();
+
+        if (regeln.mussRundeAussetzen(spiel.getAblagestapelkarten().get(spiel.getAblagestapelkarten().size() - 1))) {
+            veraenderung++;
+        }
+
+
+        if (spiel.isIstSpielrichtungRechts()) {
+            indexNaechsterSpieler = spiel.getSpielerDesSpieles().indexOf(spiel.getAktiverSpieler()) + veraenderung;
+        } else {
+            indexNaechsterSpieler = spiel.getSpielerDesSpieles().indexOf(spiel.getAktiverSpieler()) + veraenderung;
+        }
+        if (indexNaechsterSpieler >= laengeSpielerliste) {
+            spiel.setAktiverSpieler(spiel.getSpielerDesSpieles().get(indexNaechsterSpieler-laengeSpielerliste));
+        } else {
+            if (indexNaechsterSpieler < 0) {
+                spiel.setAktiverSpieler(spiel.getSpielerDesSpieles().get(laengeSpielerliste+indexNaechsterSpieler));
+            }else {
+                spiel.setAktiverSpieler(spiel.getSpielerDesSpieles().get(indexNaechsterSpieler));
+            }
+        }
+        return spiel;
+    }
+
 
 
     //Dustin
@@ -94,30 +150,25 @@ public class SpielServiceImpl implements SpielService {
     public Spiel aendernFarbe(Spiel spiel, Farbe neueFarbe) {
         spiel.setFarbe(neueFarbe);
         return spiel;
-    }//blödeKuh
+    }
 
-    @Override
-    public boolean ermittleSpielende(Spieler spieler) {
+    private boolean ermittleSpielende(Spieler spieler) {
         return spieler.getHandkarten().size() == 0;
     }
 
-    @Override
-    public boolean pruefeAufMau(Spieler spieler) {
+    private boolean pruefeAufMau(Spieler spieler) {
         return spieler.isMauistgesetzt() == true;
     }
 
-    @Override
-    public boolean istMauNoetig(Spieler spieler) {
+    private boolean istMauNoetig(Spieler spieler) {
         return spieler.getHandkarten().size() == 1;
     }
 
-    @Override
     public void setzeMau(Spieler spieler) {
         spieler.setMauistgesetzt(true);
     }
 
-    @Override
-    public int anzahlStartkartenbestimmen(List<Spieler> spielerListe, List<Karte> ziehstapel) {
+    private int anzahlStartkartenbestimmen(List<Spieler> spielerListe, List<Karte> ziehstapel) {
         int anzahlkarten;
         anzahlkarten = (int) Math.floor((ziehstapel.size() - 10) / spielerListe.size());
         if (anzahlkarten > 6) {
@@ -126,8 +177,7 @@ public class SpielServiceImpl implements SpielService {
         return anzahlkarten;
     }
 
-    @Override
-    public boolean mussGemischtWerden(List<Karte> ziehstapel) {
+    private boolean mussGemischtWerden(List<Karte> ziehstapel) {
         return ziehstapel.size() == 0;
     }
 }

@@ -8,7 +8,7 @@ package de.htwberlin.maumau.karten.export;
 
 import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
-import de.htwberlin.maumau.spieler.entity.Spieler;
+import de.htwberlin.maumau.spieler.entity.Spieler;//raus
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public interface KartenService {
      * @param spieler
      * @return
      */
-    List austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler);
+    List austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler);//in spielerService
 
     /**
      * Diese Methode legt neue Karten an

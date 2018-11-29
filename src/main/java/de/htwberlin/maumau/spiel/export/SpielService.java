@@ -97,51 +97,51 @@ public interface SpielService {
      */
     Spiel aendernFarbe(Spiel spiel, Farbe neueFarbe);
 
-    /**
-     * Prueft am Ende eines Zuges, ob das Spiel zu Ende ist
-     *
-     * @param spieler - aktueller Spieler
-     * @return boolean, der angibt, ob das Spiel zu Ende ist
-     */
-    boolean ermittleSpielende(Spieler spieler);
-
-    /**
-     * Prueft ob der Spieler Mau geklickt hat
-     *
-     * @param spieler - Der zu pruefende Spieler
-     * @return boolean, der angibt ob der Spieler vergessen hat Mau zu klicken
-     */
-    boolean pruefeAufMau(Spieler spieler);
-
-    /**
-     * Prueft ob der Spieler Mau klicken musste
-     *
-     * @param spieler - Der zu pruefende Spieler
-     * @return boolean, der angibt ob Mau noetig ist
-     */
-    boolean istMauNoetig(Spieler spieler);
-
-    /**
-     * Setzt Mau bei Spieler
-     *
-     * @param spieler - bei dem Mau gesetzt werden muss
-     */
-    void setzeMau(Spieler spieler);
-
-    /**
-     * Methode bestimmt, wie viele Handkarten jeder Spieler bei Beginn bekommen muss
-     *
-     * @param spielerListe - Liste der Spieler
-     * @param ziehstapel - Der Ziehstapel der verteilt verden soll
-     * @return Anzahl der Handkarten zu Spielbeginn
-     */
-    int anzahlStartkartenbestimmen(List<Spieler> spielerListe, List<Karte> ziehstapel);
-
-    /**
-     * Methode prueft, ob Karten waehrend des Spiels gemischt werden
-     *
-     * @param ziehstapel - Der Ziehstapel
-     * @return boolean, der angibt ob gemischt werden muss
-     */
-    boolean mussGemischtWerden(List<Karte> ziehstapel);
+//    /**
+//     * Prueft am Ende eines Zuges, ob das Spiel zu Ende ist
+//     *
+//     * @param spieler - aktueller Spieler
+//     * @return boolean, der angibt, ob das Spiel zu Ende ist
+//     */
+//    boolean ermittleSpielende(Spieler spieler);
+//
+//    /**
+//     * Prueft ob der Spieler Mau geklickt hat
+//     *
+//     * @param spieler - Der zu pruefende Spieler
+//     * @return boolean, der angibt ob der Spieler vergessen hat Mau zu klicken
+//     */
+//    boolean pruefeAufMau(Spieler spieler);
+//
+//    /**
+//     * Prueft ob der Spieler Mau klicken musste
+//     *
+//     * @param spieler - Der zu pruefende Spieler
+//     * @return boolean, der angibt ob Mau noetig ist
+//     */
+//    boolean istMauNoetig(Spieler spieler);
+//
+//    /**
+//     * Setzt Mau bei Spieler
+//     *
+//     * @param spieler - bei dem Mau gesetzt werden muss
+//     */
+//    void setzeMau(Spieler spieler);
+//
+//    /**
+//     * Methode bestimmt, wie viele Handkarten jeder Spieler bei Beginn bekommen muss
+//     *
+//     * @param spielerListe - Liste der Spieler
+//     * @param ziehstapel - Der Ziehstapel der verteilt verden soll
+//     * @return Anzahl der Handkarten zu Spielbeginn
+//     */
+//    int anzahlStartkartenbestimmen(List<Spieler> spielerListe, List<Karte> ziehstapel);
+//
+//    /**
+//     * Methode prueft, ob Karten waehrend des Spiels gemischt werden
+//     *
+//     * @param ziehstapel - Der Ziehstapel
+//     * @return boolean, der angibt ob gemischt werden muss
+//     */
+//    boolean mussGemischtWerden(List<Karte> ziehstapel);
 }

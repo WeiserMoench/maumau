@@ -52,23 +52,23 @@ public class SpielServiceTest {
 
     }
 
-    @Test
-    public void testMauistNoetig(){
-        Spieler paul = new Spieler();
-        List<Karte> handkarten = new ArrayList<>();
-        handkarten.add(pik8);
-        paul.setHandkarten(handkarten);
-        assertTrue("Paul muss Mau sagen", service.istMauNoetig(paul));
-    }
-
-    @Test
-    public void testMauistNichtNoetig(){
-        List<Karte> handkarten = new ArrayList<>();
-        handkarten.add(pik8);
-        handkarten.add(pik9);
-        paul.setHandkarten(handkarten);
-        assertFalse("Paul muss Mau sagen", service.istMauNoetig(paul));
-    }
+//    @Test
+//    public void testMauistNoetig(){
+//        Spieler paul = new Spieler();
+//        List<Karte> handkarten = new ArrayList<>();
+//        handkarten.add(pik8);
+//        paul.setHandkarten(handkarten);
+//        assertTrue("Paul muss Mau sagen", service.istMauNoetig(paul));
+//    }
+//
+//    @Test
+//    public void testMauistNichtNoetig(){
+//        List<Karte> handkarten = new ArrayList<>();
+//        handkarten.add(pik8);
+//        handkarten.add(pik9);
+//        paul.setHandkarten(handkarten);
+//        assertFalse("Paul muss Mau sagen", service.istMauNoetig(paul));
+//    }
 
     @Test
     public void testAuswaehlenKartenDeck(){
@@ -83,56 +83,56 @@ public class SpielServiceTest {
         assertEquals(pik8, service.ziehenKarteVomZiehstapel(ziehstapel));
     }
 
-    @Test
-    public void testMussGemischtWerden(){
-        assertTrue("Es müsste gemischt werden", service.mussGemischtWerden(ziehstapel));
-    }
-
-    @Test
-    public void testMussNichtGemischtWerden(){
-        ziehstapel.add(pik8);
-        assertFalse("Es muss nicht gemischt werden", service.mussGemischtWerden(ziehstapel));
-    }
-
-    @Test
-    public void testAnzahlStartkartenBestimmen4SpielerBei32Karten(){
-        List<Spieler> spielerliste = Arrays.asList(new Spieler(),new Spieler(),new Spieler(),new Spieler());
-        List<Karte> stapel = new ArrayList<>();
-        for(int i = 0; i <32; i++){
-            stapel.add(new Karte(Farbe.PIK, "8"));
-        }
-        assertEquals(5, service.anzahlStartkartenbestimmen(spielerliste, stapel));
-    }
-
-    @Test
-    public void testAnzahlStartkartenBestimmen4SpielerBei52Karten(){
-        List<Spieler> spielerliste = Arrays.asList(new Spieler(),new Spieler(),new Spieler(),new Spieler());
-        List<Karte> stapel = new ArrayList<>();
-        for(int i = 0; i <52; i++){
-            stapel.add(new Karte(Farbe.PIK, "8"));
-        }
-        assertEquals(6, service.anzahlStartkartenbestimmen(spielerliste, stapel));
-    }
-
-    @Test
-    public void testAnzahlStartkartenBestimmen6SpielerBei32Karten(){
-        List<Spieler> spielerliste = Arrays.asList(new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler());
-        List<Karte> stapel = new ArrayList<>();
-        for(int i = 0; i <32; i++){
-            stapel.add(new Karte(Farbe.PIK, "8"));
-        }
-        assertEquals(3, service.anzahlStartkartenbestimmen(spielerliste, stapel));
-    }
-
-    @Test
-    public void testAnzahlStartkartenBestimmen10SpielerBei52Karten(){
-        List<Spieler> spielerliste = Arrays.asList(new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler());
-        List<Karte> stapel = new ArrayList<>();
-        for(int i = 0; i <52; i++){
-            stapel.add(new Karte(Farbe.PIK, "8"));
-        }
-        assertEquals(4, service.anzahlStartkartenbestimmen(spielerliste, stapel));
-    }
+//    @Test
+//    public void testMussGemischtWerden(){
+//        assertTrue("Es müsste gemischt werden", service.mussGemischtWerden(ziehstapel));
+//    }
+//
+//    @Test
+//    public void testMussNichtGemischtWerden(){
+//        ziehstapel.add(pik8);
+//        assertFalse("Es muss nicht gemischt werden", service.mussGemischtWerden(ziehstapel));
+//    }
+//
+//    @Test
+//    public void testAnzahlStartkartenBestimmen4SpielerBei32Karten(){
+//        List<Spieler> spielerliste = Arrays.asList(new Spieler(),new Spieler(),new Spieler(),new Spieler());
+//        List<Karte> stapel = new ArrayList<>();
+//        for(int i = 0; i <32; i++){
+//            stapel.add(new Karte(Farbe.PIK, "8"));
+//        }
+//        assertEquals(5, service.anzahlStartkartenbestimmen(spielerliste, stapel));
+//    }
+//
+//    @Test
+//    public void testAnzahlStartkartenBestimmen4SpielerBei52Karten(){
+//        List<Spieler> spielerliste = Arrays.asList(new Spieler(),new Spieler(),new Spieler(),new Spieler());
+//        List<Karte> stapel = new ArrayList<>();
+//        for(int i = 0; i <52; i++){
+//            stapel.add(new Karte(Farbe.PIK, "8"));
+//        }
+//        assertEquals(6, service.anzahlStartkartenbestimmen(spielerliste, stapel));
+//    }
+//
+//    @Test
+//    public void testAnzahlStartkartenBestimmen6SpielerBei32Karten(){
+//        List<Spieler> spielerliste = Arrays.asList(new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler());
+//        List<Karte> stapel = new ArrayList<>();
+//        for(int i = 0; i <32; i++){
+//            stapel.add(new Karte(Farbe.PIK, "8"));
+//        }
+//        assertEquals(3, service.anzahlStartkartenbestimmen(spielerliste, stapel));
+//    }
+//
+//    @Test
+//    public void testAnzahlStartkartenBestimmen10SpielerBei52Karten(){
+//        List<Spieler> spielerliste = Arrays.asList(new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler(),new Spieler());
+//        List<Karte> stapel = new ArrayList<>();
+//        for(int i = 0; i <52; i++){
+//            stapel.add(new Karte(Farbe.PIK, "8"));
+//        }
+//        assertEquals(4, service.anzahlStartkartenbestimmen(spielerliste, stapel));
+//    }
 
     @Test
     public void testEntfernteGezogeneKarteVomStapelRest1(){
@@ -175,16 +175,16 @@ public class SpielServiceTest {
         assertEquals(0, service.zuZiehendeKarte(2, ziehstapel, paul).size());
     }
 
-    @Test
-    public void testPruefeDasMauGesetzt(){
-        paul.setMauistgesetzt(true);
-        assertTrue("Spieler müsste Mau gesetzt haben", service.pruefeAufMau(paul));
-    }
-
-    @Test
-    public void testPruefeDasMauNichtGesetzt(){
-        assertFalse("Spieler müsste Mau nicht gesetzt haben", service.pruefeAufMau(paul));
-    }
+//    @Test
+//    public void testPruefeDasMauGesetzt(){
+//        paul.setMauistgesetzt(true);
+//        assertTrue("Spieler müsste Mau gesetzt haben", service.pruefeAufMau(paul));
+//    }
+//
+//    @Test
+//    public void testPruefeDasMauNichtGesetzt(){
+//        assertFalse("Spieler müsste Mau nicht gesetzt haben", service.pruefeAufMau(paul));
+//    }
 
     @Test
     public void testAendereSpielrichtungVonRechts(){
@@ -224,21 +224,21 @@ public class SpielServiceTest {
         assertEquals(Farbe.PIK, testSpiel.getFarbe());
     }
 
-    @Test
-    public void testErmittleSpielende(){
-        assertTrue("das spiel hätte zu Ende sein müssen", service.ermittleSpielende(paul));
-    }
-    @Test
-    public void testErmittleSpielendeNegativ(){
-        spielerService.karteZuHandblatthinzufuegen(pik8, paul);
-        assertFalse("das spiel hätte nicht zu Ende sein müssen", service.ermittleSpielende(paul));
-    }
+//    @Test
+//    public void testErmittleSpielende(){
+//        assertTrue("das spiel hätte zu Ende sein müssen", service.ermittleSpielende(paul));
+//    }
+//    @Test
+//    public void testErmittleSpielendeNegativ(){
+//        spielerService.karteZuHandblatthinzufuegen(pik8, paul);
+//        assertFalse("das spiel hätte nicht zu Ende sein müssen", service.ermittleSpielende(paul));
+//    }
 
-    @Test
-    public void testeSetzeMau(){
-        service.setzeMau(paul);
-        assertTrue("Mau hätte gesetzt sein müssen", paul.isMauistgesetzt());
-    }
+//    @Test
+//    public void testeSetzeMau(){
+//        service.setzeMau(paul);
+//        assertTrue("Mau hätte gesetzt sein müssen", paul.isMauistgesetzt());
+//    }
 
     @Test
     public void testAnlegenSpiel() {

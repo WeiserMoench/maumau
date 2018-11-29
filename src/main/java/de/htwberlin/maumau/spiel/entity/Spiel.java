@@ -24,6 +24,15 @@ public class Spiel {
     private List<Spieler> spielerDesSpieles = new ArrayList<>();
     private int kartendeck; //Diskussion hatten wir schon, aber ist das noch Nötig??? würde einfach auf 54 Karten festlegen
     private Farbe farbe;
+    private boolean mussFarbeWuenschen = false;
+
+    public boolean isMussFarbeWuenschen() {
+        return mussFarbeWuenschen;
+    }
+
+    public void setMussFarbeWuenschen(boolean mussFarbeWuenschen) {
+        this.mussFarbeWuenschen = mussFarbeWuenschen;
+    }
 
     public Spieler getAktiverSpieler() {
         return aktiverSpieler;
