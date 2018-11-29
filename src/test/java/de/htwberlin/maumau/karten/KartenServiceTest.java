@@ -60,13 +60,15 @@ public class KartenServiceTest {
 
     @Test
     public void testErstellenNeueKarte(){
-        assertEquals(karte1, kartenService.erstellenNeuerKarte(Farbe.PIK, "9"));
+        Karte karteTest = kartenService.erstellenNeuerKarte(Farbe.PIK, "10");
+        assertEquals(karte1.getFarbe(), karteTest.getFarbe());
+        assertEquals(karte1.getWert(), karteTest.getWert());
     }
 
     @Test
     public void testAnlegenKartenstapel(){ //aus Testgründen erstmal nur mit 3 Karten geplant, später alle
         spiel.setKartendeck(3);
-        spiel = kartenService.anlegenKartenstapel(spiel);
-        assertEquals(karten, spiel.getAblagestapelkarten());
+//        spiel = kartenService.anlegenKartenstapel(spiel);
+        assertEquals(52, kartenService.anlegenKartenstapel().size());
     }
 }
