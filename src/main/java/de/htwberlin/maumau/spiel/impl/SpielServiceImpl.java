@@ -80,7 +80,7 @@ public class SpielServiceImpl implements SpielService {
     public Spiel aendernFarbe(Spiel spiel, Farbe neueFarbe) {
         spiel.setFarbe(neueFarbe);
         return spiel;
-    }
+    }//blödeKuh
 
     @Override
     public boolean ermittleSpielende(Spieler spieler) {
