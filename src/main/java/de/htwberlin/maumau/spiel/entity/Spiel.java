@@ -25,6 +25,15 @@ public class Spiel {
     private int kartendeck; //Diskussion hatten wir schon, aber ist das noch Nötig??? würde einfach auf 54 Karten festlegen
     private Farbe farbe;
     private boolean mussFarbeWuenschen = false;
+    private boolean erfolgreichgelegt;
+
+    public boolean isErfolgreichgelegt() {
+        return erfolgreichgelegt;
+    }
+
+    public void setErfolgreichgelegt(boolean erfolgreichgelegt) {
+        this.erfolgreichgelegt = erfolgreichgelegt;
+    }
 
     public boolean isMussFarbeWuenschen() {
         return mussFarbeWuenschen;

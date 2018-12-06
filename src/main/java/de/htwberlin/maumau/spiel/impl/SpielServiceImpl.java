@@ -31,7 +31,7 @@ public class SpielServiceImpl implements SpielService {
 
     @Override
 
-    public Spiel anlegenSpiel() {
+    public Spiel anlegenSpiel(List<List> spielerliste) {
         return null;
     }
 
@@ -60,10 +60,11 @@ public class SpielServiceImpl implements SpielService {
             spiel.setAblagestapelkarten(legenKarteAufAblageStapel(spieler, spiel.getAblagestapelkarten(), zulegendeKarte));
             spiel.setSummeZuziehendeKarten(regeln.mussZweiKartenZiehen(zulegendeKarte, spiel.getSummeZuziehendeKarten()));
             spiel.setIstSpielrichtungRechts(regeln.richtungWechsel(zulegendeKarte));
+            spiel.setErfolgreichgelegt(true);
             if(regeln.mussSichFarbeWuenschen(zulegendeKarte)){
                 spiel.setMussFarbeWuenschen(true);
             }else{
-                 spiel=naechsterSpieler(spiel);
+//                 spiel=naechsterSpieler(spiel);
             }
             return spiel;
         }
@@ -80,7 +81,8 @@ public class SpielServiceImpl implements SpielService {
     }
 
 
-    private Spiel naechsterSpieler(Spiel spiel){
+    public Spiel naechsterSpieler(Spiel spiel){
+        spiel.setErfolgreichgelegt(false);
         int veraenderung = 1;
         int indexNaechsterSpieler;
         int laengeSpielerliste = spiel.getSpielerDesSpieles().size();
@@ -161,8 +163,8 @@ public class SpielServiceImpl implements SpielService {
         return spiel;
     }
 
-    private boolean ermittleSpielende(Spieler spieler) {
-        return spieler.getHandkarten().size() == 0;
+    public boolean ermittleSpielende(Spieler spieler) {
+        return !spieler.getHandkarten().isEmpty();
     }
 
     private boolean pruefeAufMau(Spieler spieler) {
