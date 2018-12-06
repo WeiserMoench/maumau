@@ -29,17 +29,25 @@ public class SpielerServiceImpl implements SpielerService {
     }
 
     @Override
-    public void karteausHandblattentfernden(Karte karte, Spieler spieler) {
-
+    public Spieler karteausHandblattentfernden(Karte karte, Spieler spieler) {
+        handkarten = new ArrayList<>();
+        handkarten = spieler.getHandkarten();
+        handkarten.remove(karte);
+        spieler.setHandkarten(handkarten);
+        return spieler;
     }
 
     @Override
-    public void auswaehlenSpielerFuerSpiel(Spiel spiel) {
+    public void auswaehlenSpielerFuerSpiel(Spiel spiel) {//Macht das hier und so sinn? nicht eher in Spiel bringen und hier eher eine Liste aller in DB verhandenen Spieler abfragen und diese Richtung Spiel bringen?
 
     }
 
     @Override
     public Spieler neuerSpielerAnlegen(String name, String email) {
-        return null;
+        Spieler spieler = new Spieler();
+        spieler.setName(name);
+        spieler.setEmail(email);
+        //Spieler in der DB Speichern?
+        return spieler;
     }
 }

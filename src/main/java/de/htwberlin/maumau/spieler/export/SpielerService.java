@@ -26,7 +26,7 @@ public interface SpielerService {
      * @param karte - zu entfernende Karte
      * @param spieler - Der Spieler, aus dessen Handkarten die Karte entfernt werden soll
      */
-    void karteausHandblattentfernden(Karte karte, Spieler spieler);
+    Spieler karteausHandblattentfernden(Karte karte, Spieler spieler);
 
     /**
      * Diese Methode fuegt einen gewuenschten spieler hinzu und speichert diesen im Spiel.
