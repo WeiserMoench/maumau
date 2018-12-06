@@ -38,6 +38,8 @@ public class SpielServiceImpl implements SpielService {
     //Dustin
 
     //noetig?
+    // ist das nicht intern?
+    // aufgabe ueberarbeiten und fixes Kartendeck nutzen
     @Override
     public List<Karte> auswaehlenKartendeck(int kartenblatt) {
 //        kartenService.anlegenKartenstapel();
@@ -45,6 +47,7 @@ public class SpielServiceImpl implements SpielService {
     }
 
     //Dustin
+    // ist das nicht intern?
     @Override
     public Karte ziehenKarteVomZiehstapel(List<Karte> ziehStapel) {
         Karte karte = ziehStapel.get(0);
@@ -62,7 +65,6 @@ public class SpielServiceImpl implements SpielService {
             }else{
                  spiel=naechsterSpieler(spiel);
             }
-//            spiel.setMussFarbeWuenschen(regeln.mussSichFarbeWuenschen(zulegendeKarte));
             return spiel;
         }
         return spiel;
@@ -108,12 +110,15 @@ public class SpielServiceImpl implements SpielService {
 
 
     //Dustin
+    // ist das nicht intern?
     @Override
     public List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte) {
         karteStapel.remove(karte);
         return karteStapel;
     }
 
+    // ist das nicht intern?
+    // macht das so sinn, was ist mit den veraenderten Spielern
     @Override
     public List<Karte> austeilenStart(List<Karte> kartenDeck, List<Spieler> spielerListe, int durchgaenge) {
         for (int runden = 0; runden < durchgaenge; runden++) {
@@ -126,6 +131,7 @@ public class SpielServiceImpl implements SpielService {
         return kartenDeck;
     }
 
+    // ist das nicht intern?
     @Override
     public List<Karte> zuZiehendeKarte(int anzahl, List<Karte> karteStapel, Spieler spieler) {
         List<Spieler> spielerliste = new ArrayList<>();
@@ -134,6 +140,7 @@ public class SpielServiceImpl implements SpielService {
         return karteStapel;
     }
 
+    // ist das nicht intern?
     @Override
     public List<Karte> legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte) {
         spielerService.karteausHandblattentfernden(karte, spieler);
@@ -141,11 +148,13 @@ public class SpielServiceImpl implements SpielService {
         return kartenAblagestapel;
     }
 
+    //intern und wird von regeln Aufgerufen
     @Override
     public void aendernSpielrichtung(Spiel spiel) {
         spiel.setIstSpielrichtungRechts(!spiel.isIstSpielrichtungRechts());
     }
 
+    //noch noetig? macht doch nun farbeGewaehlt
     @Override
     public Spiel aendernFarbe(Spiel spiel, Farbe neueFarbe) {
         spiel.setFarbe(neueFarbe);
