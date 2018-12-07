@@ -240,10 +240,10 @@ public class SpielServiceTest {
 //        assertTrue("Mau hätte gesetzt sein müssen", paul.isMauistgesetzt());
 //    }
 
-    @Test
-    public void testAnlegenSpiel() {
-        Spiel testSpiel = service.anlegenSpiel();
-        assertEquals(spiel, testSpiel);
-
-    }
+//    @Test
+//    public void testAnlegenSpiel() {
+//        Spiel testSpiel = service.anlegenSpiel();
+//        assertEquals(spiel, testSpiel);
+//
+//    }
 }

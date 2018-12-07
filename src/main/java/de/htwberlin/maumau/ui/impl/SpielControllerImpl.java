@@ -10,41 +10,50 @@ import java.util.List;
 
 public class SpielControllerImpl implements SpielController {
 
-    SpielServiceImpl spielService = new SpielServiceImpl();
-    SpielViewer view = new SpielViewer();
-    List<List> spielerliste = new ArrayList();
-    Spiel dasSpiel = new Spiel();
-    boolean spielLaeuft = true;
-    int spielrundenindex = 0;
+    private SpielServiceImpl spielService = new SpielServiceImpl();
+    private SpielViewer view = new SpielViewer();
+    private List<List> spielerliste = new ArrayList();
+    private Spiel dasSpiel = new Spiel();
+    private boolean spielLaeuft = true;
+    private int spielrundenindex = 0;
 
 
     public void run(){
 
-        System.out.println("Weiteren Spieler hinzufügen?");
-        //solange wie ja
-            spielerliste.add(spielerhinzufuegen());
-        //sonst
-        spielService.anlegenSpiel(spielerliste);
+        if(view.welcheSpielart()==1){
+            while(view.spielerHinzufuegen()==true){
+                System.out.println("Danke");
+                System.out.println("Weiteren Spieler hinzufügen?");
+                //solange wie ja
+                spielerliste.add(spielerhinzufuegen());
+                //sonst
+                spielService.anlegenSpiel(spielerliste);
+            }
 
-        while(spielLaeuft){
-            if(spielrundenindex >=0 ){
-                spielService.naechsterSpieler(dasSpiel);
+            while(spielLaeuft){
+                if(spielrundenindex >=0 ){
+                    spielService.naechsterSpieler(dasSpiel);
+                }
+                spielService.zuZiehendeKarte(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
+                int kartennummer = 0;
+                boolean musslegen = true;
+                while(musslegen) {
+                    System.out.println("Deine Handkarten sind: XXX , gib die Nummer der Karte ein, die du ablegen willst");
+                    spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(kartennummer), dasSpiel.getAktiverSpieler(), dasSpiel);
+                    musslegen=!dasSpiel.isErfolgreichgelegt();
+                    //spieler kann nicht legen und muss ziehen
+                }
+                spielLaeuft =  spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
+                if(spielLaeuft==false){
+                    System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
+                }
+                spielrundenindex++;
             }
-            spielService.zuZiehendeKarte(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
-            int kartennummer = 0;
-            boolean musslegen = true;
-            while(musslegen) {
-                System.out.println("Deine Handkarten sind: XXX , gib die Nummer der Karte ein, die du ablegen willst");
-                spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(kartennummer), dasSpiel.getAktiverSpieler(), dasSpiel);
-                musslegen=!dasSpiel.isErfolgreichgelegt();
-                //spieler kann nicht legen und muss ziehen
-            }
-            spielLaeuft =  spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
-            if(spielLaeuft==false){
-                System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
-            }
-            spielrundenindex++;
+        }else{
+            System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
+            System.out.println("Bitte komme später mal wieder");
         }
+
 
     }
 
