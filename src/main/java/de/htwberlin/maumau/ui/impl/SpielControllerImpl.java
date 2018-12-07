@@ -23,16 +23,13 @@ public class SpielControllerImpl implements SpielController {
         if(view.welcheSpielart()==1){
             while(view.sollSpielerHinzugefuegtWerden()==true){
                 if(view.spielerSollMenschSein()==true){
-                    System.out.println("Menschlicher Spieler");
+                    spielerliste.add(view.spielerHinzufuegen());
                 }else{
                     System.out.println("KI Spieler hinzufügen, diese Funktion ist bisher nicht implementiert");
                 }
-                System.out.println("Danke");
-                //solange wie ja
-                spielerliste.add(spielerhinzufuegen());
-                //sonst
-                spielService.anlegenSpiel(spielerliste);
             }
+            dasSpiel=spielService.anlegenSpiel(spielerliste);
+            System.out.println("Danke fürs einrichten des Spieles");
 
             while(spielLaeuft){
                 if(spielrundenindex >=0 ){
@@ -61,15 +58,15 @@ public class SpielControllerImpl implements SpielController {
 
     }
 
-    private List<String> spielerhinzufuegen(){
-        List<String> spieler = new ArrayList<>();
-        System.out.println("Name des Spielers");
-        String name = "Name";
-        System.out.println("Emailadresse des Spielers");
-        String email = "email";
-        spieler.add(name);
-        spieler.add(email);
-        return spieler;
-    }
+//    private List<String> spielerhinzufuegen(){
+//        List<String> spieler = new ArrayList<>();
+//        System.out.println("Name des Spielers");
+//        String name = "Name";
+//        System.out.println("Emailadresse des Spielers");
+//        String email = "email";
+//        spieler.add(name);
+//        spieler.add(email);
+//        return spieler;
+//    }
 
 }

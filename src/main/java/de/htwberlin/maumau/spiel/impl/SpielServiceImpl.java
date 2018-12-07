@@ -32,6 +32,13 @@ public class SpielServiceImpl implements SpielService {
     @Override
 
     public Spiel anlegenSpiel(List<List> spielerliste) {
+        //Testimplementierung für Controller und Viewer
+        for (List<String> spieler : spielerliste) {
+            for (String wert :spieler) {
+                System.out.println("Wert: " + wert);
+            }
+            
+        }
         return null;
     }
 

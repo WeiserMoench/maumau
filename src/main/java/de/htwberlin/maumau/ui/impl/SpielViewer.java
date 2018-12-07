@@ -1,5 +1,7 @@
 package de.htwberlin.maumau.ui.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SpielViewer {
@@ -40,6 +42,17 @@ public class SpielViewer {
         return jaNeinAbfrage();
     }
 
+    public List<String> spielerHinzufuegen(){
+        List<String> spieler = new ArrayList<>();
+        System.out.println();
+        System.out.println("Name des Spielers");
+        String name = sc.next();
+        System.out.println("Emailadresse des Spielers");
+        String email = sc.next();
+        spieler.add(name);
+        spieler.add(email);
+        return spieler;
+    }
     private boolean jaNeinAbfrage(){
         boolean weitererDurchgang=true;
         boolean rueckgabe=false;
