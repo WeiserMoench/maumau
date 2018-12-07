@@ -25,11 +25,24 @@ public class SpielViewer {
         return spielart;
     }
 
-    public boolean spielerHinzufuegen() {
-        boolean weitererDurchgang=true;
+    public boolean sollSpielerHinzugefuegtWerden() {
+        System.out.println();
         System.out.println("Möchtest du einen weiteren Spieler zum Spiel hinzufügen");
-        boolean rueckgabe=false;
 
+        return jaNeinAbfrage();
+    }
+
+    public boolean spielerSollMenschSein() {
+        System.out.println();
+        System.out.println("Wenn der Spieler ein Mensch sein soll, gib bitte \"ja\" ein.");
+        System.out.println("Soll der Spieler hingegen ein Computerspieler sein, gib \"nein\" ein");
+
+        return jaNeinAbfrage();
+    }
+
+    private boolean jaNeinAbfrage(){
+        boolean weitererDurchgang=true;
+        boolean rueckgabe=false;
         while(weitererDurchgang){
 
             String antwort = sc.next();
