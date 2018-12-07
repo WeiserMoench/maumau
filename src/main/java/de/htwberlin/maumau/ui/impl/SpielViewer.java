@@ -49,7 +49,7 @@ public class SpielViewer {
      *
      * @return - boolean, der angibt ob der neuste Spieler ein Mensch sein soll
      */
-    public boolean spielerSollMenschSein() {
+    public boolean sollSpielerMenschSein() {
         System.out.println();
         System.out.println("Wenn der Spieler ein Mensch sein soll, gib bitte \"ja\" ein.");
         System.out.println("Soll der Spieler hingegen ein Computerspieler sein, gib \"nein\" ein");

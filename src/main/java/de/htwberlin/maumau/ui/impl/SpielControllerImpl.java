@@ -22,7 +22,7 @@ public class SpielControllerImpl implements SpielController {
 
         if(view.welcheSpielart()==1){
             do {
-                if(view.spielerSollMenschSein()==true){
+                if(view.sollSpielerMenschSein()==true){
                     //vorhandener Spieler
                     spielerliste.add(view.spielerHinzufuegen());
                 }else{
