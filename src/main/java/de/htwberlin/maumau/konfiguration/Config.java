@@ -12,7 +12,7 @@ import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.MutablePicoContainer;
 import org.picocontainer.injectors.ConstructorInjection;
 
-public class Config_backup {
+public class Config {
     private static MutablePicoContainer container = new DefaultPicoContainer(new ConstructorInjection());
 
     public static void main(String[] arg){
