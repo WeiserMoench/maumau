@@ -21,13 +21,14 @@ public class SpielControllerImpl implements SpielController {
     public void run(){
 
         if(view.welcheSpielart()==1){
-            while(view.sollSpielerHinzugefuegtWerden()==true){
+            do {
                 if(view.spielerSollMenschSein()==true){
+                    //vorhandener Spieler
                     spielerliste.add(view.spielerHinzufuegen());
                 }else{
                     System.out.println("KI Spieler hinzufügen, diese Funktion ist bisher nicht implementiert");
                 }
-            }
+            }while(view.sollSpielerHinzugefuegtWerden()==true);
             dasSpiel=spielService.anlegenSpiel(spielerliste);
             System.out.println("Danke fürs einrichten des Spieles");
 

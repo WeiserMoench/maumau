@@ -7,6 +7,11 @@ import java.util.Scanner;
 public class SpielViewer {
     private Scanner sc = new Scanner(System.in);
 
+    /**
+     * Diese Methode fragt ab, ob ein neues Spiel gestartet werden soll oder ein vorheriges fortgesetzt
+     *
+     * @return - 1 fuer neues Spiel, 2 fuer fortsetzen
+     */
     public Integer welcheSpielart(){
         int spielart=0;
         System.out.println("Willkommen beim MauMau Spiel");
@@ -27,6 +32,11 @@ public class SpielViewer {
         return spielart;
     }
 
+    /**
+     * Diese Methode fragt ab, ob ein weiterer Spieler hinzugefuegt werden soll
+     *
+     * @return boolean, ob weiterer Spieler erwuenscht ist
+     */
     public boolean sollSpielerHinzugefuegtWerden() {
         System.out.println();
         System.out.println("Möchtest du einen weiteren Spieler zum Spiel hinzufügen");
@@ -34,6 +44,11 @@ public class SpielViewer {
         return jaNeinAbfrage();
     }
 
+    /**
+     * Diese Methode fragt ab, ob der neue Spieler ein Mensch sein soll, oder sonst ein KI
+     *
+     * @return - boolean, der angibt ob der neuste Spieler ein Mensch sein soll
+     */
     public boolean spielerSollMenschSein() {
         System.out.println();
         System.out.println("Wenn der Spieler ein Mensch sein soll, gib bitte \"ja\" ein.");
@@ -42,6 +57,12 @@ public class SpielViewer {
         return jaNeinAbfrage();
     }
 
+    /**
+     * Methode fragt den Namen und die E-Mailadresse des hinzuzufuegenden Spielers ab
+     * und speichert diese Informationen in einer Liste
+     *
+     * @return - Liste aus zwei Strings, Name des Spielers - Emailadresse des Spielers
+     */
     public List<String> spielerHinzufuegen(){
         List<String> spieler = new ArrayList<>();
         System.out.println();
@@ -53,6 +74,14 @@ public class SpielViewer {
         spieler.add(email);
         return spieler;
     }
+
+    /**
+     * Diese Methode liest die Konsoleneingabe und prueft, ob mit ja oder nein geantwortet wurde,
+     * sofern dies nicht der Fall ist, wird ein Fehler ausgegeben und der Benutzer wird aufgefordert mit
+     * Ja oder nein zu antworten
+     *
+     * @return - boolean: true fuer ja, false fuer nein
+     */
     private boolean jaNeinAbfrage(){
         boolean weitererDurchgang=true;
         boolean rueckgabe=false;
