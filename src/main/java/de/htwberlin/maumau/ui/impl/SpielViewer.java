@@ -76,6 +76,27 @@ public class SpielViewer {
     }
 
     /**
+     * Diese Methode fragt erst ab, ob die Spieler die Regeln lesen wollen und im Anschluss
+     * nach welchen Regeln gespielt werden soll.
+     *
+     * @return - boolean, der angibt ob die erweiterten Regeln gewünscht sind
+     */
+    public boolean erweiterteRegeln(){
+        boolean antwort;
+        System.out.println();
+        System.out.println("Möchtet ihr euch die Regeln anzeigen lassen,\n" +
+                "bevor ihr entscheidet, ob ihr mit einfachen oder ereiterten Regeln spielt?\n" +
+                "ACHTUNG: Die Regeln können nur jetzt angesehen werden.");
+        antwort=jaNeinAbfrage();
+        if(antwort==true){
+            anzeigenRegeln();
+        }
+        System.out.println("Möchtet ihr nach erweiterten Regeln spielen?");
+        antwort=jaNeinAbfrage();
+    return antwort;
+    }
+
+    /**
      * Diese Methode liest die Konsoleneingabe und prueft, ob mit ja oder nein geantwortet wurde,
      * sofern dies nicht der Fall ist, wird ein Fehler ausgegeben und der Benutzer wird aufgefordert mit
      * Ja oder nein zu antworten
@@ -100,5 +121,30 @@ public class SpielViewer {
             }
         }
         return rueckgabe;
+    }
+
+    /**
+     * Diese Methode zeigt einfach die Regeln des Spieles an.
+     */
+    private void anzeigenRegeln(){
+        System.out.println();
+        System.out.println("----  DIE REGELN ----\n");
+        System.out.println("- Die einfachen Regeln -");
+        System.out.println("Jeder Spieler das im Uhrzeigersinn der Reihe nach jeweils eine Karte ablegen.\n" +
+                "Es darf nur eine Karte gelegt werden, wenn diese entweder in Farbe (Herz, Kreuz, Pik, Karo) \n" +
+                "oder in Wert (zum Beispiel: König oder 7) übereinstimmen.\n" +
+                "Sollte ein Spieler nicht legen können, so muss der eine Karte ziehen und der nächste ist an der Reihe.\n\n" +
+                "Wenn ein Spieler seine vorletzte Karte legen wollen, muss er zuvor \"Mau\" eingeben, dies geht immer,\n" +
+                "wenn er eine Karte legen soll. Wird \"Mau\" vergessen, bekommt der Spieler 2 Strafkarten auf die Hand.");
+        System.out.println();
+        System.out.println("- Die erweiterten Regeln -");
+        System.out.println("Die nachfolgenden Reglen gelten zusätzlich zu den einfachen Regeln.\n" +
+                "Wenn ein Spieler einen \"Buben\" legt, muss er sich eine Farbe wünschen, dabei spielt es keine Rolle,\n" +
+                "um welche Farbe es sich handelt.\n" +
+                "Legt ein Spieler eine \"7\", so muss der nächste Spieler 2 Karten ziehen, anstelle zu ziehen,\n" +
+                "kann auch er eine weitere \"7\" legen, sodass der nächste dann 4 Karten ziehen muss usw.\n" +
+                "Legt ein Spieler eine \"8\", so muss der nachfolgende Aussetzen.\n" +
+                "Legt hingegen ein Spieler eine \"9\" so wird die Spielrichtung umgedreht.");
+        System.out.println();
     }
 }

@@ -16,11 +16,14 @@ public class SpielControllerImpl implements SpielController {
     private Spiel dasSpiel = new Spiel();
     private boolean spielLaeuft = true;
     private int spielrundenindex = 0;
+    boolean erweiterteRegeln;
 
 
     public void run(){
 
         if(view.welcheSpielart()==1){
+            erweiterteRegeln=view.erweiterteRegeln();
+            System.out.println(erweiterteRegeln);
             do {
                 if(view.sollSpielerMenschSein()==true){
                     //vorhandener Spieler
