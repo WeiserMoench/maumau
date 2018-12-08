@@ -32,14 +32,33 @@ public class SpielServiceImpl implements SpielService {
     @Override
 
     public Spiel anlegenSpiel(List<List> spielerliste) {
-        //Testimplementierung für Controller und Viewer
+        Spiel spiel = new Spiel();
+        List<Spieler> spielerListe = new ArrayList<>();
+
+        //Testimplementierung für Controller und Viewer, eigentlich schon fertige
         for (List<String> spieler : spielerliste) {
+            Spieler derSpieler = new Spieler();
+            int durchgang = 1;
             for (String wert :spieler) {
-                System.out.println("Wert: " + wert);
+                if(durchgang==1){
+                    derSpieler.setName(wert);
+                    durchgang=durchgang+1;
+                }else{
+                    derSpieler.setEmail(wert);
+                }
             }
-            
+            spielerListe.add(derSpieler);
         }
-        return null;
+        spiel.setSpielerDesSpieles(spielerListe);
+        spiel.setAktiverSpieler(spiel.getSpielerDesSpieles().get(0));
+
+        spiel.setZiehstapelkarten(kartenService.mischenKartenstapel(kartenService.anlegenKartenstapel(), false));
+        spiel.setZiehstapelkarten(austeilenStart(spiel.getZiehstapelkarten(), spiel.getSpielerDesSpieles(), anzahlStartkartenbestimmen(spiel.getSpielerDesSpieles(), spiel.getZiehstapelkarten())));
+
+
+
+
+        return spiel;
     }
 
     //Dustin

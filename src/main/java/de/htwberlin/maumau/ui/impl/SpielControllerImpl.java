@@ -33,7 +33,7 @@ public class SpielControllerImpl implements SpielController {
             System.out.println("Danke fürs einrichten des Spieles");
 
             while(spielLaeuft){
-                if(spielrundenindex >=0 ){
+                if(spielrundenindex >0 ){
                     spielService.naechsterSpieler(dasSpiel);
                 }
                 spielService.zuZiehendeKarte(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());

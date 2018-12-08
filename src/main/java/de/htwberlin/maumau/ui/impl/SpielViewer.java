@@ -39,7 +39,7 @@ public class SpielViewer {
      */
     public boolean sollSpielerHinzugefuegtWerden() {
         System.out.println();
-        System.out.println("Möchtest du einen weiteren Spieler zum Spiel hinzufügen");
+        System.out.println("Möchtest du einen weiteren Spieler zum Spiel hinzufügen?");
 
         return jaNeinAbfrage();
     }
