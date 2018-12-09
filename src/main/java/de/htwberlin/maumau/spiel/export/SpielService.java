@@ -37,7 +37,7 @@ public interface SpielService {
      * @param ziehStapel - Der Ziehstapel des Spieles
      * @return - die oberste Karte
      */
-    Karte ziehenKarteVomZiehstapel(List<Karte> ziehStapel);
+    Spiel ziehenKarteVomZiehstapel(Spiel spiel);
 
     /**
      * Diese Methode entfernt eine Karte aus einem Stapel

@@ -21,11 +21,12 @@ public class SpielerServiceImpl implements SpielerService {
 
     @Override
     // ob implementierung reicht, habe ich nicht geprueft Christian
-    public void karteZuHandblatthinzufuegen(Karte karte, Spieler spieler) {
+    public Spieler karteZuHandblatthinzufuegen(Karte karte, Spieler spieler) {
         handkarten = new ArrayList<>();
         handkarten = spieler.getHandkarten();
         handkarten.add(karte);
         spieler.setHandkarten(handkarten);
+        return spieler;
     }
 
     @Override

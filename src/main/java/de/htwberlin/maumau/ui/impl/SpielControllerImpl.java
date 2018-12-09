@@ -38,7 +38,6 @@ public class SpielControllerImpl implements SpielController {
 
         if(welcheSpielart()==1){
             erweiterteRegeln=erweiterteRegeln();
-            System.out.println(erweiterteRegeln);
             do {
                 if(sollSpielerMenschSein()==true){
                     //vorhandener Spieler
@@ -58,9 +57,11 @@ public class SpielControllerImpl implements SpielController {
                 spielerInfos();
                 while(musslegen) {
                     kartennummer=welcheKarteSollGelegtWerden(dasSpiel.getAktiverSpieler().getHandkarten());
-                    System.out.println(kartennummer);
                     spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(kartennummer), dasSpiel.getAktiverSpieler(), dasSpiel);
                     musslegen=!dasSpiel.isErfolgreichgelegt();
+                    if(true){
+                        view.falscheKarte();
+                    }
                     //spieler kann nicht legen und muss ziehen
                 }
                 spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
@@ -82,13 +83,18 @@ public class SpielControllerImpl implements SpielController {
         Farbe obersteKarteAblagestapelFarbe;
         String obersteKarteAblagestapelWert;
         String spielername;
+        int anzahlGezogenerKarten;
 
         obersteKarteAblagestapelFarbe = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getFarbe();
         obersteKarteAblagestapelWert = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getWert();
 
         spielername = dasSpiel.getAktiverSpieler().getName();
 
-        view.infosfuerNaechstenSpieler(obersteKarteAblagestapelFarbe, obersteKarteAblagestapelWert,spielername);
+        anzahlGezogenerKarten = dasSpiel.getSummeZuziehendeKarten();
+
+        view.infosfuerNaechstenSpieler(obersteKarteAblagestapelFarbe, obersteKarteAblagestapelWert,spielername, anzahlGezogenerKarten);
+
+        dasSpiel.setSummeZuziehendeKarten(0);
     }
 
 
@@ -107,11 +113,14 @@ public class SpielControllerImpl implements SpielController {
         do{
             antwort=sc.next();
             antwort=antwort.toLowerCase();
-            if(antwort=="mau"){
+            if(antwort.equals("mau")){
                 view.maugesagt();
                 setSagteMau(true);
                 erneutesFragen=true;
-            }else {
+            }else if(antwort.equals("ziehen")){
+                dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
+                erneutesFragen=false;
+            }else{
                 try{
                     antwortAlsZahl = Integer.parseInt(antwort);
                     if(antwortAlsZahl>=0){

@@ -77,11 +77,11 @@ public class SpielServiceTest {
 
     }
 
-    @Test
-    public void testZieheKarteVomZiehStapel(){
-        ziehstapel.add(pik8);
-        assertEquals(pik8, service.ziehenKarteVomZiehstapel(ziehstapel));
-    }
+//    @Test
+//    public void testZieheKarteVomZiehStapel(){
+//        ziehstapel.add(pik8);
+//        assertEquals(pik8, service.ziehenKarteVomZiehstapel(ziehstapel));
+//    }
 
 //    @Test
 //    public void testMussGemischtWerden(){

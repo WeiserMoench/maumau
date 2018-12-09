@@ -73,6 +73,7 @@ public class SpielViewer {
 
     public void welcheKarteAblegen() {
         System.out.println("Welche Karte möchtest du legen? (Sollte \"Mau\" nötig sein, gib es jetzt ein)\n" +
+                "Wenn keine Karte möglich ist, einfach \"ziehen\" eingeben."+
                 "Gib bitte die Kartennummer ein.");
     }
 
@@ -112,9 +113,14 @@ public class SpielViewer {
         System.out.println("Möchtet ihr nach erweiterten Regeln spielen?");
     }
 
-    public void infosfuerNaechstenSpieler(Farbe obersteKarteAblagestapelFarbe, String obersteKarteAblagestapelWert, String spielername) {
+    public void infosfuerNaechstenSpieler(Farbe obersteKarteAblagestapelFarbe, String obersteKarteAblagestapelWert, String spielername, int anzahlGezogenerKarten) {
         System.out.println("\n\n-- Aktueller Spieler --");
         System.out.println(spielername);
         System.out.println("\nDie obsterste Karte des Ablagestapels zeigt: " + obersteKarteAblagestapelFarbe + " " + obersteKarteAblagestapelWert+ "\n");
+        System.out.println("Du musstest " + anzahlGezogenerKarten + " Karten ziehen");
+    }
+
+    public void falscheKarte() {
+        System.out.println("Du hast versucht eine nicht mögliche Karte zulegen, versuche es erneut");
     }
 }

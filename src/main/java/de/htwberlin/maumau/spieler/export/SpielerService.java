@@ -14,11 +14,10 @@ public interface SpielerService {
 
     /**
      * Diese Methode fuegt einem Spieler eine Karte zu seinen Handkarten hinzu
-     *
-     * @param karte - Die Karte die Hinzugefuegt werden soll
+     *  @param karte - Die Karte die Hinzugefuegt werden soll
      * @param spieler - Der Spieler, dem die Karte hinzugefuegt werden soll
      */
-    void karteZuHandblatthinzufuegen(Karte karte, Spieler spieler);
+    Spieler karteZuHandblatthinzufuegen(Karte karte, Spieler spieler);
 
     /**
      * Diese Methode entfernt eine Karte aus den Handkarten eines Spielers

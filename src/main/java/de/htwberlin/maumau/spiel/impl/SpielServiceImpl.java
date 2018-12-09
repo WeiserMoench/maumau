@@ -74,10 +74,11 @@ public class SpielServiceImpl implements SpielService {
     //Dustin
     // ist das nicht intern?
     @Override
-    public Karte ziehenKarteVomZiehstapel(List<Karte> ziehStapel) {
-        Karte karte = ziehStapel.get(0);
-
-        return karte;
+    public Spiel ziehenKarteVomZiehstapel(Spiel spiel) {
+        Karte karte = spiel.getZiehstapelkarten().get(spiel.getZiehstapelkarten().size()-1);
+        spielerService.karteZuHandblatthinzufuegen(karte, spiel.getAktiverSpieler());
+        spiel.getZiehstapelkarten().remove(karte);
+        return spiel;
     }
 
     public Spiel legeKarte(Karte zulegendeKarte, Spieler spieler, Spiel spiel){
@@ -88,8 +89,6 @@ public class SpielServiceImpl implements SpielService {
             spiel.setErfolgreichgelegt(true);
             if(regeln.mussSichFarbeWuenschen(zulegendeKarte)){
                 spiel.setMussFarbeWuenschen(true);
-            }else{
-//                 spiel=naechsterSpieler(spiel);
             }
             return spiel;
         }
