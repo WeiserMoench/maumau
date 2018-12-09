@@ -56,6 +56,7 @@ public class SpielServiceImpl implements SpielService {
         spiel.setZiehstapelkarten(kartenService.mischenKartenstapel(kartenService.anlegenKartenstapel(), false));
         spiel.setZiehstapelkarten(austeilenStart(spiel.getZiehstapelkarten(), spiel.getSpielerDesSpieles(), anzahlStartkartenbestimmen(spiel.getSpielerDesSpieles(), spiel.getZiehstapelkarten())));
         ablagestapel.add(spiel.getZiehstapelkarten().get(spiel.getZiehstapelkarten().size()-1));
+        spiel.setZiehstapelkarten(entferneGezogendeKarteVomZiehstapel(spiel.getZiehstapelkarten(), spiel.getZiehstapelkarten().get(spiel.getZiehstapelkarten().size()-1)));
         spiel.setAblagestapelkarten(ablagestapel);
         return spiel;
     }
@@ -77,7 +78,7 @@ public class SpielServiceImpl implements SpielService {
     public Spiel ziehenKarteVomZiehstapel(Spiel spiel) {
         Karte karte = spiel.getZiehstapelkarten().get(spiel.getZiehstapelkarten().size()-1);
         spielerService.karteZuHandblatthinzufuegen(karte, spiel.getAktiverSpieler());
-        spiel.getZiehstapelkarten().remove(karte);
+        spiel.setZiehstapelkarten(entferneGezogendeKarteVomZiehstapel(spiel.getZiehstapelkarten(), karte));
         return spiel;
     }
 

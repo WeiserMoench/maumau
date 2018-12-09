@@ -52,18 +52,20 @@ public class SpielControllerImpl implements SpielController {
                     spielService.naechsterSpieler(dasSpiel);
                 }
                 spielService.zuZiehendeKarte(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
-                int kartennummer = 0;
-                boolean musslegen = true;
                 spielerInfos();
-                while(musslegen) {
-                    kartennummer=welcheKarteSollGelegtWerden(dasSpiel.getAktiverSpieler().getHandkarten());
-                    spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(kartennummer), dasSpiel.getAktiverSpieler(), dasSpiel);
-                    musslegen=!dasSpiel.isErfolgreichgelegt();
-                    if(true){
-                        view.falscheKarte();
-                    }
-                    //spieler kann nicht legen und muss ziehen
-                }
+                dasSpiel=kartelegen(dasSpiel);
+//                int kartennummer = 0;
+//                boolean musslegen = true;
+//
+//                while(musslegen) {
+//                    kartennummer=welcheKarteSollGelegtWerden(dasSpiel.getAktiverSpieler().getHandkarten());
+//                    spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(kartennummer), dasSpiel.getAktiverSpieler(), dasSpiel);
+//                    musslegen=!dasSpiel.isErfolgreichgelegt();
+//                    if(true){
+//                        view.falscheKarte();
+//                    }
+//                    //spieler kann nicht legen und muss ziehen
+//                }
                 spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
                 if(spielLaeuft==false){
                     System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
@@ -98,16 +100,16 @@ public class SpielControllerImpl implements SpielController {
     }
 
 
-    private int welcheKarteSollGelegtWerden(List<Karte> handkarten){
+    private Spiel kartelegen(Spiel spiel){
         String antwort;
         boolean erneutesFragen=false;
         int antwortAlsZahl;
         int gewuenschteKarte = 0;
 
         view.welcheKarteAblegen();
-        for (int kartennummer = 0; kartennummer<handkarten.size();kartennummer++){
-            Farbe farbe = handkarten.get(kartennummer).getFarbe();
-            String wert = handkarten.get(kartennummer).getWert();
+        for (int kartennummer = 0; kartennummer<spiel.getAktiverSpieler().getHandkarten().size();kartennummer++){
+            Farbe farbe = spiel.getAktiverSpieler().getHandkarten().get(kartennummer).getFarbe();
+            String wert = spiel.getAktiverSpieler().getHandkarten().get(kartennummer).getWert();
             view.ausgabeKarte(kartennummer,farbe,wert);
         }
         do{
@@ -124,8 +126,10 @@ public class SpielControllerImpl implements SpielController {
                 try{
                     antwortAlsZahl = Integer.parseInt(antwort);
                     if(antwortAlsZahl>=0){
-                        if(antwortAlsZahl<handkarten.size()){
+                        if(antwortAlsZahl<spiel.getAktiverSpieler().getHandkarten().size()){
                             gewuenschteKarte=antwortAlsZahl;
+                            spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(gewuenschteKarte), dasSpiel.getAktiverSpieler(), dasSpiel);
+                            erneutesFragen=!dasSpiel.isErfolgreichgelegt();
                         }else{
                             erneutesFragen=true;
                             view.kartennummerUnsinnig();
@@ -141,8 +145,65 @@ public class SpielControllerImpl implements SpielController {
             }
         }while (erneutesFragen);
 
-        return gewuenschteKarte;
+        return spiel;
     }
+
+//    int kartennummer = 0;
+//    boolean musslegen = true;
+//    while(musslegen) {
+//        kartennummer=welcheKarteSollGelegtWerden(dasSpiel.getAktiverSpieler().getHandkarten());
+//        spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(kartennummer), dasSpiel.getAktiverSpieler(), dasSpiel);
+//            musslegen=!dasSpiel.isErfolgreichgelegt();
+//            if(true){
+//                view.falscheKarte();
+//            }
+//    }
+
+//    private int welcheKarteSollGelegtWerden(List<Karte> handkarten){
+//        String antwort;
+//        boolean erneutesFragen=false;
+//        int antwortAlsZahl;
+//        int gewuenschteKarte = 0;
+//
+//        view.welcheKarteAblegen();
+//        for (int kartennummer = 0; kartennummer<handkarten.size();kartennummer++){
+//            Farbe farbe = handkarten.get(kartennummer).getFarbe();
+//            String wert = handkarten.get(kartennummer).getWert();
+//            view.ausgabeKarte(kartennummer,farbe,wert);
+//        }
+//        do{
+//            antwort=sc.next();
+//            antwort=antwort.toLowerCase();
+//            if(antwort.equals("mau")){
+//                view.maugesagt();
+//                setSagteMau(true);
+//                erneutesFragen=true;
+//            }else if(antwort.equals("ziehen")){
+//                dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
+//                erneutesFragen=false;
+//            }else{
+//                try{
+//                    antwortAlsZahl = Integer.parseInt(antwort);
+//                    if(antwortAlsZahl>=0){
+//                        if(antwortAlsZahl<handkarten.size()){
+//                            gewuenschteKarte=antwortAlsZahl;
+//                        }else{
+//                            erneutesFragen=true;
+//                            view.kartennummerUnsinnig();
+//                        }
+//                    }else{
+//                        erneutesFragen=true;
+//                        view.kartennummerUnsinnig();
+//                    }
+//                }catch (Exception e){
+//                    view.kartennummerUnsinnig();
+//                    erneutesFragen=true;
+//                }
+//            }
+//        }while (erneutesFragen);
+//
+//        return gewuenschteKarte;
+//    }
 
     /**
      * Diese Methode fragt ab, ob ein neues Spiel gestartet werden soll oder ein vorheriges fortgesetzt
