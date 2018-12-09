@@ -48,8 +48,6 @@ public class SpielControllerImpl implements SpielController {
                 }
             }while(sollSpielerHinzugefuegtWerden()==true);
             dasSpiel=spielService.anlegenSpiel(spielerliste);
-            System.out.println("Danke fürs einrichten des Spieles");
-
             while(spielLaeuft){
                 if(spielrundenindex >0 ){
                     spielService.naechsterSpieler(dasSpiel);
@@ -57,6 +55,7 @@ public class SpielControllerImpl implements SpielController {
                 spielService.zuZiehendeKarte(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
                 int kartennummer = 0;
                 boolean musslegen = true;
+                spielerInfos();
                 while(musslegen) {
                     kartennummer=welcheKarteSollGelegtWerden(dasSpiel.getAktiverSpieler().getHandkarten());
                     System.out.println(kartennummer);
@@ -79,7 +78,18 @@ public class SpielControllerImpl implements SpielController {
 
     }
 
+    private void spielerInfos() {
+        Farbe obersteKarteAblagestapelFarbe;
+        String obersteKarteAblagestapelWert;
+        String spielername;
 
+        obersteKarteAblagestapelFarbe = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getFarbe();
+        obersteKarteAblagestapelWert = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getWert();
+
+        spielername = dasSpiel.getAktiverSpieler().getName();
+
+        view.infosfuerNaechstenSpieler(obersteKarteAblagestapelFarbe, obersteKarteAblagestapelWert,spielername);
+    }
 
 
     private int welcheKarteSollGelegtWerden(List<Karte> handkarten){
@@ -229,5 +239,7 @@ public class SpielControllerImpl implements SpielController {
         antwort=jaNeinAbfrage();
         return antwort;
     }
+
+
 
 }

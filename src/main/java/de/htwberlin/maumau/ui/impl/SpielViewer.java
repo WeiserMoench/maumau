@@ -55,8 +55,7 @@ public class SpielViewer {
         System.out.println("Die nachfolgenden Reglen gelten zusätzlich zu den einfachen Regeln.\n" +
                 "Wenn ein Spieler einen \"Buben\" legt, muss er sich eine Farbe wünschen, dabei spielt es keine Rolle,\n" +
                 "um welche Farbe es sich handelt.\n" +
-                "Legt ein Spieler eine \"7\", so muss der nächste Spieler 2 Karten ziehen, anstelle zu ziehen,\n" +
-                "kann auch er eine weitere \"7\" legen, sodass der nächste dann 4 Karten ziehen muss usw.\n" +
+                "Legt ein Spieler eine \"7\", so muss der nächste Spieler 2 Karten ziehen.\n" +
                 "Legt ein Spieler eine \"8\", so muss der nachfolgende Aussetzen.\n" +
                 "Legt hingegen ein Spieler eine \"9\" so wird die Spielrichtung umgedreht.");
         System.out.println();
@@ -111,5 +110,11 @@ public class SpielViewer {
 
     public void sollNachErweitertenRegelnGespieltWerden() {
         System.out.println("Möchtet ihr nach erweiterten Regeln spielen?");
+    }
+
+    public void infosfuerNaechstenSpieler(Farbe obersteKarteAblagestapelFarbe, String obersteKarteAblagestapelWert, String spielername) {
+        System.out.println("\n\n-- Aktueller Spieler --");
+        System.out.println(spielername);
+        System.out.println("\nDie obsterste Karte des Ablagestapels zeigt: " + obersteKarteAblagestapelFarbe + " " + obersteKarteAblagestapelWert+ "\n");
     }
 }

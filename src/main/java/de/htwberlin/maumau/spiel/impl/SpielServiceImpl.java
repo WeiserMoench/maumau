@@ -34,8 +34,9 @@ public class SpielServiceImpl implements SpielService {
     public Spiel anlegenSpiel(List<List> spielerliste) {
         Spiel spiel = new Spiel();
         List<Spieler> spielerListe = new ArrayList<>();
+        List<Karte> ablagestapel = new ArrayList<>();
 
-        //Testimplementierung für Controller und Viewer, eigentlich schon fertige
+        //Testimplementierung für Controller und Viewer, eigentlich schon fertig
         for (List<String> spieler : spielerliste) {
             Spieler derSpieler = new Spieler();
             int durchgang = 1;
@@ -54,7 +55,8 @@ public class SpielServiceImpl implements SpielService {
 
         spiel.setZiehstapelkarten(kartenService.mischenKartenstapel(kartenService.anlegenKartenstapel(), false));
         spiel.setZiehstapelkarten(austeilenStart(spiel.getZiehstapelkarten(), spiel.getSpielerDesSpieles(), anzahlStartkartenbestimmen(spiel.getSpielerDesSpieles(), spiel.getZiehstapelkarten())));
-
+        ablagestapel.add(spiel.getZiehstapelkarten().get(spiel.getZiehstapelkarten().size()-1));
+        spiel.setAblagestapelkarten(ablagestapel);
         return spiel;
     }
 
@@ -145,15 +147,15 @@ public class SpielServiceImpl implements SpielService {
     // ist das nicht intern?
     // macht das so sinn, was ist mit den veraenderten Spielern
     @Override
-    public List<Karte> austeilenStart(List<Karte> kartenDeck, List<Spieler> spielerListe, int durchgaenge) {
+    public List<Karte> austeilenStart(List<Karte> ziehstapel, List<Spieler> spielerListe, int durchgaenge) {
         for (int runden = 0; runden < durchgaenge; runden++) {
             for (int spielerzaehler = 0; spielerzaehler < spielerListe.size(); spielerzaehler++) {
-                Karte karte = kartenDeck.get(kartenDeck.size() - 1);
+                Karte karte = ziehstapel.get(ziehstapel.size() - 1);
                 spielerService.karteZuHandblatthinzufuegen(karte, spielerListe.get(spielerzaehler));
-                kartenDeck.remove(karte);
+                ziehstapel.remove(karte);
             }
         }
-        return kartenDeck;
+        return ziehstapel;
     }
 
     // ist das nicht intern?
