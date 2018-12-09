@@ -110,7 +110,7 @@ public class SpielViewer {
     }
 
     public void sollNachErweitertenRegelnGespieltWerden() {
-        System.out.println("Möchtet ihr nach erweiterten Regeln spielen?");
+        System.out.println("Möchtet ihr nach erweiterten Regeln spielen? NOCH OHNE FUNKTION");
     }
 
     public void infosfuerNaechstenSpieler(Farbe obersteKarteAblagestapelFarbe, String obersteKarteAblagestapelWert, String spielername, int anzahlGezogenerKarten) {

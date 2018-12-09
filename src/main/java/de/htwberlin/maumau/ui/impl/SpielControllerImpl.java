@@ -127,9 +127,12 @@ public class SpielControllerImpl implements SpielController {
                     antwortAlsZahl = Integer.parseInt(antwort);
                     if(antwortAlsZahl>=0){
                         if(antwortAlsZahl<spiel.getAktiverSpieler().getHandkarten().size()){
-                            gewuenschteKarte=antwortAlsZahl;
-                            spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(gewuenschteKarte), dasSpiel.getAktiverSpieler(), dasSpiel);
+//                            gewuenschteKarte=antwortAlsZahl;
+                            spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(antwortAlsZahl), dasSpiel.getAktiverSpieler(), dasSpiel);
                             erneutesFragen=!dasSpiel.isErfolgreichgelegt();
+                            if(erneutesFragen){
+                                view.falscheKarte();
+                            }
                         }else{
                             erneutesFragen=true;
                             view.kartennummerUnsinnig();
