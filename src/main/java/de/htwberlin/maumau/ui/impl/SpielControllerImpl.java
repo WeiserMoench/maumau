@@ -54,18 +54,6 @@ public class SpielControllerImpl implements SpielController {
                 spielService.zuZiehendeKarte(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
                 spielerInfos();
                 dasSpiel=kartelegen(dasSpiel);
-//                int kartennummer = 0;
-//                boolean musslegen = true;
-//
-//                while(musslegen) {
-//                    kartennummer=welcheKarteSollGelegtWerden(dasSpiel.getAktiverSpieler().getHandkarten());
-//                    spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(kartennummer), dasSpiel.getAktiverSpieler(), dasSpiel);
-//                    musslegen=!dasSpiel.isErfolgreichgelegt();
-//                    if(true){
-//                        view.falscheKarte();
-//                    }
-//                    //spieler kann nicht legen und muss ziehen
-//                }
                 spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
                 if(spielLaeuft==false){
                     System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
@@ -99,12 +87,18 @@ public class SpielControllerImpl implements SpielController {
         dasSpiel.setSummeZuziehendeKarten(0);
     }
 
-
+    /**
+     * Diese Methode kuemmert sich um das legen einer Karte. dafuer werden dem Spieler erst einmal alle benoetigten Informationen angezeigt
+     * Der Spieler muss eine entscheidung treffen und die karte wird gespielt
+     *
+     * @param spiel - das zu aendernde Spiel
+     * @return - das Spiel in neuer Form
+     */
+    //Ueberarbeitung noetig, falls letzte Karte ein Bube war
     private Spiel kartelegen(Spiel spiel){
         String antwort;
         boolean erneutesFragen=false;
         int antwortAlsZahl;
-        int gewuenschteKarte = 0;
 
         view.welcheKarteAblegen();
         for (int kartennummer = 0; kartennummer<spiel.getAktiverSpieler().getHandkarten().size();kartennummer++){
@@ -127,7 +121,6 @@ public class SpielControllerImpl implements SpielController {
                     antwortAlsZahl = Integer.parseInt(antwort);
                     if(antwortAlsZahl>=0){
                         if(antwortAlsZahl<spiel.getAktiverSpieler().getHandkarten().size()){
-//                            gewuenschteKarte=antwortAlsZahl;
                             spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(antwortAlsZahl), dasSpiel.getAktiverSpieler(), dasSpiel);
                             erneutesFragen=!dasSpiel.isErfolgreichgelegt();
                             if(erneutesFragen){
@@ -150,63 +143,6 @@ public class SpielControllerImpl implements SpielController {
 
         return spiel;
     }
-
-//    int kartennummer = 0;
-//    boolean musslegen = true;
-//    while(musslegen) {
-//        kartennummer=welcheKarteSollGelegtWerden(dasSpiel.getAktiverSpieler().getHandkarten());
-//        spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(kartennummer), dasSpiel.getAktiverSpieler(), dasSpiel);
-//            musslegen=!dasSpiel.isErfolgreichgelegt();
-//            if(true){
-//                view.falscheKarte();
-//            }
-//    }
-
-//    private int welcheKarteSollGelegtWerden(List<Karte> handkarten){
-//        String antwort;
-//        boolean erneutesFragen=false;
-//        int antwortAlsZahl;
-//        int gewuenschteKarte = 0;
-//
-//        view.welcheKarteAblegen();
-//        for (int kartennummer = 0; kartennummer<handkarten.size();kartennummer++){
-//            Farbe farbe = handkarten.get(kartennummer).getFarbe();
-//            String wert = handkarten.get(kartennummer).getWert();
-//            view.ausgabeKarte(kartennummer,farbe,wert);
-//        }
-//        do{
-//            antwort=sc.next();
-//            antwort=antwort.toLowerCase();
-//            if(antwort.equals("mau")){
-//                view.maugesagt();
-//                setSagteMau(true);
-//                erneutesFragen=true;
-//            }else if(antwort.equals("ziehen")){
-//                dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
-//                erneutesFragen=false;
-//            }else{
-//                try{
-//                    antwortAlsZahl = Integer.parseInt(antwort);
-//                    if(antwortAlsZahl>=0){
-//                        if(antwortAlsZahl<handkarten.size()){
-//                            gewuenschteKarte=antwortAlsZahl;
-//                        }else{
-//                            erneutesFragen=true;
-//                            view.kartennummerUnsinnig();
-//                        }
-//                    }else{
-//                        erneutesFragen=true;
-//                        view.kartennummerUnsinnig();
-//                    }
-//                }catch (Exception e){
-//                    view.kartennummerUnsinnig();
-//                    erneutesFragen=true;
-//                }
-//            }
-//        }while (erneutesFragen);
-//
-//        return gewuenschteKarte;
-//    }
 
     /**
      * Diese Methode fragt ab, ob ein neues Spiel gestartet werden soll oder ein vorheriges fortgesetzt

@@ -61,27 +61,45 @@ public class SpielViewer {
         System.out.println();
     }
 
+    /**
+     * Feedback, wenn der Spieler Mau gesagt hat
+     */
     public void maugesagt(){
         System.out.println("Du hast soeben \"Mau\" gesagt.");
         System.out.println("Welche Karte möchtest du legen?");
-
     }
 
+    /**
+     * Gibt die Infos zu einer Karte aus
+     * @param kartennummer - Kartennummer auf der Hand
+     * @param farbe - Farbe der Karte
+     * @param wert - Wert der Karte
+     */
     public void ausgabeKarte(int kartennummer, Farbe farbe, String wert) {
         System.out.println("Kartennummer " + kartennummer + " : " + farbe + " " + wert);
     }
 
+    /**
+     * Methode fragt, welche Karte der Spieler ablegen will oder ob er eine Ziehen will
+     * Außerdem das der Spieler hier Mau sagen könnte
+     */
     public void welcheKarteAblegen() {
         System.out.println("Welche Karte möchtest du legen? (Sollte \"Mau\" nötig sein, gib es jetzt ein)\n" +
                 "Wenn keine Karte möglich ist, einfach \"ziehen\" eingeben."+
                 "Gib bitte die Kartennummer ein.");
     }
 
+    /**
+     * Methode sagt dem Spieler das die Nummer siner Handkarte unsinnig ist
+     */
     public void kartennummerUnsinnig() {
         System.out.println("Du hast eine Eingabe getätigt, die bei deinen Handkarten nicht sinnig ist.\n" +
                 "Bitte gib eine Zahl an, die möglich ist");
     }
 
+    /**
+     * Methode begruesst den Spieler zu einem neuen Spiel
+     */
     public void willkommen() {
         System.out.println("Willkommen beim MauMau Spiel");
         System.out.println("Wenn du ein neues Spiel beginnen willst, gibt bitte die 1 ein");
@@ -89,19 +107,31 @@ public class SpielViewer {
         System.out.println("Welche Variante möchtest du spielen?");
     }
 
+    /**
+     * Methode weisst den Spieler daraufhin, dass eine 1 oder 2 erwartet wurde
+     */
     public void fehlerhafteEingabeEinsZwei() {
         System.out.println("Deine Eingabe war falsch, bitte gib eine 1 oder eine 2 ein");
     }
 
+    /**
+     * Methode fragt nach dem Namen des Spieler
+     */
     public void spielerNamenAnfragen() {
         System.out.println();
         System.out.println("Name des Spielers");
     }
 
+    /**
+     * Methode fragt nach der Emailadresse des Spielers
+     */
     public void spielerEMailAnfragen() {
         System.out.println("Emailadresse des Spielers");
     }
 
+    /**
+     * Methode fragt, ob die Regeln angezeigt werden sollen
+     */
     public void sollenRegelnAngezeigtWerden() {
         System.out.println();
         System.out.println("Möchtet ihr euch die Regeln anzeigen lassen,\n" +
@@ -109,10 +139,21 @@ public class SpielViewer {
                 "ACHTUNG: Die Regeln können nur jetzt angesehen werden.");
     }
 
+    /**
+     * Methode fragt, ob nach erweiterten Regeln gespielt werden soll
+     */
     public void sollNachErweitertenRegelnGespieltWerden() {
         System.out.println("Möchtet ihr nach erweiterten Regeln spielen? NOCH OHNE FUNKTION");
     }
 
+    /**
+     * Diese Methode zeigt dem jeweils naechsten Spieler alle wichtigen Infos zu seinem Zug an
+     *
+     * @param obersteKarteAblagestapelFarbe - Farbe der zuletzt gelegten Karte
+     * @param obersteKarteAblagestapelWert - Wert der zuletzt gelegten Karte
+     * @param spielername - Name des Spielers
+     * @param anzahlGezogenerKarten - Anzahl der Karten die er zu beginn seines Zuges ziehen musste
+     */
     public void infosfuerNaechstenSpieler(Farbe obersteKarteAblagestapelFarbe, String obersteKarteAblagestapelWert, String spielername, int anzahlGezogenerKarten) {
         System.out.println("\n\n-- Aktueller Spieler --");
         System.out.println(spielername);
@@ -120,6 +161,9 @@ public class SpielViewer {
         System.out.println("Du musstest " + anzahlGezogenerKarten + " Karten ziehen");
     }
 
+    /**
+     * Methode weisst den Spieler darauf hin, dass er eine falsche Karte ziehen wollte
+     */
     public void falscheKarte() {
         System.out.println("Du hast versucht eine nicht mögliche Karte zulegen, versuche es erneut");
     }
