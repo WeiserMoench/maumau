@@ -55,9 +55,6 @@ public class SpielServiceImpl implements SpielService {
         spiel.setZiehstapelkarten(kartenService.mischenKartenstapel(kartenService.anlegenKartenstapel(), false));
         spiel.setZiehstapelkarten(austeilenStart(spiel.getZiehstapelkarten(), spiel.getSpielerDesSpieles(), anzahlStartkartenbestimmen(spiel.getSpielerDesSpieles(), spiel.getZiehstapelkarten())));
 
-
-
-
         return spiel;
     }
 
@@ -152,7 +149,7 @@ public class SpielServiceImpl implements SpielService {
         for (int runden = 0; runden < durchgaenge; runden++) {
             for (int spielerzaehler = 0; spielerzaehler < spielerListe.size(); spielerzaehler++) {
                 Karte karte = kartenDeck.get(kartenDeck.size() - 1);
-                spielerService.karteausHandblattentfernden(karte, spielerListe.get(spielerzaehler));
+                spielerService.karteZuHandblatthinzufuegen(karte, spielerListe.get(spielerzaehler));
                 kartenDeck.remove(karte);
             }
         }

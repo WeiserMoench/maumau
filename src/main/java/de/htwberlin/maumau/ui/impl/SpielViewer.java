@@ -1,47 +1,18 @@
 package de.htwberlin.maumau.ui.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import de.htwberlin.maumau.karten.entity.Farbe;
 
 public class SpielViewer {
-    private Scanner sc = new Scanner(System.in);
 
-    /**
-     * Diese Methode fragt ab, ob ein neues Spiel gestartet werden soll oder ein vorheriges fortgesetzt
-     *
-     * @return - 1 fuer neues Spiel, 2 fuer fortsetzen
-     */
-    public Integer welcheSpielart(){
-        int spielart=0;
-        System.out.println("Willkommen beim MauMau Spiel");
-        System.out.println("Wenn du ein neues Spiel beginnen willst, gibt bitte die 1 ein");
-        System.out.println("Wenn du ein Spiel fortsetzen möchtest, wähle die 2 (noch ohne Funktion)");
-        System.out.println("Welche Variante möchtest du spielen?");
-
-        while(spielart==0){
-            String eingabe = sc.next();
-            if(eingabe.equals("1")){
-                spielart=1;
-            }else if (eingabe.equals("2")){
-                spielart=2;
-            }else{
-                System.out.println("Deine Eingabe war falsch, bitte gib eine 1 oder eine 2 ein");
-            }
-        }
-        return spielart;
-    }
 
     /**
      * Diese Methode fragt ab, ob ein weiterer Spieler hinzugefuegt werden soll
      *
      * @return boolean, ob weiterer Spieler erwuenscht ist
      */
-    public boolean sollSpielerHinzugefuegtWerden() {
+    public void sollSpielerHinzugefuegtWerden() {
         System.out.println();
         System.out.println("Möchtest du einen weiteren Spieler zum Spiel hinzufügen?");
-
-        return jaNeinAbfrage();
     }
 
     /**
@@ -49,51 +20,10 @@ public class SpielViewer {
      *
      * @return - boolean, der angibt ob der neuste Spieler ein Mensch sein soll
      */
-    public boolean sollSpielerMenschSein() {
+    public void sollSpielerMenschSein() {
         System.out.println();
         System.out.println("Wenn der Spieler ein Mensch sein soll, gib bitte \"ja\" ein.");
         System.out.println("Soll der Spieler hingegen ein Computerspieler sein, gib \"nein\" ein");
-
-        return jaNeinAbfrage();
-    }
-
-    /**
-     * Methode fragt den Namen und die E-Mailadresse des hinzuzufuegenden Spielers ab
-     * und speichert diese Informationen in einer Liste
-     *
-     * @return - Liste aus zwei Strings, Name des Spielers - Emailadresse des Spielers
-     */
-    public List<String> spielerHinzufuegen(){
-        List<String> spieler = new ArrayList<>();
-        System.out.println();
-        System.out.println("Name des Spielers");
-        String name = sc.next();
-        System.out.println("Emailadresse des Spielers");
-        String email = sc.next();
-        spieler.add(name);
-        spieler.add(email);
-        return spieler;
-    }
-
-    /**
-     * Diese Methode fragt erst ab, ob die Spieler die Regeln lesen wollen und im Anschluss
-     * nach welchen Regeln gespielt werden soll.
-     *
-     * @return - boolean, der angibt ob die erweiterten Regeln gewünscht sind
-     */
-    public boolean erweiterteRegeln(){
-        boolean antwort;
-        System.out.println();
-        System.out.println("Möchtet ihr euch die Regeln anzeigen lassen,\n" +
-                "bevor ihr entscheidet, ob ihr mit einfachen oder ereiterten Regeln spielt?\n" +
-                "ACHTUNG: Die Regeln können nur jetzt angesehen werden.");
-        antwort=jaNeinAbfrage();
-        if(antwort==true){
-            anzeigenRegeln();
-        }
-        System.out.println("Möchtet ihr nach erweiterten Regeln spielen?");
-        antwort=jaNeinAbfrage();
-    return antwort;
     }
 
     /**
@@ -103,32 +33,16 @@ public class SpielViewer {
      *
      * @return - boolean: true fuer ja, false fuer nein
      */
-    private boolean jaNeinAbfrage(){
-        boolean weitererDurchgang=true;
-        boolean rueckgabe=false;
-        while(weitererDurchgang){
-
-            String antwort = sc.next();
-            antwort=antwort.toLowerCase();
-            if(antwort.equals("ja")){
-                rueckgabe = true;
-                weitererDurchgang=false;
-            }else if(antwort.equals("nein")){
-                rueckgabe = false;
-                weitererDurchgang=false;
-            }else{
-                System.out.println("Deine Eingabe war fehlerhaft, bitte gib \"ja\" oder \"nein\" ein");
-            }
-        }
-        return rueckgabe;
+    public void jaNeinAbfrageFehlermeldung(){
+        System.out.println("Deine Eingabe war fehlerhaft, bitte gib \"ja\" oder \"nein\" ein");
     }
 
     /**
      * Diese Methode zeigt einfach die Regeln des Spieles an.
      */
-    private void anzeigenRegeln(){
+    public void anzeigenRegeln(){
         System.out.println();
-        System.out.println("----  DIE REGELN ----\n");
+        System.out.println("----  DIE REGELN ----");
         System.out.println("- Die einfachen Regeln -");
         System.out.println("Jeder Spieler das im Uhrzeigersinn der Reihe nach jeweils eine Karte ablegen.\n" +
                 "Es darf nur eine Karte gelegt werden, wenn diese entweder in Farbe (Herz, Kreuz, Pik, Karo) \n" +
@@ -146,5 +60,56 @@ public class SpielViewer {
                 "Legt ein Spieler eine \"8\", so muss der nachfolgende Aussetzen.\n" +
                 "Legt hingegen ein Spieler eine \"9\" so wird die Spielrichtung umgedreht.");
         System.out.println();
+    }
+
+    public void maugesagt(){
+        System.out.println("Du hast soeben \"Mau\" gesagt.");
+        System.out.println("Welche Karte möchtest du legen?");
+
+    }
+
+    public void ausgabeKarte(int kartennummer, Farbe farbe, String wert) {
+        System.out.println("Kartennummer " + kartennummer + " : " + farbe + " " + wert);
+    }
+
+    public void welcheKarteAblegen() {
+        System.out.println("Welche Karte möchtest du legen? (Sollte \"Mau\" nötig sein, gib es jetzt ein)\n" +
+                "Gib bitte die Kartennummer ein.");
+    }
+
+    public void kartennummerUnsinnig() {
+        System.out.println("Du hast eine Eingabe getätigt, die bei deinen Handkarten nicht sinnig ist.\n" +
+                "Bitte gib eine Zahl an, die möglich ist");
+    }
+
+    public void willkommen() {
+        System.out.println("Willkommen beim MauMau Spiel");
+        System.out.println("Wenn du ein neues Spiel beginnen willst, gibt bitte die 1 ein");
+        System.out.println("Wenn du ein Spiel fortsetzen möchtest, wähle die 2 (noch ohne Funktion)");
+        System.out.println("Welche Variante möchtest du spielen?");
+    }
+
+    public void fehlerhafteEingabeEinsZwei() {
+        System.out.println("Deine Eingabe war falsch, bitte gib eine 1 oder eine 2 ein");
+    }
+
+    public void spielerNamenAnfragen() {
+        System.out.println();
+        System.out.println("Name des Spielers");
+    }
+
+    public void spielerEMailAnfragen() {
+        System.out.println("Emailadresse des Spielers");
+    }
+
+    public void sollenRegelnAngezeigtWerden() {
+        System.out.println();
+        System.out.println("Möchtet ihr euch die Regeln anzeigen lassen,\n" +
+                "bevor ihr entscheidet, ob ihr mit einfachen oder erweiterten Regeln spielt?\n" +
+                "ACHTUNG: Die Regeln können nur jetzt angesehen werden.");
+    }
+
+    public void sollNachErweitertenRegelnGespieltWerden() {
+        System.out.println("Möchtet ihr nach erweiterten Regeln spielen?");
     }
 }

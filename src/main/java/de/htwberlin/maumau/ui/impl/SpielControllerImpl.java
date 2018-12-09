@@ -1,12 +1,15 @@
 package de.htwberlin.maumau.ui.impl;
 
 
+import de.htwberlin.maumau.karten.entity.Farbe;
+import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spiel.impl.SpielServiceImpl;
 import de.htwberlin.maumau.ui.export.SpielController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class SpielControllerImpl implements SpielController {
 
@@ -16,22 +19,34 @@ public class SpielControllerImpl implements SpielController {
     private Spiel dasSpiel = new Spiel();
     private boolean spielLaeuft = true;
     private int spielrundenindex = 0;
-    boolean erweiterteRegeln;
+    private boolean erweiterteRegeln;
+    private boolean sagteMau = false;
+    private Scanner sc = new Scanner(System.in);
+
+    public boolean isSagteMau() {
+        return sagteMau;
+    }
+
+    public void setSagteMau(boolean sagteMau) {
+        this.sagteMau = sagteMau;
+    }
+
+
 
 
     public void run(){
 
-        if(view.welcheSpielart()==1){
-            erweiterteRegeln=view.erweiterteRegeln();
+        if(welcheSpielart()==1){
+            erweiterteRegeln=erweiterteRegeln();
             System.out.println(erweiterteRegeln);
             do {
-                if(view.sollSpielerMenschSein()==true){
+                if(sollSpielerMenschSein()==true){
                     //vorhandener Spieler
-                    spielerliste.add(view.spielerHinzufuegen());
+                    spielerliste.add(spielerHinzufuegen());
                 }else{
                     System.out.println("KI Spieler hinzufügen, diese Funktion ist bisher nicht implementiert");
                 }
-            }while(view.sollSpielerHinzugefuegtWerden()==true);
+            }while(sollSpielerHinzugefuegtWerden()==true);
             dasSpiel=spielService.anlegenSpiel(spielerliste);
             System.out.println("Danke fürs einrichten des Spieles");
 
@@ -43,34 +58,176 @@ public class SpielControllerImpl implements SpielController {
                 int kartennummer = 0;
                 boolean musslegen = true;
                 while(musslegen) {
-                    System.out.println("Deine Handkarten sind: XXX , gib die Nummer der Karte ein, die du ablegen willst");
+                    kartennummer=welcheKarteSollGelegtWerden(dasSpiel.getAktiverSpieler().getHandkarten());
+                    System.out.println(kartennummer);
                     spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(kartennummer), dasSpiel.getAktiverSpieler(), dasSpiel);
                     musslegen=!dasSpiel.isErfolgreichgelegt();
                     //spieler kann nicht legen und muss ziehen
                 }
-                spielLaeuft =  spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
+                spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
                 if(spielLaeuft==false){
                     System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
                 }
                 spielrundenindex++;
+                sagteMau=false;
             }
         }else{
             System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
-            System.out.println("Bitte komme später mal wieder");
+            System.out.println("Bitte komme später wieder");
         }
 
 
     }
 
-//    private List<String> spielerhinzufuegen(){
-//        List<String> spieler = new ArrayList<>();
-//        System.out.println("Name des Spielers");
-//        String name = "Name";
-//        System.out.println("Emailadresse des Spielers");
-//        String email = "email";
-//        spieler.add(name);
-//        spieler.add(email);
-//        return spieler;
-//    }
+
+
+
+    private int welcheKarteSollGelegtWerden(List<Karte> handkarten){
+        String antwort;
+        boolean erneutesFragen=false;
+        int antwortAlsZahl;
+        int gewuenschteKarte = 0;
+
+        view.welcheKarteAblegen();
+        for (int kartennummer = 0; kartennummer<handkarten.size();kartennummer++){
+            Farbe farbe = handkarten.get(kartennummer).getFarbe();
+            String wert = handkarten.get(kartennummer).getWert();
+            view.ausgabeKarte(kartennummer,farbe,wert);
+        }
+        do{
+            antwort=sc.next();
+            antwort=antwort.toLowerCase();
+            if(antwort=="mau"){
+                view.maugesagt();
+                setSagteMau(true);
+                erneutesFragen=true;
+            }else {
+                try{
+                    antwortAlsZahl = Integer.parseInt(antwort);
+                    if(antwortAlsZahl>=0){
+                        if(antwortAlsZahl<handkarten.size()){
+                            gewuenschteKarte=antwortAlsZahl;
+                        }else{
+                            erneutesFragen=true;
+                            view.kartennummerUnsinnig();
+                        }
+                    }else{
+                        erneutesFragen=true;
+                        view.kartennummerUnsinnig();
+                    }
+                }catch (Exception e){
+                    view.kartennummerUnsinnig();
+                    erneutesFragen=true;
+                }
+            }
+        }while (erneutesFragen);
+
+        return gewuenschteKarte;
+    }
+
+    /**
+     * Diese Methode fragt ab, ob ein neues Spiel gestartet werden soll oder ein vorheriges fortgesetzt
+     *
+     * @return - 1 fuer neues Spiel, 2 fuer fortsetzen
+     */
+    private Integer welcheSpielart(){
+        int spielart=0;
+        view.willkommen();
+
+        while(spielart==0){
+            String eingabe = sc.next();
+            if(eingabe.equals("1")){
+                spielart=1;
+            }else if (eingabe.equals("2")){
+                spielart=2;
+            }else{
+                view.fehlerhafteEingabeEinsZwei();
+            }
+        }
+        return spielart;
+    }
+
+    /**
+     * Diese Methode fragt ab, ob ein weiterer Spieler hinzugefuegt werden soll
+     *
+     * @return boolean, ob weiterer Spieler erwuenscht ist
+     */
+    private boolean sollSpielerHinzugefuegtWerden() {
+        view.sollSpielerHinzugefuegtWerden();
+        return jaNeinAbfrage();
+    }
+
+    /**
+     * Diese Methode liest die Konsoleneingabe und prueft, ob mit ja oder nein geantwortet wurde,
+     * sofern dies nicht der Fall ist, wird ein Fehler ausgegeben und der Benutzer wird aufgefordert mit
+     * Ja oder nein zu antworten
+     *
+     * @return - boolean: true fuer ja, false fuer nein
+     */
+    private boolean jaNeinAbfrage(){
+        boolean weitererDurchgang=true;
+        boolean rueckgabe=false;
+        while(weitererDurchgang){
+
+            String antwort = sc.next();
+            antwort=antwort.toLowerCase();
+            if(antwort.equals("ja")){
+                rueckgabe = true;
+                weitererDurchgang=false;
+            }else if(antwort.equals("nein")){
+                rueckgabe = false;
+                weitererDurchgang=false;
+            }else{
+                view.jaNeinAbfrageFehlermeldung();
+            }
+        }
+        return rueckgabe;
+    }
+
+    /**
+     * Diese Methode fragt ab, ob der neue Spieler ein Mensch sein soll, oder sonst ein KI
+     *
+     * @return - boolean, der angibt ob der neuste Spieler ein Mensch sein soll
+     */
+    private boolean sollSpielerMenschSein() {
+        view.sollSpielerMenschSein();
+
+        return jaNeinAbfrage();
+    }
+
+    /**
+     * Methode fragt den Namen und die E-Mailadresse des hinzuzufuegenden Spielers ab
+     * und speichert diese Informationen in einer Liste
+     *
+     * @return - Liste aus zwei Strings, Name des Spielers - Emailadresse des Spielers
+     */
+    private List<String> spielerHinzufuegen(){
+        List<String> spieler = new ArrayList<>();
+        view.spielerNamenAnfragen();
+        String name = sc.next();
+        view.spielerEMailAnfragen();
+        String email = sc.next();
+        spieler.add(name);
+        spieler.add(email);
+        return spieler;
+    }
+
+    /**
+     * Diese Methode fragt erst ab, ob die Spieler die Regeln lesen wollen und im Anschluss
+     * nach welchen Regeln gespielt werden soll.
+     *
+     * @return - boolean, der angibt ob die erweiterten Regeln gewünscht sind
+     */
+    private boolean erweiterteRegeln(){
+        boolean antwort;
+        view.sollenRegelnAngezeigtWerden();
+        antwort=jaNeinAbfrage();
+        if(antwort==true){
+            view.anzeigenRegeln();
+        }
+        view.sollNachErweitertenRegelnGespieltWerden();
+        antwort=jaNeinAbfrage();
+        return antwort;
+    }
 
 }
