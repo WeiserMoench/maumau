@@ -20,7 +20,7 @@ public interface SpielService {
      *
      * @return gibt das neuangelegte Spiel zurueck
      */
-    Spiel anlegenSpiel(List<List> spielerliste);
+    Spiel anlegenSpiel(List<String> spielerliste);
 
     /**
      * Diese Methode sorgt dafuer, dass ein gewuenschtes Kartenblatt dem Spiel hinzugefuegt wird.

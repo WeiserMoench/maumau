@@ -10,6 +10,7 @@ import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.karten.export.KartenService;
 import de.htwberlin.maumau.karten.impl.KartenServiceImpl;
+import de.htwberlin.maumau.regelnmaumau.impl.EinfacheRegelnServiceImpl;
 import de.htwberlin.maumau.regelnmaumau.impl.ErweiterteRegelnServiceImpl;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spiel.export.SpielService;
@@ -25,31 +26,25 @@ public class SpielServiceImpl implements SpielService {
     private static SpielerService spielerService = new SpielerServiceImpl();
 
     private KartenService kartenService = new KartenServiceImpl();
-    private ErweiterteRegelnServiceImpl regeln = new ErweiterteRegelnServiceImpl(); //DJ sollte hier sein
-
-
+    private ErweiterteRegelnServiceImpl regeln = new ErweiterteRegelnServiceImpl();
+//    private EinfacheRegelnServiceImpl regeln = new EinfacheRegelnServiceImpl();
 
     @Override
 
-    public Spiel anlegenSpiel(List<List> spielerliste) {
+    public Spiel anlegenSpiel(List<String> spielerliste) {
         Spiel spiel = new Spiel();
         List<Spieler> spielerListe = new ArrayList<>();
         List<Karte> ablagestapel = new ArrayList<>();
 
         //Testimplementierung für Controller und Viewer, eigentlich schon fertig
-        for (List<String> spieler : spielerliste) {
-            Spieler derSpieler = new Spieler();
-            int durchgang = 1;
-            for (String wert :spieler) {
-                if(durchgang==1){
-                    derSpieler.setName(wert);
-                    durchgang=durchgang+1;
-                }else{
-                    derSpieler.setEmail(wert);
-                }
+
+            for (String wert :spielerliste) {
+                Spieler derSpieler = new Spieler();
+                derSpieler.setName(wert);
+                spielerListe.add(derSpieler);
             }
-            spielerListe.add(derSpieler);
-        }
+
+
         spiel.setSpielerDesSpieles(spielerListe);
         spiel.setAktiverSpieler(spiel.getSpielerDesSpieles().get(0));
 

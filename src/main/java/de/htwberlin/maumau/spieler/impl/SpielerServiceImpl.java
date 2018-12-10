@@ -44,11 +44,10 @@ public class SpielerServiceImpl implements SpielerService {
     }
 
     @Override
-    public Spieler neuerSpielerAnlegen(String name, String email) {
+    public Spieler neuerSpielerAnlegen(String name) {
         Spieler spieler = new Spieler();
         spieler.setName(name);
-        spieler.setEmail(email);
-        //Spieler in der DB Speichern?
+
         return spieler;
     }
 }

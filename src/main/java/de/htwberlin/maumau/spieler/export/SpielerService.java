@@ -38,10 +38,9 @@ public interface SpielerService {
      * Legt einen neuen spieler an
      *
      * @param name  - Name des neuen spieler
-     * @param email - eMail des Spielers
      * @return der neue spieler
      */
-    Spieler neuerSpielerAnlegen(String name, String email);
+    Spieler neuerSpielerAnlegen(String name);
 
 
 

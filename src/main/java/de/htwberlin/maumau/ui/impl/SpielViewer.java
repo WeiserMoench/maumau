@@ -34,7 +34,7 @@ public class SpielViewer {
      * @return - boolean: true fuer ja, false fuer nein
      */
     public void jaNeinAbfrageFehlermeldung(){
-        System.out.println("Deine Eingabe war fehlerhaft, bitte gib \"ja\" oder \"nein\" ein");
+        System.err.println("Deine Eingabe war fehlerhaft, bitte gib \"ja\" oder \"nein\" ein");
     }
 
     /**
@@ -85,7 +85,7 @@ public class SpielViewer {
      */
     public void welcheKarteAblegen() {
         System.out.println("Welche Karte möchtest du legen? (Sollte \"Mau\" nötig sein, gib es jetzt ein)\n" +
-                "Wenn keine Karte möglich ist, einfach \"ziehen\" eingeben."+
+                "Wenn keine Karte möglich ist, einfach \"ziehen\" eingeben. "+
                 "Gib bitte die Kartennummer ein.");
     }
 
@@ -111,7 +111,7 @@ public class SpielViewer {
      * Methode weisst den Spieler daraufhin, dass eine 1 oder 2 erwartet wurde
      */
     public void fehlerhafteEingabeEinsZwei() {
-        System.out.println("Deine Eingabe war falsch, bitte gib eine 1 oder eine 2 ein");
+        System.err.println("Deine Eingabe war falsch, bitte gib eine 1 oder eine 2 ein");
     }
 
     /**
@@ -122,12 +122,12 @@ public class SpielViewer {
         System.out.println("Name des Spielers");
     }
 
-    /**
-     * Methode fragt nach der Emailadresse des Spielers
-     */
-    public void spielerEMailAnfragen() {
-        System.out.println("Emailadresse des Spielers");
-    }
+//    /**
+//     * Methode fragt nach der Emailadresse des Spielers
+//     */
+//    public void spielerEMailAnfragen() {
+//        System.out.println("Emailadresse des Spielers");
+//    }
 
     /**
      * Methode fragt, ob die Regeln angezeigt werden sollen
@@ -165,6 +165,6 @@ public class SpielViewer {
      * Methode weisst den Spieler darauf hin, dass er eine falsche Karte ziehen wollte
      */
     public void falscheKarte() {
-        System.out.println("Du hast versucht eine nicht mögliche Karte zulegen, versuche es erneut");
+        System.err.println("Du hast versucht eine nicht mögliche Karte zulegen, versuche es erneut");
     }
 }

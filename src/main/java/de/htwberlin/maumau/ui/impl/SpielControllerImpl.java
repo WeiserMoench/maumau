@@ -15,7 +15,7 @@ public class SpielControllerImpl implements SpielController {
 
     private SpielServiceImpl spielService = new SpielServiceImpl();
     private SpielViewer view = new SpielViewer();
-    private List<List> spielerliste = new ArrayList();
+    private List<String> spielerliste = new ArrayList();
     private Spiel dasSpiel = new Spiel();
     private boolean spielLaeuft = true;
     private int spielrundenindex = 0;
@@ -40,7 +40,6 @@ public class SpielControllerImpl implements SpielController {
             erweiterteRegeln=erweiterteRegeln();
             do {
                 if(sollSpielerMenschSein()==true){
-                    //vorhandener Spieler
                     spielerliste.add(spielerHinzufuegen());
                 }else{
                     System.out.println("KI Spieler hinzufügen, diese Funktion ist bisher nicht implementiert");
@@ -134,7 +133,7 @@ public class SpielControllerImpl implements SpielController {
                         erneutesFragen=true;
                         view.kartennummerUnsinnig();
                     }
-                }catch (Exception e){
+                }catch (java.lang.NumberFormatException e){
                     view.kartennummerUnsinnig();
                     erneutesFragen=true;
                 }
@@ -220,15 +219,10 @@ public class SpielControllerImpl implements SpielController {
      *
      * @return - Liste aus zwei Strings, Name des Spielers - Emailadresse des Spielers
      */
-    private List<String> spielerHinzufuegen(){
-        List<String> spieler = new ArrayList<>();
+    private String spielerHinzufuegen(){
         view.spielerNamenAnfragen();
         String name = sc.next();
-        view.spielerEMailAnfragen();
-        String email = sc.next();
-        spieler.add(name);
-        spieler.add(email);
-        return spieler;
+        return name;
     }
 
     /**
