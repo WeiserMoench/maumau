@@ -96,7 +96,6 @@ public class SpielServiceImpl implements SpielService {
     public Spiel farbeGewaehlt(Spiel spiel, Farbe farbe){
         spiel.setFarbe(farbe);
         spiel.setMussFarbeWuenschen(false);
-        spiel=naechsterSpieler(spiel);
         return spiel;
     }
 

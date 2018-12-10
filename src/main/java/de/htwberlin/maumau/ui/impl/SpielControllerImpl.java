@@ -68,20 +68,30 @@ public class SpielControllerImpl implements SpielController {
 
     }
 
+
+    /**
+     * Gibt alle Infos aus, die der Spieler zu beginn seiner Runde braucht
+     */
     private void spielerInfos() {
         Farbe obersteKarteAblagestapelFarbe;
         String obersteKarteAblagestapelWert;
         String spielername;
+        Farbe farbeNachBube;
         int anzahlGezogenerKarten;
 
         obersteKarteAblagestapelFarbe = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getFarbe();
         obersteKarteAblagestapelWert = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getWert();
+        farbeNachBube = dasSpiel.getFarbe();
 
         spielername = dasSpiel.getAktiverSpieler().getName();
 
         anzahlGezogenerKarten = dasSpiel.getSummeZuziehendeKarten();
 
         view.infosfuerNaechstenSpieler(obersteKarteAblagestapelFarbe, obersteKarteAblagestapelWert,spielername, anzahlGezogenerKarten);
+
+        if(obersteKarteAblagestapelWert.equals("Bube")){
+            view.spielerInfoNachBube(farbeNachBube);
+        }
 
         dasSpiel.setSummeZuziehendeKarten(0);
     }
@@ -93,7 +103,6 @@ public class SpielControllerImpl implements SpielController {
      * @param spiel - das zu aendernde Spiel
      * @return - das Spiel in neuer Form
      */
-    //Ueberarbeitung noetig, falls letzte Karte ein Bube war
     private Spiel kartelegen(Spiel spiel){
         String antwort;
         boolean erneutesFragen=false;
@@ -124,6 +133,8 @@ public class SpielControllerImpl implements SpielController {
                             erneutesFragen=!dasSpiel.isErfolgreichgelegt();
                             if(erneutesFragen){
                                 view.falscheKarte();
+                            }else if(dasSpiel.isMussFarbeWuenschen()){
+                                dasSpiel=farbeWaehlen(dasSpiel);
                             }
                         }else{
                             erneutesFragen=true;
@@ -141,6 +152,42 @@ public class SpielControllerImpl implements SpielController {
         }while (erneutesFragen);
 
         return spiel;
+    }
+
+    /**
+     * Methode ist da, damit der Spieler nach einem legen eines Buben aufgefordert wird eine Farbe zu waehlen.
+     *
+     * @param dasSpiel - Das veraendert werden soll
+     * @return - dasSpiel, was uebergeben wurde, nachdem es veraendert wurde
+     */
+    private Spiel farbeWaehlen(Spiel dasSpiel) {
+        String antwort;
+        Farbe farbe = null;
+        boolean keineErfolgreicheWahl = true;
+
+        do{
+            view.farbeWaehlen();
+            antwort=sc.next();
+            switch (antwort){
+                case "1":   farbe=Farbe.HERZ;
+                            keineErfolgreicheWahl=false;
+                            break;
+                case "2":   farbe=Farbe.KREUZ;
+                            keineErfolgreicheWahl=false;
+                            break;
+                case "3":   farbe=Farbe.KARO;
+                            keineErfolgreicheWahl=false;
+                            break;
+                case "4":   farbe=Farbe.PIK;
+                            keineErfolgreicheWahl=false;
+                            break;
+                default:    view.fehlerhafteEingabeFarbe();
+            }
+        }while(keineErfolgreicheWahl);
+
+        spielService.farbeGewaehlt(dasSpiel, farbe);
+
+        return dasSpiel;
     }
 
     /**

@@ -5,6 +5,8 @@ import de.htwberlin.maumau.karten.entity.Farbe;
 public class SpielViewer {
 
 
+
+
     /**
      * Diese Methode fragt ab, ob ein weiterer Spieler hinzugefuegt werden soll
      *
@@ -157,8 +159,8 @@ public class SpielViewer {
     public void infosfuerNaechstenSpieler(Farbe obersteKarteAblagestapelFarbe, String obersteKarteAblagestapelWert, String spielername, int anzahlGezogenerKarten) {
         System.out.println("\n\n-- Aktueller Spieler --");
         System.out.println(spielername);
+        System.out.println("\nDu musstest " + anzahlGezogenerKarten + " Karten ziehen");
         System.out.println("\nDie obsterste Karte des Ablagestapels zeigt: " + obersteKarteAblagestapelFarbe + " " + obersteKarteAblagestapelWert+ "\n");
-        System.out.println("Du musstest " + anzahlGezogenerKarten + " Karten ziehen");
     }
 
     /**
@@ -166,5 +168,19 @@ public class SpielViewer {
      */
     public void falscheKarte() {
         System.err.println("Du hast versucht eine nicht mögliche Karte zulegen, versuche es erneut");
+    }
+
+    public void farbeWaehlen() {
+        System.out.println("Du hast einen Buben gelegt bitte wähle die Zahl der Farbe\n" +
+                "Zur Auswahl stehen\n1: Herz\n2: Kreuz\n3: Karo\n4: Pik\n");
+    }
+
+    public void fehlerhafteEingabeFarbe() {
+        System.out.println("Du hast eine fehlerhafte Eingabe getätigt. Bitte wiederhole deine Eingabe.");
+    }
+
+
+    public void spielerInfoNachBube(Farbe farbeNachBube) {
+        System.out.println("Der letzte Spieler hat einen Buben gelegt und sich die Farbe \"" + farbeNachBube + "\" gewünscht");
     }
 }
