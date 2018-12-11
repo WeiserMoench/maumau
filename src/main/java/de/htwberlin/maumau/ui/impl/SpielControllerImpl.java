@@ -6,6 +6,8 @@ import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spiel.impl.SpielServiceImpl;
 import de.htwberlin.maumau.ui.export.SpielController;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,21 +22,15 @@ public class SpielControllerImpl implements SpielController {
     private boolean spielLaeuft = true;
     private int spielrundenindex = 0;
     private boolean erweiterteRegeln;
-    private boolean sagteMau = false;
     private Scanner sc = new Scanner(System.in);
 
-    public boolean isSagteMau() {
-        return sagteMau;
-    }
-
-    public void setSagteMau(boolean sagteMau) {
-        this.sagteMau = sagteMau;
-    }
+    static Log log = LogFactory.getLog(SpielControllerImpl.class);
 
 
 
 
     public void run(){
+        log.debug("run");
 
         if(welcheSpielart()==1){
             erweiterteRegeln=erweiterteRegeln();
@@ -53,12 +49,13 @@ public class SpielControllerImpl implements SpielController {
                 spielService.zuZiehendeKarte(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
                 spielerInfos();
                 dasSpiel=kartelegen(dasSpiel);
-                spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
+
                 if(spielLaeuft==false){
                     System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
                 }
+                dasSpiel=mauPruefung(dasSpiel);
+                spielService.setzeMau(dasSpiel.getAktiverSpieler(),false);
                 spielrundenindex++;
-                sagteMau=false;
             }
         }else{
             System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
@@ -68,11 +65,28 @@ public class SpielControllerImpl implements SpielController {
 
     }
 
+    private Spiel mauPruefung(Spiel dasSpiel) {
+        log.debug("mauPruefung");
+        int anzahlHandkartenVorPruefung;
+        int anzahlHandkartenNachPruefung;
+
+        anzahlHandkartenVorPruefung=dasSpiel.getAktiverSpieler().getHandkarten().size();
+        spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
+        anzahlHandkartenNachPruefung=dasSpiel.getAktiverSpieler().getHandkarten().size();
+
+        if (anzahlHandkartenNachPruefung>anzahlHandkartenVorPruefung){
+            view.strafkartenVergessenesMau();
+        }
+
+        return dasSpiel;
+    }
+
 
     /**
-     * Gibt alle Infos aus, die der Spieler zu beginn seiner Runde braucht
+     * Gibt alle Infos aus, die der Spieler zu Beginn seiner Runde braucht
      */
     private void spielerInfos() {
+        log.debug("spielerInfos");
         Farbe obersteKarteAblagestapelFarbe;
         String obersteKarteAblagestapelWert;
         String spielername;
@@ -104,6 +118,7 @@ public class SpielControllerImpl implements SpielController {
      * @return - das Spiel in neuer Form
      */
     private Spiel kartelegen(Spiel spiel){
+        log.debug("kartelegen");
         String antwort;
         boolean erneutesFragen=false;
         int antwortAlsZahl;
@@ -119,7 +134,7 @@ public class SpielControllerImpl implements SpielController {
             antwort=antwort.toLowerCase();
             if(antwort.equals("mau")){
                 view.maugesagt();
-                setSagteMau(true);
+                spielService.setzeMau(spiel.getAktiverSpieler(), true);
                 erneutesFragen=true;
             }else if(antwort.equals("ziehen")){
                 dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
@@ -161,6 +176,7 @@ public class SpielControllerImpl implements SpielController {
      * @return - dasSpiel, was uebergeben wurde, nachdem es veraendert wurde
      */
     private Spiel farbeWaehlen(Spiel dasSpiel) {
+        log.debug("farbewaehlen");
         String antwort;
         Farbe farbe = null;
         boolean keineErfolgreicheWahl = true;
@@ -196,6 +212,7 @@ public class SpielControllerImpl implements SpielController {
      * @return - 1 fuer neues Spiel, 2 fuer fortsetzen
      */
     private Integer welcheSpielart(){
+        log.debug("welcheSpielart");
         int spielart=0;
         view.willkommen();
 
@@ -218,6 +235,7 @@ public class SpielControllerImpl implements SpielController {
      * @return boolean, ob weiterer Spieler erwuenscht ist
      */
     private boolean sollSpielerHinzugefuegtWerden() {
+        log.debug("sollSpielerHinzugefuegtWerden");
         view.sollSpielerHinzugefuegtWerden();
         return jaNeinAbfrage();
     }
@@ -230,6 +248,7 @@ public class SpielControllerImpl implements SpielController {
      * @return - boolean: true fuer ja, false fuer nein
      */
     private boolean jaNeinAbfrage(){
+        log.debug("jaNeinAbfrage");
         boolean weitererDurchgang=true;
         boolean rueckgabe=false;
         while(weitererDurchgang){
@@ -255,6 +274,7 @@ public class SpielControllerImpl implements SpielController {
      * @return - boolean, der angibt ob der neuste Spieler ein Mensch sein soll
      */
     private boolean sollSpielerMenschSein() {
+        log.debug("sollSpielerMenschSein");
         view.sollSpielerMenschSein();
 
         return jaNeinAbfrage();
@@ -267,6 +287,7 @@ public class SpielControllerImpl implements SpielController {
      * @return - Liste aus zwei Strings, Name des Spielers - Emailadresse des Spielers
      */
     private String spielerHinzufuegen(){
+        log.debug("spielerHinzufuegen");
         view.spielerNamenAnfragen();
         String name = sc.next();
         return name;
@@ -279,6 +300,7 @@ public class SpielControllerImpl implements SpielController {
      * @return - boolean, der angibt ob die erweiterten Regeln gewünscht sind
      */
     private boolean erweiterteRegeln(){
+        log.debug("erweiterteRegeln");
         boolean antwort;
         view.sollenRegelnAngezeigtWerden();
         antwort=jaNeinAbfrage();

@@ -17,6 +17,8 @@ import de.htwberlin.maumau.spiel.export.SpielService;
 import de.htwberlin.maumau.spieler.entity.Spieler;
 import de.htwberlin.maumau.spieler.export.SpielerService;
 import de.htwberlin.maumau.spieler.impl.SpielerServiceImpl;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +30,12 @@ public class SpielServiceImpl implements SpielService {
     private KartenService kartenService = new KartenServiceImpl();
     private ErweiterteRegelnServiceImpl regeln = new ErweiterteRegelnServiceImpl();
 //    private EinfacheRegelnServiceImpl regeln = new EinfacheRegelnServiceImpl();
+    static Log log = LogFactory.getLog(SpielServiceImpl.class);
 
     @Override
 
     public Spiel anlegenSpiel(List<String> spielerliste) {
+        log.debug("anlegenSpiel");
         Spiel spiel = new Spiel();
         List<Spieler> spielerListe = new ArrayList<>();
         List<Karte> ablagestapel = new ArrayList<>();
@@ -71,6 +75,7 @@ public class SpielServiceImpl implements SpielService {
     // ist das nicht intern?
     @Override
     public Spiel ziehenKarteVomZiehstapel(Spiel spiel) {
+        log.debug("ziehenKarteVomZiehstapel");
         Karte karte = spiel.getZiehstapelkarten().get(spiel.getZiehstapelkarten().size()-1);
         spielerService.karteZuHandblatthinzufuegen(karte, spiel.getAktiverSpieler());
         spiel.setZiehstapelkarten(entferneGezogendeKarteVomZiehstapel(spiel.getZiehstapelkarten(), karte));
@@ -78,6 +83,7 @@ public class SpielServiceImpl implements SpielService {
     }
 
     public Spiel legeKarte(Karte zulegendeKarte, Spieler spieler, Spiel spiel){
+        log.debug("legeKarte");
         if(regeln.darfKartegelegtwerden(spiel.getAblagestapelkarten().get(spiel.getAblagestapelkarten().size()-1),zulegendeKarte, spiel.getFarbe())){
             spiel.setAblagestapelkarten(legenKarteAufAblageStapel(spieler, spiel.getAblagestapelkarten(), zulegendeKarte));
             spiel.setSummeZuziehendeKarten(regeln.mussZweiKartenZiehen(zulegendeKarte, spiel.getSummeZuziehendeKarten()));
@@ -94,6 +100,7 @@ public class SpielServiceImpl implements SpielService {
 
 
     public Spiel farbeGewaehlt(Spiel spiel, Farbe farbe){
+        log.debug("farbeGewaehlt");
         spiel.setFarbe(farbe);
         spiel.setMussFarbeWuenschen(false);
         return spiel;
@@ -101,6 +108,7 @@ public class SpielServiceImpl implements SpielService {
 
 
     public Spiel naechsterSpieler(Spiel spiel){
+        log.debug("naechsterSpieler");
         spiel.setErfolgreichgelegt(false);
         int veraenderung = 1;
         int indexNaechsterSpieler;
@@ -134,6 +142,7 @@ public class SpielServiceImpl implements SpielService {
     // ist das nicht intern?
     @Override
     public List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte) {
+        log.debug("entferneGezogendeKarteVomZiehstapel");
         karteStapel.remove(karte);
         return karteStapel;
     }
@@ -142,6 +151,7 @@ public class SpielServiceImpl implements SpielService {
     // macht das so sinn, was ist mit den veraenderten Spielern
     @Override
     public List<Karte> austeilenStart(List<Karte> ziehstapel, List<Spieler> spielerListe, int durchgaenge) {
+        log.debug("austeilenStart");
         for (int runden = 0; runden < durchgaenge; runden++) {
             for (int spielerzaehler = 0; spielerzaehler < spielerListe.size(); spielerzaehler++) {
                 Karte karte = ziehstapel.get(ziehstapel.size() - 1);
@@ -155,6 +165,7 @@ public class SpielServiceImpl implements SpielService {
     // ist das nicht intern?
     @Override
     public List<Karte> zuZiehendeKarte(int anzahl, List<Karte> karteStapel, Spieler spieler) {
+        log.debug("zuZiehendeKarte");
         List<Spieler> spielerliste = new ArrayList<>();
         spielerliste.add(spieler);
         austeilenStart(karteStapel, spielerliste, anzahl);
@@ -164,6 +175,7 @@ public class SpielServiceImpl implements SpielService {
     // ist das nicht intern?
     @Override
     public List<Karte> legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte) {
+        log.debug("legenKarteAufAblageStapel");
         spielerService.karteausHandblattentfernden(karte, spieler);
         kartenAblagestapel.add(karte);
         return kartenAblagestapel;
@@ -172,33 +184,45 @@ public class SpielServiceImpl implements SpielService {
     //intern und wird von regeln Aufgerufen
     @Override
     public void aendernSpielrichtung(Spiel spiel) {
+        log.debug("aendernSpielrichtung");
         spiel.setIstSpielrichtungRechts(!spiel.isIstSpielrichtungRechts());
     }
 
     //noch noetig? macht doch nun farbeGewaehlt
     @Override
     public Spiel aendernFarbe(Spiel spiel, Farbe neueFarbe) {
+        log.debug("aendernFarbe");
         spiel.setFarbe(neueFarbe);
         return spiel;
     }
 
     public boolean ermittleSpielende(Spieler spieler) {
+        log.debug("ermittleSpielende");
         return !spieler.getHandkarten().isEmpty();
     }
 
-    private boolean pruefeAufMau(Spieler spieler) {
-        return spieler.isMauistgesetzt() == true;
+    public Spiel pruefeAufMau(Spiel spiel) {
+        List<Spieler> spielerAlsListe = new ArrayList<>();
+        spielerAlsListe.add(spiel.getAktiverSpieler());
+        if(istMauNoetig(spiel.getAktiverSpieler())){
+            if(!spiel.getAktiverSpieler().isMauistgesetzt()){
+                austeilenStart(spiel.getZiehstapelkarten(), spielerAlsListe, 2);
+            }
+
+        }
+        return spiel;
     }
 
     private boolean istMauNoetig(Spieler spieler) {
         return spieler.getHandkarten().size() == 1;
     }
 
-    public void setzeMau(Spieler spieler) {
-        spieler.setMauistgesetzt(true);
+    public void setzeMau(Spieler spieler, boolean neuerZustand) {
+        spieler.setMauistgesetzt(neuerZustand);
     }
 
     private int anzahlStartkartenbestimmen(List<Spieler> spielerListe, List<Karte> ziehstapel) {
+        log.debug("anzahlStartkartenbestimmen");
         int anzahlkarten;
         anzahlkarten = (int) Math.floor((ziehstapel.size() - 10) / spielerListe.size());
         if (anzahlkarten > 6) {

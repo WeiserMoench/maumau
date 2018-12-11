@@ -15,7 +15,7 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        log.warn("end of Main");
+        log.info("end of Main");
 
 
         List<String> test  =new ArrayList<>();

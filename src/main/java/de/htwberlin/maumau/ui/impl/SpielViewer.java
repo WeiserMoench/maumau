@@ -183,4 +183,8 @@ public class SpielViewer {
     public void spielerInfoNachBube(Farbe farbeNachBube) {
         System.out.println("Der letzte Spieler hat einen Buben gelegt und sich die Farbe \"" + farbeNachBube + "\" gewünscht");
     }
+
+    public void strafkartenVergessenesMau() {
+        System.err.println("Du hast vergessen Mau zu sagen, daher hast du zwei Starfkarten auf die Hand bekommen");
+    }
 }
