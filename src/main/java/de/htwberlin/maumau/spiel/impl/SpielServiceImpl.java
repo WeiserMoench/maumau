@@ -202,6 +202,7 @@ public class SpielServiceImpl implements SpielService {
     }
 
     public Spiel pruefeAufMau(Spiel spiel) {
+        log.debug("pruefeAufMau");
         List<Spieler> spielerAlsListe = new ArrayList<>();
         spielerAlsListe.add(spiel.getAktiverSpieler());
         if(istMauNoetig(spiel.getAktiverSpieler())){
@@ -214,10 +215,12 @@ public class SpielServiceImpl implements SpielService {
     }
 
     private boolean istMauNoetig(Spieler spieler) {
+        log.debug("istMauNoetig");
         return spieler.getHandkarten().size() == 1;
     }
 
     public void setzeMau(Spieler spieler, boolean neuerZustand) {
+        log.debug("setzeMau");
         spieler.setMauistgesetzt(neuerZustand);
     }
 
@@ -231,7 +234,19 @@ public class SpielServiceImpl implements SpielService {
         return anzahlkarten;
     }
 
-    private boolean mussGemischtWerden(List<Karte> ziehstapel) {
-        return ziehstapel.size() == 0;
+    public Spiel mussGemischtWerden(Spiel spiel) {
+        log.debug("mussGemischtWerden");
+        List<Karte> ziehstapel;
+        List<Karte> ablagestapel = new ArrayList<>();
+
+        ziehstapel=spiel.getZiehstapelkarten();
+
+        if(ziehstapel.size() == 0){
+            ziehstapel=spiel.getAblagestapelkarten();
+            ablagestapel.add(ziehstapel.get(ziehstapel.size()-1));
+            ziehstapel.remove(ziehstapel.size()-1);
+            spiel.setZiehstapelkarten(kartenService.mischenKartenstapel(ziehstapel, false));
+        }
+        return spiel;
     }
 }

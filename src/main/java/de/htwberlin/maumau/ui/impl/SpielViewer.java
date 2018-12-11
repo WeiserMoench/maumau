@@ -5,8 +5,6 @@ import de.htwberlin.maumau.karten.entity.Farbe;
 public class SpielViewer {
 
 
-
-
     /**
      * Diese Methode fragt ab, ob ein weiterer Spieler hinzugefuegt werden soll
      *
@@ -186,5 +184,9 @@ public class SpielViewer {
 
     public void strafkartenVergessenesMau() {
         System.err.println("Du hast vergessen Mau zu sagen, daher hast du zwei Starfkarten auf die Hand bekommen");
+    }
+
+    public void weitererSpielerNoetig() {
+        System.out.println("Da für ein Spiel mindestens zwei Spieler nötig sind,\nmuss ein weiterer hinzugefügt werden");
     }
 }

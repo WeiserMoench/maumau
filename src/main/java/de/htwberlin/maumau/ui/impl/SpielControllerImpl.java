@@ -23,6 +23,7 @@ public class SpielControllerImpl implements SpielController {
     private int spielrundenindex = 0;
     private boolean erweiterteRegeln;
     private Scanner sc = new Scanner(System.in);
+//    private boolean weitererspieler=true;
 
     static Log log = LogFactory.getLog(SpielControllerImpl.class);
 
@@ -40,7 +41,7 @@ public class SpielControllerImpl implements SpielController {
                 }else{
                     System.out.println("KI Spieler hinzufügen, diese Funktion ist bisher nicht implementiert");
                 }
-            }while(sollSpielerHinzugefuegtWerden()==true);
+            }while(weitererSpieler()==true);
             dasSpiel=spielService.anlegenSpiel(spielerliste);
             while(spielLaeuft){
                 if(spielrundenindex >0 ){
@@ -55,6 +56,7 @@ public class SpielControllerImpl implements SpielController {
                 }
                 dasSpiel=mauPruefung(dasSpiel);
                 spielService.setzeMau(dasSpiel.getAktiverSpieler(),false);
+                spielService.mussGemischtWerden(dasSpiel);
                 spielrundenindex++;
             }
         }else{
@@ -65,13 +67,23 @@ public class SpielControllerImpl implements SpielController {
 
     }
 
+    private boolean weitererSpieler(){
+        log.debug("weitererSpieler");
+        if(spielerliste.size()<2){
+            view.weitererSpielerNoetig();
+            return true;
+        }else{
+            return sollSpielerHinzugefuegtWerden();
+        }
+    }
+
     private Spiel mauPruefung(Spiel dasSpiel) {
         log.debug("mauPruefung");
         int anzahlHandkartenVorPruefung;
         int anzahlHandkartenNachPruefung;
 
         anzahlHandkartenVorPruefung=dasSpiel.getAktiverSpieler().getHandkarten().size();
-        spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
+        dasSpiel = spielService.pruefeAufMau(dasSpiel);
         anzahlHandkartenNachPruefung=dasSpiel.getAktiverSpieler().getHandkarten().size();
 
         if (anzahlHandkartenNachPruefung>anzahlHandkartenVorPruefung){
