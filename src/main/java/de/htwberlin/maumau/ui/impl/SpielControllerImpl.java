@@ -42,7 +42,7 @@ public class SpielControllerImpl implements SpielController {
                     System.out.println("KI Spieler hinzufügen, diese Funktion ist bisher nicht implementiert");
                 }
             }while(weitererSpieler()==true);
-            dasSpiel=spielService.anlegenSpiel(spielerliste);
+            dasSpiel=spielService.anlegenSpiel(spielerliste,erweiterteRegeln);
             while(spielLaeuft){
                 if(spielrundenindex >0 ){
                     spielService.naechsterSpieler(dasSpiel);
@@ -51,12 +51,13 @@ public class SpielControllerImpl implements SpielController {
                 spielerInfos();
                 dasSpiel=kartelegen(dasSpiel);
 
-                if(spielLaeuft==false){
+                if(!spielLaeuft){
                     System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
                 }
                 dasSpiel=mauPruefung(dasSpiel);
                 spielService.setzeMau(dasSpiel.getAktiverSpieler(),false);
                 spielService.mussGemischtWerden(dasSpiel);
+                spielLaeuft=spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
                 spielrundenindex++;
             }
         }else{

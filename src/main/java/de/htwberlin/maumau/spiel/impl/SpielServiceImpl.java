@@ -10,6 +10,7 @@ import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.karten.export.KartenService;
 import de.htwberlin.maumau.karten.impl.KartenServiceImpl;
+import de.htwberlin.maumau.regelnmaumau.export.RegelnService;
 import de.htwberlin.maumau.regelnmaumau.impl.EinfacheRegelnServiceImpl;
 import de.htwberlin.maumau.regelnmaumau.impl.ErweiterteRegelnServiceImpl;
 import de.htwberlin.maumau.spiel.entity.Spiel;
@@ -28,15 +29,19 @@ public class SpielServiceImpl implements SpielService {
     private static SpielerService spielerService = new SpielerServiceImpl();
 
     private KartenService kartenService = new KartenServiceImpl();
-    private ErweiterteRegelnServiceImpl regeln = new ErweiterteRegelnServiceImpl();
-//    private EinfacheRegelnServiceImpl regeln = new EinfacheRegelnServiceImpl();
+    private RegelnService regeln;
     static Log log = LogFactory.getLog(SpielServiceImpl.class);
 
     @Override
 
-    public Spiel anlegenSpiel(List<String> spielerliste) {
+    public Spiel anlegenSpiel(List<String> spielerliste, boolean erweiterteRegeln) {
         log.debug("anlegenSpiel");
         Spiel spiel = new Spiel();
+        if(erweiterteRegeln){
+            regeln = new ErweiterteRegelnServiceImpl();
+        }else{
+            regeln = new EinfacheRegelnServiceImpl();
+        }
         List<Spieler> spielerListe = new ArrayList<>();
         List<Karte> ablagestapel = new ArrayList<>();
 
@@ -234,6 +239,14 @@ public class SpielServiceImpl implements SpielService {
         return anzahlkarten;
     }
 
+    //Sollten alle Karten auf den Handkarten der Spieler sein, kommt ers zu einer Exception und dem Abbruch des Spieles,
+    //da die Wahrscheinlichkeit sehr gering ist, das so gespielt wird, wird dieses Mal die Exception noch nicht gefangen und bearbeitet,
+    //dies erfolgt bei der nächsten Abgabe
+    /**
+     *
+     * @param spiel
+     * @return
+     */
     public Spiel mussGemischtWerden(Spiel spiel) {
         log.debug("mussGemischtWerden");
         List<Karte> ziehstapel;
@@ -246,6 +259,7 @@ public class SpielServiceImpl implements SpielService {
             ablagestapel.add(ziehstapel.get(ziehstapel.size()-1));
             ziehstapel.remove(ziehstapel.size()-1);
             spiel.setZiehstapelkarten(kartenService.mischenKartenstapel(ziehstapel, false));
+            spiel.setAblagestapelkarten(ablagestapel);
         }
         return spiel;
     }
