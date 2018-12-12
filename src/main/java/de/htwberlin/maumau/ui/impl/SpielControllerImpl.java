@@ -28,7 +28,7 @@ public class SpielControllerImpl implements SpielController {
     public void run(){
         log.debug("run");
 
-        if(welcheSpielart()==1){
+//        if(welcheSpielart()==1){ //vorbereitung nächste Abgabe
             erweiterteRegeln=erweiterteRegeln();
             do {
                 if(sollSpielerMenschSein()==true){
@@ -55,10 +55,10 @@ public class SpielControllerImpl implements SpielController {
                 spielLaeuft=spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
                 spielrundenindex++;
             }
-        }else{
-            System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
-            System.out.println("Bitte komme später wieder");
-        }
+//        }else{ //vorbereitung nächste Abgabe
+//            System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
+//            System.out.println("Bitte komme später wieder");
+//        }
 
 
     }

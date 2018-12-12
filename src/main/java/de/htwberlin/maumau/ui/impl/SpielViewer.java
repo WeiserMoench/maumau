@@ -143,7 +143,7 @@ public class SpielViewer {
      * Methode fragt, ob nach erweiterten Regeln gespielt werden soll
      */
     public void sollNachErweitertenRegelnGespieltWerden() {
-        System.out.println("Möchtet ihr nach erweiterten Regeln spielen? NOCH OHNE FUNKTION");
+        System.out.println("Möchtet ihr nach erweiterten Regeln spielen?");
     }
 
     /**
