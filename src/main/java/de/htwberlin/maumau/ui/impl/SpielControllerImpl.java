@@ -229,7 +229,7 @@ public class SpielControllerImpl implements SpielController {
                 case "4":   farbe=Farbe.PIK;
                             keineErfolgreicheWahl=false;
                             break;
-                default:    view.fehlerhafteEingabeFarbe();
+                default:    view.fehlerhafteEingabe();
             }
         }while(keineErfolgreicheWahl);
 
