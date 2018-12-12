@@ -55,11 +55,11 @@ public class SpielerServiceTest {
         assertEquals(handkarten, spieler.getHandkarten());
     }
 
-    @Test
-    public void testAuswaehlenSpielerFuerSpiel() {
-        spielerService.auswaehlenSpielerFuerSpiel(spiel);
-        assertTrue(!spiel.getSpielerDesSpieles().isEmpty());
-    }
+//    @Test
+//    public void testAuswaehlenSpielerFuerSpiel() {
+//        spielerService.auswaehlenSpielerFuerSpiel(spiel);
+//        assertTrue(!spiel.getSpielerDesSpieles().isEmpty());
+//    }
 
 //    @Test
 //    public void testNeuerSpielerAnlegen() {

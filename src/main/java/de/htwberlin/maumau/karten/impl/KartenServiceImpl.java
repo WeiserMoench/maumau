@@ -14,10 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// Dustin bitte machen
-
-
-
 
 public class KartenServiceImpl implements KartenService {
    private String[] kartenwerte = {"Ass", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Bube", "Dame", "Koenig"};
@@ -29,7 +25,6 @@ public class KartenServiceImpl implements KartenService {
         for (Farbe farben : Farbe.values()) {
             for (String werte: kartenwerte) {
                 kartenStapel.add(erstellenNeuerKarte(farben, werte));
-
             }
         }
         return kartenStapel;
@@ -55,8 +50,6 @@ public class KartenServiceImpl implements KartenService {
         kartenDeck.remove(0);
         List<Karte> spielerKarten = spieler.getHandkarten();
         spielerKarten.add(karte);
-
-
         return spielerKarten;
     }
 
