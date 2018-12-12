@@ -40,25 +40,16 @@ public class EinfacheRegelnServiceImpl implements RegelnService {
     }
 
     @Override
-    /**
-     * Bei Kartenwert 7 muss der naechste zwei zusaetzliche Karten ziehen
-     */
     public int mussZweiKartenZiehen(Karte gelegteKarte, int zuziehendeKarte) {//evtl Int umbenennen in bisherZuZiehendeKarten
         return 0;
     }
 
     @Override
-    /**
-     * Bei Kartenwert 8 muss der naechste Spieler Aussetzen
-     */
     public boolean mussRundeAussetzen(Karte gelegteKarte) {
         return false;
     }
 
     @Override
-    /**
-     * Bei Kartenwert 9 muss der naechste Spieler Aussetzen
-     */
     public boolean richtungWechsel(Karte gelegteKarte) {
         return false;
     }

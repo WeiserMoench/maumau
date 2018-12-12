@@ -19,7 +19,6 @@ public class SpielerServiceImpl implements SpielerService {
     private List<Karte> handkarten;
 
     @Override
-    // ob implementierung reicht, habe ich nicht geprueft Christian
     public Spieler karteZuHandblatthinzufuegen(Karte karte, Spieler spieler) {
         handkarten = new ArrayList<>();
         handkarten = spieler.getHandkarten();
@@ -38,15 +37,9 @@ public class SpielerServiceImpl implements SpielerService {
     }
 
     @Override
-    public void auswaehlenSpielerFuerSpiel(Spiel spiel) {//Macht das hier und so sinn? nicht eher in Spiel bringen und hier eher eine Liste aller in DB verhandenen Spieler abfragen und diese Richtung Spiel bringen?
-
-    }
-
-    @Override
     public Spieler neuerSpielerAnlegen(String name) {
         Spieler spieler = new Spieler();
         spieler.setName(name);
-
         return spieler;
     }
 }

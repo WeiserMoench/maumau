@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181113
+ * @version 20181212
  *
  */
 
@@ -26,13 +26,6 @@ public interface SpielerService {
      * @param spieler - Der Spieler, aus dessen Handkarten die Karte entfernt werden soll
      */
     Spieler karteausHandblattentfernden(Karte karte, Spieler spieler);
-
-    /**
-     * Diese Methode fuegt einen gewuenschten spieler hinzu und speichert diesen im Spiel.
-     *
-     * @param spiel - Das zuvor angelegte Spiel wird uebergeben.
-     */
-    void auswaehlenSpielerFuerSpiel(Spiel spiel);//registerieren von spielern, spielerparameter
 
     /**
      * Legt einen neuen spieler an
