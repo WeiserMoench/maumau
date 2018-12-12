@@ -42,24 +42,22 @@ public class SpielViewer {
      * Diese Methode zeigt einfach die Regeln des Spieles an.
      */
     public void anzeigenRegeln(){
-        System.out.println();
-        System.out.println("----  DIE REGELN ----");
-        System.out.println("- Die einfachen Regeln -");
-        System.out.println("Jeder Spieler das im Uhrzeigersinn der Reihe nach jeweils eine Karte ablegen.\n" +
+        System.out.println("\n----  DIE REGELN ----\n" +
+                "- Die einfachen Regeln -\n" +
+                "Jeder Spieler darf im Uhrzeigersinn der Reihe nach jeweils eine Karte ablegen.\n" +
                 "Es darf nur eine Karte gelegt werden, wenn diese entweder in Farbe (Herz, Kreuz, Pik, Karo) \n" +
                 "oder in Wert (zum Beispiel: König oder 7) übereinstimmen.\n" +
                 "Sollte ein Spieler nicht legen können, so muss der eine Karte ziehen und der nächste ist an der Reihe.\n\n" +
-                "Wenn ein Spieler seine vorletzte Karte legen wollen, muss er zuvor \"Mau\" eingeben, dies geht immer,\n" +
-                "wenn er eine Karte legen soll. Wird \"Mau\" vergessen, bekommt der Spieler 2 Strafkarten auf die Hand.");
-        System.out.println();
-        System.out.println("- Die erweiterten Regeln -");
-        System.out.println("Die nachfolgenden Reglen gelten zusätzlich zu den einfachen Regeln.\n" +
+                "Wenn ein Spieler seine vorletzte Karte legen will, muss er zuvor \"Mau\" eingeben.\n" +
+                "Wird \"Mau\" vergessen, bekommt der Spieler 2 Strafkarten auf die Hand.");
+        System.out.println("\n" +
+                "- Die erweiterten Regeln - \n" +
+                "Die nachfolgenden Reglen gelten zusätzlich zu den einfachen Regeln.\n" +
                 "Wenn ein Spieler einen \"Buben\" legt, muss er sich eine Farbe wünschen, dabei spielt es keine Rolle,\n" +
                 "um welche Farbe es sich handelt.\n" +
                 "Legt ein Spieler eine \"7\", so muss der nächste Spieler 2 Karten ziehen.\n" +
                 "Legt ein Spieler eine \"8\", so muss der nachfolgende Aussetzen.\n" +
-                "Legt hingegen ein Spieler eine \"9\" so wird die Spielrichtung umgedreht.");
-        System.out.println();
+                "Legt hingegen ein Spieler eine \"9\" so wird die Spielrichtung umgedreht.\n");
     }
 
     /**
@@ -87,7 +85,7 @@ public class SpielViewer {
      */
     public void welcheKarteAblegen() {
         System.out.println("Welche Karte möchtest du legen? (Sollte \"Mau\" nötig sein, gib es zuerst ein \nund bestätige dies mit ENTER)\n" +
-                "Wenn keine Karte möglich ist, einfach \"ziehen\" eingeben. "+
+                "Wenn keine Karte möglich ist, einfach \"ziehen\" eingeben. \n"+
                 "Gib bitte die Kartennummer ein.");
     }
 
@@ -95,7 +93,7 @@ public class SpielViewer {
      * Methode sagt dem Spieler, das die Nummer siner Handkarte, die er legen wollte, unsinnig ist
      */
     public void kartennummerUnsinnig() {
-        System.out.println("Du hast eine Eingabe getätigt, die bei deinen Handkarten nicht sinnig ist.\n" +
+        System.err.println("Du hast eine Eingabe getätigt, die bei deinen Handkarten nicht sinnig ist.\n" +
                 "Bitte gib eine Zahl an, die möglich ist");
     }
 

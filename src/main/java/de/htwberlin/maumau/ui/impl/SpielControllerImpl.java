@@ -52,22 +52,19 @@ public class SpielControllerImpl implements SpielController {
                 spielService.zuZiehendeKarte(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
                 dasSpiel=spielerInfos(dasSpiel);
                 dasSpiel=kartelegen(dasSpiel);
-
-                if(!spielLaeuft){
-                    System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
-                }
                 dasSpiel=mauPruefung(dasSpiel);
                 spielService.setzeMau(dasSpiel.getAktiverSpieler(),false);
                 spielService.mussGemischtWerden(dasSpiel); // Wenn die Spieler betrügen, kann es zu einer Exception kommen, diese wird bei der nächsten Abgabe gefangen
                 spielLaeuft=spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
+                if(!spielLaeuft){
+                    System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
+                }
                 spielrundenindex++;
             }
 //        }else{ //vorbereitung nächste Abgabe
 //            System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
 //            System.out.println("Bitte komme später wieder");
 //        }
-
-
     }
 
     /**
