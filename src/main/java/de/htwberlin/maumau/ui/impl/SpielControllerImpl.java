@@ -1,12 +1,15 @@
-package de.htwberlin.maumau.ui.impl;
+/**
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
+ * @version 20181212
+ *
+ */
 
+package de.htwberlin.maumau.ui.impl;
 
 import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spiel.impl.SpielServiceImpl;
 import de.htwberlin.maumau.ui.export.SpielController;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -27,7 +30,6 @@ public class SpielControllerImpl implements SpielController {
     private static Logger log = Logger.getRootLogger();
 
 
-
     public void run(){
         log.setLevel(Level.WARN);//ALL, DEBUG, INFO, WARN, ERROR, FATAL, OFF
         log.debug("run");
@@ -36,11 +38,11 @@ public class SpielControllerImpl implements SpielController {
 //        if(welcheSpielart()==1){ //vorbereitung nächste Abgabe
             erweiterteRegeln=erweiterteRegeln();
             do {
-                if(sollSpielerMenschSein()==true){
+//                if(sollSpielerMenschSein()==true){//Vorbereitung nächste Abgabe
                     spielerliste.add(spielerHinzufuegen());
-                }else{
-                    System.out.println("KI Spieler hinzufügen, diese Funktion ist bisher nicht implementiert");
-                }
+//                }else{
+//                    System.out.println("KI Spieler hinzufügen, diese Funktion ist bisher nicht implementiert");
+//                }
             }while(weitererSpieler()==true);
             dasSpiel=spielService.anlegenSpiel(spielerliste,erweiterteRegeln);
             while(spielLaeuft){
@@ -48,7 +50,7 @@ public class SpielControllerImpl implements SpielController {
                     spielService.naechsterSpieler(dasSpiel);
                 }
                 spielService.zuZiehendeKarte(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
-                spielerInfos();
+                dasSpiel=spielerInfos(dasSpiel);
                 dasSpiel=kartelegen(dasSpiel);
 
                 if(!spielLaeuft){
@@ -68,6 +70,11 @@ public class SpielControllerImpl implements SpielController {
 
     }
 
+    /**
+     * Diese Methode fragt ob ein weiterer Spieler gewuenscht ist
+     *
+     * @return boolean - der angibt, ob es einen weiteren Spieler geben soll
+     */
     private boolean weitererSpieler(){
         log.debug("weitererSpieler");
         if(spielerliste.size()<2){
@@ -78,27 +85,37 @@ public class SpielControllerImpl implements SpielController {
         }
     }
 
-    private Spiel mauPruefung(Spiel dasSpiel) {
+    /**
+     * Methode prueft ob es der Spieler Mau gesagt hat, oder ob er Strafkarten ziehen muss und sorgt
+     * falls nicht dafuer, dass Strafkarten gezogen werden und fuer eine Info
+     *
+     * @param spiel - Das Spiel mit dem enthaltenen Spieler, der geprueft werden soll
+     * @return - Das Spiel mit dem ggfs geaenderten Spieler
+     */
+    private Spiel mauPruefung(Spiel spiel) {
         log.debug("mauPruefung");
         int anzahlHandkartenVorPruefung;
         int anzahlHandkartenNachPruefung;
 
-        anzahlHandkartenVorPruefung=dasSpiel.getAktiverSpieler().getHandkarten().size();
-        dasSpiel = spielService.pruefeAufMau(dasSpiel);
-        anzahlHandkartenNachPruefung=dasSpiel.getAktiverSpieler().getHandkarten().size();
+        anzahlHandkartenVorPruefung=spiel.getAktiverSpieler().getHandkarten().size();
+        spiel = spielService.pruefeAufMau(spiel);
+        anzahlHandkartenNachPruefung=spiel.getAktiverSpieler().getHandkarten().size();
 
         if (anzahlHandkartenNachPruefung>anzahlHandkartenVorPruefung){
             view.strafkartenVergessenesMau();
         }
-
-        return dasSpiel;
+        return spiel;
     }
-
 
     /**
      * Gibt alle Infos aus, die der Spieler zu Beginn seiner Runde braucht
+     * Ausserdem werden dem Spieler ggfs Karten auf die Hand gegeben, falls er ziehen muss
+     * Und der Zahler im Spiel, wie viele Karten gezogen werden muessen wird resettet
+     *
+     * @param spiel - Aus dem die Infos entnommen werden sollen
+     * @return - Das angepasste Spiel
      */
-    private void spielerInfos() {
+    private Spiel spielerInfos(Spiel spiel) {
         log.debug("spielerInfos");
         Farbe obersteKarteAblagestapelFarbe;
         String obersteKarteAblagestapelWert;
@@ -106,28 +123,28 @@ public class SpielControllerImpl implements SpielController {
         Farbe farbeNachBube;
         int anzahlGezogenerKarten;
 
-        obersteKarteAblagestapelFarbe = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getFarbe();
-        obersteKarteAblagestapelWert = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getWert();
-        farbeNachBube = dasSpiel.getFarbe();
-
-        spielername = dasSpiel.getAktiverSpieler().getName();
-
-        anzahlGezogenerKarten = dasSpiel.getSummeZuziehendeKarten();
+        obersteKarteAblagestapelFarbe = spiel.getAblagestapelkarten().get(spiel.getAblagestapelkarten().size()-1).getFarbe();
+        obersteKarteAblagestapelWert = spiel.getAblagestapelkarten().get(spiel.getAblagestapelkarten().size()-1).getWert();
+        farbeNachBube = spiel.getFarbe();
+        spielername = spiel.getAktiverSpieler().getName();
+        anzahlGezogenerKarten = spiel.getSummeZuziehendeKarten();
 
         view.infosfuerNaechstenSpieler(obersteKarteAblagestapelFarbe, obersteKarteAblagestapelWert,spielername, anzahlGezogenerKarten);
 
         if(obersteKarteAblagestapelWert.equals("Bube")){
-            if(dasSpiel.getFarbe()!=null) {
+            if(spiel.getFarbe()!=null) {
                 view.spielerInfoNachBube(farbeNachBube);
             }
         }
+        spiel.setSummeZuziehendeKarten(0);
 
-        dasSpiel.setSummeZuziehendeKarten(0);
+        return spiel;
     }
 
     /**
-     * Diese Methode kuemmert sich um das legen einer Karte. dafuer werden dem Spieler erst einmal alle benoetigten Informationen angezeigt
-     * Der Spieler muss eine entscheidung treffen und die karte wird gespielt
+     * Diese Methode kuemmert sich um das legen einer Karte. Dafuer werden dem Spieler erst einmal alle benoetigten
+     * Informationen zu seinen Moeglichkleiten angezeigt
+     * Der Spieler muss eine Entscheidung treffen und die Karte wird gespielt
      *
      * @param spiel - das zu aendernde Spiel
      * @return - das Spiel in neuer Form
@@ -152,19 +169,19 @@ public class SpielControllerImpl implements SpielController {
                 spielService.setzeMau(spiel.getAktiverSpieler(), true);
                 erneutesFragen=true;
             }else if(antwort.equals("ziehen")){
-                dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
+                spiel=spielService.ziehenKarteVomZiehstapel(spiel);
                 erneutesFragen=false;
             }else{
                 try{
                     antwortAlsZahl = Integer.parseInt(antwort);
                     if(antwortAlsZahl>=0){
                         if(antwortAlsZahl<spiel.getAktiverSpieler().getHandkarten().size()){
-                            spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(antwortAlsZahl), dasSpiel.getAktiverSpieler(), dasSpiel);
-                            erneutesFragen=!dasSpiel.isErfolgreichgelegt();
+                            spielService.legeKarte(spiel.getAktiverSpieler().getHandkarten().get(antwortAlsZahl), spiel.getAktiverSpieler(), spiel);
+                            erneutesFragen=!spiel.isErfolgreichgelegt();
                             if(erneutesFragen){
                                 view.falscheKarte();
-                            }else if(dasSpiel.isMussFarbeWuenschen()){
-                                dasSpiel=farbeWaehlen(dasSpiel);
+                            }else if(spiel.isMussFarbeWuenschen()){
+                                spiel=farbeWaehlen(spiel);
                             }
                         }else{
                             erneutesFragen=true;
@@ -187,10 +204,10 @@ public class SpielControllerImpl implements SpielController {
     /**
      * Methode ist da, damit der Spieler nach einem legen eines Buben aufgefordert wird eine Farbe zu waehlen.
      *
-     * @param dasSpiel - Das veraendert werden soll
+     * @param spiel - Das veraendert werden soll
      * @return - dasSpiel, was uebergeben wurde, nachdem es veraendert wurde
      */
-    private Spiel farbeWaehlen(Spiel dasSpiel) {
+    private Spiel farbeWaehlen(Spiel spiel) {
         log.debug("farbewaehlen");
         String antwort;
         Farbe farbe = null;
@@ -216,9 +233,9 @@ public class SpielControllerImpl implements SpielController {
             }
         }while(keineErfolgreicheWahl);
 
-        spielService.farbeGewaehlt(dasSpiel, farbe);
+        spielService.farbeGewaehlt(spiel, farbe);
 
-        return dasSpiel;
+        return spiel;
     }
 
     /**
@@ -258,7 +275,7 @@ public class SpielControllerImpl implements SpielController {
     /**
      * Diese Methode liest die Konsoleneingabe und prueft, ob mit ja oder nein geantwortet wurde,
      * sofern dies nicht der Fall ist, wird ein Fehler ausgegeben und der Benutzer wird aufgefordert mit
-     * Ja oder nein zu antworten
+     * ja oder nein zu antworten
      *
      * @return - boolean: true fuer ja, false fuer nein
      */
@@ -266,8 +283,8 @@ public class SpielControllerImpl implements SpielController {
         log.debug("jaNeinAbfrage");
         boolean weitererDurchgang=true;
         boolean rueckgabe=false;
-        while(weitererDurchgang){
 
+        while(weitererDurchgang){
             String antwort = sc.next();
             antwort=antwort.toLowerCase();
             if(antwort.equals("ja")){
@@ -296,10 +313,10 @@ public class SpielControllerImpl implements SpielController {
     }
 
     /**
-     * Methode fragt den Namen und die E-Mailadresse des hinzuzufuegenden Spielers ab
-     * und speichert diese Informationen in einer Liste
+     * Methode fragt den Namen des hinzuzufuegenden Spielers ab
+     * und speichert diese Information als String
      *
-     * @return - Liste aus zwei Strings, Name des Spielers - Emailadresse des Spielers
+     * @return - String mit dem Name des Spielers
      */
     private String spielerHinzufuegen(){
         log.debug("spielerHinzufuegen");
@@ -312,7 +329,7 @@ public class SpielControllerImpl implements SpielController {
      * Diese Methode fragt erst ab, ob die Spieler die Regeln lesen wollen und im Anschluss
      * nach welchen Regeln gespielt werden soll.
      *
-     * @return - boolean, der angibt ob die erweiterten Regeln gewünscht sind
+     * @return - boolean, der angibt ob die erweiterten Regeln gewuenscht sind
      */
     private boolean erweiterteRegeln(){
         log.debug("erweiterteRegeln");
@@ -326,7 +343,5 @@ public class SpielControllerImpl implements SpielController {
         antwort=jaNeinAbfrage();
         return antwort;
     }
-
-
 
 }

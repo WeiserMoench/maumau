@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181115
+ * @version 20181212
  *
  */
 
@@ -9,11 +9,15 @@ package de.htwberlin.maumau.regelnmaumau.impl;
 import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.regelnmaumau.export.RegelnService;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 public class EinfacheRegelnServiceImpl implements RegelnService {
+    private static Logger log = Logger.getRootLogger();
 
     @Override
-    public boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, Farbe farbe) {//wenn bube Farbe ändert???
+    public boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, Farbe farbe) {
+        log.setLevel(Level.WARN);
         String kartenwertLetzteKarte;
         kartenwertLetzteKarte=letzteKarteKartenstapel.getWert();
         Farbe kartenFarbeLetzteKarte;

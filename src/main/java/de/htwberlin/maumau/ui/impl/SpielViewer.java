@@ -1,3 +1,9 @@
+/**
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
+ * @version 20181212
+ *
+ */
+
 package de.htwberlin.maumau.ui.impl;
 
 import de.htwberlin.maumau.karten.entity.Farbe;

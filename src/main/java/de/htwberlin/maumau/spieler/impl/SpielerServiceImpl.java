@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181113
+ * @version 20181212
  *
  */
 
@@ -16,7 +16,6 @@ import java.util.List;
 
 public class SpielerServiceImpl implements SpielerService {
 
-//    Jörg bitte machen
     private List<Karte> handkarten;
 
     @Override
