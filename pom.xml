@@ -78,7 +78,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>de.htwberlin.maumau.App</mainClass>
+                            <mainClass>de.htwberlin.maumau.konfiguration.Config</mainClass>
                             <addClasspath>true</addClasspath>
                         </manifest>
                     </archive>

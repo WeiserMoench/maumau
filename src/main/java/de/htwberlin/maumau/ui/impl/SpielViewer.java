@@ -27,7 +27,7 @@ public class SpielViewer {
         System.out.println();
         System.out.println("Wenn der Spieler ein Mensch sein soll, gib bitte \"ja\" ein.");
         System.out.println("Soll der Spieler hingegen ein Computerspieler sein, gib \"nein\" ein ACHTUNG, \n" +
-                "DIES IST EINE VORBEREITUNG FÜR DIE NÄCHSTE ABGABE UND FÜHRT DAHER ZU PROBLEMEN");
+                "DIES IST EINE VORBEREITUNG FÜR DIE NÄCHSTE ABGABE UND FÜHRT DAHER ZU PROBLEMEN!");
     }
 
     /**
@@ -35,7 +35,7 @@ public class SpielViewer {
      * entweder ja oder nein einzugeben
      */
     public void jaNeinAbfrageFehlermeldung(){
-        System.err.println("Deine Eingabe war fehlerhaft, bitte gib \"ja\" oder \"nein\" ein");
+        System.err.println("Deine Eingabe war fehlerhaft, bitte gib \"ja\" oder \"nein\" ein.");
     }
 
     /**
@@ -84,7 +84,7 @@ public class SpielViewer {
      * Außerdem das der Spieler hier Mau sagen koennte
      */
     public void welcheKarteAblegen() {
-        System.out.println("Welche Karte möchtest du legen? (Sollte \"Mau\" nötig sein, gib es zuerst ein \nund bestätige dies mit ENTER)\n" +
+        System.out.println("Welche Karte möchtest du legen? (Sollte \"Mau\" nötig sein, gib es zuerst ein \nund bestätige dies mit ENTER.)\n" +
                 "Wenn keine Karte möglich ist, einfach \"ziehen\" eingeben. \n"+
                 "Gib bitte die Kartennummer ein.");
     }
@@ -94,14 +94,14 @@ public class SpielViewer {
      */
     public void kartennummerUnsinnig() {
         System.err.println("Du hast eine Eingabe getätigt, die bei deinen Handkarten nicht sinnig ist.\n" +
-                "Bitte gib eine Zahl an, die möglich ist");
+                "Bitte gib eine Zahl an, die möglich ist.");
     }
 
     /**
      * Methode begruesst die Spieler zu einem neuen Spiel
      */
     public void willkommen() {
-        System.out.println("Willkommen beim MauMau Spiel");
+        System.out.println("Willkommen beim MauMau Spiel.");
 //        System.out.println("Wenn du ein neues Spiel beginnen willst, gibt bitte die 1 ein"); //Vorbereitung Aufgabe 4
 //        System.out.println("Wenn du ein Spiel fortsetzen möchtest, wähle die 2");
 //        System.out.println("Welche Variante möchtest du spielen?");
@@ -111,7 +111,7 @@ public class SpielViewer {
      * Methode weisst den Spieler daraufhin, dass eine 1 oder 2 erwartet wurde
      */
     public void fehlerhafteEingabeEinsZwei() {
-        System.err.println("Deine Eingabe war falsch, bitte gib eine 1 oder eine 2 ein");
+        System.err.println("Deine Eingabe war falsch, bitte gib eine 1 oder eine 2 ein.");
     }
 
     /**
@@ -119,7 +119,7 @@ public class SpielViewer {
      */
     public void spielerNamenAnfragen() {
         System.out.println();
-        System.out.println("Name des Spielers");
+        System.out.println("Name des Spielers:");
     }
 
     /**
@@ -150,7 +150,7 @@ public class SpielViewer {
     public void infosfuerNaechstenSpieler(Farbe obersteKarteAblagestapelFarbe, String obersteKarteAblagestapelWert, String spielername, int anzahlGezogenerKarten) {
         System.out.println("\n\n-- Aktueller Spieler --");
         System.out.println(spielername);
-        System.out.println("\nDu musstest " + anzahlGezogenerKarten + " Karten ziehen");
+        System.out.println("\nDu musstest " + anzahlGezogenerKarten + " Karten ziehen.");
         System.out.println("\nDie obsterste Karte des Ablagestapels zeigt: " + obersteKarteAblagestapelFarbe + " " + obersteKarteAblagestapelWert+ "\n");
     }
 
@@ -158,14 +158,14 @@ public class SpielViewer {
      * Methode weisst den Spieler darauf hin, dass er eine falsche Karte legen wollte
      */
     public void falscheKarte() {
-        System.err.println("Du hast versucht eine nicht mögliche Karte zulegen, versuche es erneut");
+        System.err.println("Du hast versucht eine nicht mögliche Karte zulegen, versuche es erneut.");
     }
 
     /**
      * Methode bitten den Spieler, nach dem Legen eines Buben, eine Farbe zu waehlen
      */
     public void farbeWaehlen() {
-        System.out.println("Du hast einen Buben gelegt bitte wähle die Zahl der Farbe\n" +
+        System.out.println("Du hast einen Buben gelegt bitte wähle die Zahl der Farbe:\n" +
                 "Zur Auswahl stehen\n1: Herz\n2: Kreuz\n3: Karo\n4: Pik\n");
     }
 
@@ -181,20 +181,20 @@ public class SpielViewer {
      * @param farbeNachBube - Die Farbe die nun nach dem Buben gilt
      */
     public void spielerInfoNachBube(Farbe farbeNachBube) {
-        System.out.println("Der letzte Spieler hat einen Buben gelegt und sich die Farbe \"" + farbeNachBube + "\" gewünscht");
+        System.out.println("Der letzte Spieler hat einen Buben gelegt und sich die Farbe \"" + farbeNachBube + "\" gewünscht.");
     }
 
     /**
      * Information, dass der Spieler vergessen habe Mau zu sagen und daher zwei Strafkarten auf die Hand bekommen hat
      */
     public void strafkartenVergessenesMau() {
-        System.err.println("Du hast vergessen Mau zu sagen, daher hast du zwei Starfkarten auf die Hand bekommen");
+        System.err.println("Du hast vergessen Mau zu sagen, daher hast du zwei Starfkarten auf die Hand bekommen.");
     }
 
     /**
      * Informiert, dass automatisch ein weiterer Spieler hinzugefuegt wurde, da die Mindestspielerzahl 2 betraegt
      */
     public void weitererSpielerNoetig() {
-        System.out.println("Da für ein Spiel mindestens zwei Spieler nötig sind,\nmuss ein weiterer hinzugefügt werden");
+        System.out.println("Da für ein Spiel mindestens zwei Spieler nötig sind,\nmuss ein weiterer hinzugefügt werden.");
     }
 }

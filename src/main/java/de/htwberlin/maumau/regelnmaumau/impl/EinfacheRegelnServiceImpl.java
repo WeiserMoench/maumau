@@ -1,7 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  * @version 20181212
- *
  */
 
 package de.htwberlin.maumau.regelnmaumau.impl;
@@ -19,17 +18,17 @@ public class EinfacheRegelnServiceImpl implements RegelnService {
     public boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, Farbe farbe) {
         log.setLevel(Level.WARN);
         String kartenwertLetzteKarte;
-        kartenwertLetzteKarte=letzteKarteKartenstapel.getWert();
+        kartenwertLetzteKarte = letzteKarteKartenstapel.getWert();
         Farbe kartenFarbeLetzteKarte;
-        kartenFarbeLetzteKarte=letzteKarteKartenstapel.getFarbe();
+        kartenFarbeLetzteKarte = letzteKarteKartenstapel.getFarbe();
         String kartenwertlegendeKarte;
-        kartenwertlegendeKarte=legendeKarte.getWert();
+        kartenwertlegendeKarte = legendeKarte.getWert();
         Farbe kartenFarbelegendeKarte;
-        kartenFarbelegendeKarte=legendeKarte.getFarbe();
+        kartenFarbelegendeKarte = legendeKarte.getFarbe();
 
-        if(kartenwertLetzteKarte == kartenwertlegendeKarte){
+        if (kartenwertLetzteKarte == kartenwertlegendeKarte) {
             return true;
-        }else
+        } else
             return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
 
     }

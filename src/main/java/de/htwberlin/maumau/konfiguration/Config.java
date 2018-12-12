@@ -16,7 +16,7 @@ import org.picocontainer.injectors.ConstructorInjection;
 public class Config {
     private static MutablePicoContainer container = new DefaultPicoContainer(new ConstructorInjection());
 
-    public static void main(String[] arg){
+    public static void main(String[] arg) {
         registriereKomponenten();
         container.getComponent(SpielController.class).run();
     }

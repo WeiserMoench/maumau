@@ -15,11 +15,9 @@ import java.util.List;
 public interface KartenService {
 
 
-    /**
-     * Diese Methode baut den Kartenstapel aus neuen Karten des ausgewaehlten Kartendecks auf.
+    /**Diese Methode legt einen Kartenstapel von 52 Karten an
      *
-     * @param spiel - Das zu spielende Spiel.
-     * @return Das Spiel mit der integrierten Liste an Karten
+     * @return Liste der Karten von 52
      */
     List<Karte> anlegenKartenstapel();
 
@@ -31,14 +29,14 @@ public interface KartenService {
      */
     List<Karte> mischenKartenstapel(List<Karte> karten, boolean obersteKarteBleibt);
 
-    /**
-     * Diese Methode entscheidet welche Karte, ruft den Spieler auf und übergibt diese ihm
-     *
-     * @param kartenDeck
-     * @param spieler
-     * @return
-     */
-    List austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler);//in spielerService
+//    /**
+//     * Diese Methode entscheidet welche Karte, ruft den Spieler auf und übergibt diese ihm
+//     *
+//     * @param kartenDeck
+//     * @param spieler
+//     * @return
+//     */
+//    List austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler);//in spielerService
 
     /**
      * Diese Methode legt neue Karten an

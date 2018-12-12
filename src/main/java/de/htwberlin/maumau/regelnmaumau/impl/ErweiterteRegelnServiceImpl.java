@@ -1,7 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  * @version 20181212
- *
  */
 
 package de.htwberlin.maumau.regelnmaumau.impl;
@@ -15,37 +14,37 @@ import org.apache.log4j.Logger;
 public class ErweiterteRegelnServiceImpl implements RegelnService {
 
     private static Logger log = Logger.getRootLogger();
-
+    private String kartenwert;
 
     @Override
     public boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, Farbe farbe) {
         log.setLevel(Level.WARN);
-        String kartenwertLetzteKarte;
-        kartenwertLetzteKarte=letzteKarteKartenstapel.getWert();
-        Farbe kartenFarbeLetzteKarte;
-        kartenFarbeLetzteKarte=letzteKarteKartenstapel.getFarbe();
-        String kartenwertlegendeKarte;
-        kartenwertlegendeKarte=legendeKarte.getWert();
-        Farbe kartenFarbelegendeKarte;
-        kartenFarbelegendeKarte=legendeKarte.getFarbe();
+//        String kartenwertLetzteKarte;
+        String kartenwertLetzteKarte = letzteKarteKartenstapel.getWert();
+//        Farbe kartenFarbeLetzteKarte;
+        Farbe kartenFarbeLetzteKarte = letzteKarteKartenstapel.getFarbe();
+//        String kartenwertlegendeKarte;
+        String kartenwertlegendeKarte = legendeKarte.getWert();
+//        Farbe kartenFarbelegendeKarte;
+        Farbe kartenFarbelegendeKarte = legendeKarte.getFarbe();
 
-        if(kartenwertLetzteKarte == "Bube"){
-            if(farbe==null){
-                return kartenFarbeLetzteKarte==kartenFarbelegendeKarte;
-            }else{
+        if (kartenwertLetzteKarte == "Bube") {
+            if (farbe == null) {
+                return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
+            } else {
                 return farbe == kartenFarbelegendeKarte;
             }
-        }else{
-            if(kartenwertLetzteKarte == kartenwertlegendeKarte){
+        } else {
+            if (kartenwertLetzteKarte == kartenwertlegendeKarte) {
                 return true;
-            }else
+            } else
                 return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
         }
     }
 
     @Override
-    public boolean mussSichFarbeWuenschen(Karte gelegteKarte) {//das macht keinen Sinn, da der Name darauf hindeutet, dass geprueft wird ob es noetig ist, dann muss aber ein True oder false erscheinen
-        String kartenwert = gelegteKarte.getWert();
+    public boolean mussSichFarbeWuenschen(Karte gelegteKarte) {
+        kartenwert = gelegteKarte.getWert();
         return kartenwert == "Bube";
     }
 
@@ -53,10 +52,9 @@ public class ErweiterteRegelnServiceImpl implements RegelnService {
     /**
      * Bei Kartenwert 7 muss der naechste zwei zusaetzliche Karten ziehen
      */
-    public int mussZweiKartenZiehen(Karte gelegteKarte, int zuziehendeKarte) {//evtl Int umbenennen in bisherZuZiehendeKarten
-        String kartenwert;
-        kartenwert=gelegteKarte.getWert();
-        if(kartenwert=="7"){
+    public int mussZweiKartenZiehen(Karte gelegteKarte, int zuziehendeKarte) {
+        kartenwert = gelegteKarte.getWert();
+        if (kartenwert == "7") {
             int anzahlZuZiehendeKarten = zuziehendeKarte + 2;
             return anzahlZuZiehendeKarten;
         }
@@ -68,8 +66,7 @@ public class ErweiterteRegelnServiceImpl implements RegelnService {
      * Bei Kartenwert 8 muss der naechste Spieler Aussetzen
      */
     public boolean mussRundeAussetzen(Karte gelegteKarte) {
-        String kartenwert;
-        kartenwert=gelegteKarte.getWert();
+        kartenwert = gelegteKarte.getWert();
         return kartenwert == "8";
     }
 
@@ -79,8 +76,7 @@ public class ErweiterteRegelnServiceImpl implements RegelnService {
      */
     public boolean richtungWechsel(Karte gelegteKarte) {
         log.debug("richtungswechsel");
-        String kartenwert;
-        kartenwert=gelegteKarte.getWert();
+        kartenwert = gelegteKarte.getWert();
         return kartenwert == "9";
     }
 

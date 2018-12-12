@@ -69,13 +69,13 @@ public class SpielServiceTest {
 //        paul.setHandkarten(handkarten);
 //        assertFalse("Paul muss Mau sagen", service.istMauNoetig(paul));
 //    }
-
-    @Test
-    public void testAuswaehlenKartenDeck(){
-        List<Karte> karten = new ArrayList<>();
-        assertEquals(karten, service.auswaehlenKartendeck(1));
-
-    }
+//
+//    @Test
+//    public void testAuswaehlenKartenDeck(){
+//        List<Karte> karten = new ArrayList<>();
+//        assertEquals(karten, service.auswaehlenKartendeck(1));
+//
+//    }
 
 //    @Test
 //    public void testZieheKarteVomZiehStapel(){
@@ -133,47 +133,47 @@ public class SpielServiceTest {
 //        }
 //        assertEquals(4, service.anzahlStartkartenbestimmen(spielerliste, stapel));
 //    }
-
-    @Test
-    public void testEntfernteGezogeneKarteVomStapelRest1(){
-        ziehstapel.add(pik8);
-        ziehstapel.add(pik9);
-
-        assertEquals(1, service.entferneGezogendeKarteVomZiehstapel(ziehstapel, pik8).size());
-    }
-
-    @Test
-    public void testEntfernteGezogeneKarteVomStapelRest0(){
-        ziehstapel.add(pik8);
-        System.out.println(ziehstapel.get(0).getFarbe());
-        assertEquals(0, service.entferneGezogendeKarteVomZiehstapel(ziehstapel, pik8).size());
-    }
-
-    @Test
-    public void testAusteilenStart(){
-        ziehstapel.add(pik8);
-        ziehstapel.add(pik9);
-        ziehstapel.add(pikkoenig);
-        spielerliste.add(paul);
-        spielerliste.add(sven);
-        assertEquals(1, service.austeilenStart(ziehstapel, spielerliste, 1).size());
-    }
-
-    @Test
-    public void test1ZuZiehendeKarte(){
-        ziehstapel.add(pik8);
-        ziehstapel.add(pik9);
-        spielerliste.add(paul);
-        assertEquals(1, service.zuZiehendeKarte(1, ziehstapel, paul).size());
-    }
-
-    @Test
-    public void test2ZuZiehendeKarte(){
-        ziehstapel.add(pik8);
-        ziehstapel.add(pik9);
-        spielerliste.add(paul);
-        assertEquals(0, service.zuZiehendeKarte(2, ziehstapel, paul).size());
-    }
+//
+//    @Test
+//    public void testEntfernteGezogeneKarteVomStapelRest1(){
+//        ziehstapel.add(pik8);
+//        ziehstapel.add(pik9);
+//
+//        assertEquals(1, service.entferneGezogendeKarteVomZiehstapel(ziehstapel, pik8).size());
+//    }
+//
+//    @Test
+//    public void testEntfernteGezogeneKarteVomStapelRest0(){
+//        ziehstapel.add(pik8);
+//        System.out.println(ziehstapel.get(0).getFarbe());
+//        assertEquals(0, service.entferneGezogendeKarteVomZiehstapel(ziehstapel, pik8).size());
+//    }
+//
+//    @Test
+//    public void testAusteilenStart(){
+//        ziehstapel.add(pik8);
+//        ziehstapel.add(pik9);
+//        ziehstapel.add(pikkoenig);
+//        spielerliste.add(paul);
+//        spielerliste.add(sven);
+//        assertEquals(1, service.austeilenStart(ziehstapel, spielerliste, 1).size());
+//    }
+//
+//    @Test
+//    public void test1ZuZiehendeKarte(){
+//        ziehstapel.add(pik8);
+//        ziehstapel.add(pik9);
+//        spielerliste.add(paul);
+//        assertEquals(1, service.zuZiehendeKarte(1, ziehstapel, paul).size());
+//    }
+//
+//    @Test
+//    public void test2ZuZiehendeKarte(){
+//        ziehstapel.add(pik8);
+//        ziehstapel.add(pik9);
+//        spielerliste.add(paul);
+//        assertEquals(0, service.zuZiehendeKarte(2, ziehstapel, paul).size());
+//    }
 
 //    @Test
 //    public void testPruefeDasMauGesetzt(){
@@ -185,44 +185,44 @@ public class SpielServiceTest {
 //    public void testPruefeDasMauNichtGesetzt(){
 //        assertFalse("Spieler müsste Mau nicht gesetzt haben", service.pruefeAufMau(paul));
 //    }
-
-    @Test
-    public void testAendereSpielrichtungVonRechts(){
-        spiel.setIstSpielrichtungRechts(true);
-        service.aendernSpielrichtung(spiel);
-        assertEquals(false,spiel.isIstSpielrichtungRechts());
-    }
-
-    @Test
-    public void testAendereSpielrichtungVonNichtRechts(){
-        spiel.setIstSpielrichtungRechts(false);
-        service.aendernSpielrichtung(spiel);
-        assertEquals(true,spiel.isIstSpielrichtungRechts());
-    }
-
-    @Test
-    public void testLegeKarteAufAblagestabelBeiVorher0(){
-        assertEquals(1, service.legenKarteAufAblageStapel(paul, ziehstapel, pik8).size());
-    }
-
-    @Test
-    public void testLegeKarteAufAblagestabelBeiVorher1(){
-        ziehstapel.add(pik9);
-        assertEquals(2, service.legenKarteAufAblageStapel(paul, ziehstapel, pik8).size());
-    }
-
-
-    @Test
-    public void testAendernFarbe() {
-        Spiel testSpiel = service.aendernFarbe(spiel, Farbe.HERZ);
-        assertEquals(Farbe.HERZ, testSpiel.getFarbe());
-    }
-
-    @Test
-    public void testAendernFarbeAberKeineVeraenderung() {
-        Spiel testSpiel = service.aendernFarbe(spiel, Farbe.PIK);
-        assertEquals(Farbe.PIK, testSpiel.getFarbe());
-    }
+//
+//    @Test
+//    public void testAendereSpielrichtungVonRechts(){
+//        spiel.setIstSpielrichtungRechts(true);
+//        service.aendernSpielrichtung(spiel);
+//        assertEquals(false,spiel.isIstSpielrichtungRechts());
+//    }
+//
+//    @Test
+//    public void testAendereSpielrichtungVonNichtRechts(){
+//        spiel.setIstSpielrichtungRechts(false);
+//        service.aendernSpielrichtung(spiel);
+//        assertEquals(true,spiel.isIstSpielrichtungRechts());
+//    }
+//
+//    @Test
+//    public void testLegeKarteAufAblagestabelBeiVorher0(){
+//        assertEquals(1, service.legenKarteAufAblageStapel(paul, ziehstapel, pik8).size());
+//    }
+//
+//    @Test
+//    public void testLegeKarteAufAblagestabelBeiVorher1(){
+//        ziehstapel.add(pik9);
+//        assertEquals(2, service.legenKarteAufAblageStapel(paul, ziehstapel, pik8).size());
+//    }
+//
+//
+//    @Test
+//    public void testAendernFarbe() {
+//        Spiel testSpiel = service.aendernFarbe(spiel, Farbe.HERZ);
+//        assertEquals(Farbe.HERZ, testSpiel.getFarbe());
+//    }
+//
+//    @Test
+//    public void testAendernFarbeAberKeineVeraenderung() {
+//        Spiel testSpiel = service.aendernFarbe(spiel, Farbe.PIK);
+//        assertEquals(Farbe.PIK, testSpiel.getFarbe());
+//    }
 
 //    @Test
 //    public void testErmittleSpielende(){

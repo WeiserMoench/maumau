@@ -32,43 +32,43 @@ public class KartenServiceTest {
     private Spieler spieler1 = new Spieler();
     private Spiel spiel = new Spiel();
 
+//
+//    @Before
+//    public void setUp() {
+//        karten.add(karte1);
+//        karten.add(karte2);
+//        karten.add(karte3);
+//    }
+//
+//
+//    @Test
+//    public void testMischenKartenstapel() {
+//        List<Karte> testMisch = new ArrayList<>();
+//        testMisch.add(karte2);
+//        testMisch.add(karte1);
+//        testMisch.add(karte3);
+//        List<Karte> gemischtKarten = kartenService.mischenKartenstapel(karten, true);
+//        assertEquals(testMisch, gemischtKarten);
+//    }
 
-    @Before
-    public void setUp() {
-        karten.add(karte1);
-        karten.add(karte2);
-        karten.add(karte3);
-    }
+//    @Test
+//    public void testAusteilenvonKarten() {
+//        kartenService.austeilenvonKarten(karten, spieler1);
+//        assertFalse(spieler1.getHandkarten().isEmpty());
+//
+//    }
+//
+//    @Test
+//    public void testErstellenNeueKarte(){
+//        Karte karteTest = kartenService.erstellenNeuerKarte(Farbe.PIK, "10");
+//        assertEquals(karte1.getFarbe(), karteTest.getFarbe());
+//        assertEquals(karte1.getWert(), karteTest.getWert());
+//    }
 
-
-    @Test
-    public void testMischenKartenstapel() {
-        List<Karte> testMisch = new ArrayList<>();
-        testMisch.add(karte2);
-        testMisch.add(karte1);
-        testMisch.add(karte3);
-        List<Karte> gemischtKarten = kartenService.mischenKartenstapel(karten, true);
-        assertEquals(testMisch, gemischtKarten);
-    }
-
-    @Test
-    public void testAusteilenvonKarten() {
-        kartenService.austeilenvonKarten(karten, spieler1);
-        assertFalse(spieler1.getHandkarten().isEmpty());
-
-    }
-
-    @Test
-    public void testErstellenNeueKarte(){
-        Karte karteTest = kartenService.erstellenNeuerKarte(Farbe.PIK, "10");
-        assertEquals(karte1.getFarbe(), karteTest.getFarbe());
-        assertEquals(karte1.getWert(), karteTest.getWert());
-    }
-
-    @Test
-    public void testAnlegenKartenstapel(){ //aus Testgründen erstmal nur mit 3 Karten geplant, später alle
-        spiel.setKartendeck(3);
+//    @Test
+//    public void testAnlegenKartenstapel(){ //aus Testgründen erstmal nur mit 3 Karten geplant, später alle
+//        spiel.setKartendeck(3);
 //        spiel = kartenService.anlegenKartenstapel(spiel);
-        assertEquals(52, kartenService.anlegenKartenstapel().size());
-    }
+//        assertEquals(52, kartenService.anlegenKartenstapel().size());
+//    }
 }

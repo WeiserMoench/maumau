@@ -44,14 +44,14 @@ public class KartenServiceImpl implements KartenService {
         return karten;
     }
 
-    @Override
-    public List<Karte> austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler) {
-        Karte karte = kartenDeck.get(0);
-        kartenDeck.remove(0);
-        List<Karte> spielerKarten = spieler.getHandkarten();
-        spielerKarten.add(karte);
-        return spielerKarten;
-    }
+//    @Override
+//    public List<Karte> austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler) {
+//        Karte karte = kartenDeck.get(0);
+//        kartenDeck.remove(0);
+//        List<Karte> spielerKarten = spieler.getHandkarten();
+//        spielerKarten.add(karte);
+//        return spielerKarten;
+//    }
 
     @Override
     public Karte erstellenNeuerKarte(Farbe farbe, String wert) {
