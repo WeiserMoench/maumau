@@ -104,9 +104,9 @@ public class SpielViewer {
      */
     public void willkommen() {
         System.out.println("Willkommen beim MauMau Spiel");
-        System.out.println("Wenn du ein neues Spiel beginnen willst, gibt bitte die 1 ein");
-        System.out.println("Wenn du ein Spiel fortsetzen möchtest, wähle die 2 (vollständig ohne Funktion\n nur Vorbereitung auf Aufgabe 4)");
-        System.out.println("Welche Variante möchtest du spielen?");
+//        System.out.println("Wenn du ein neues Spiel beginnen willst, gibt bitte die 1 ein"); //Vorbereitung Aufgabe 4
+//        System.out.println("Wenn du ein Spiel fortsetzen möchtest, wähle die 2");
+//        System.out.println("Welche Variante möchtest du spielen?");
     }
 
     /**
@@ -130,7 +130,7 @@ public class SpielViewer {
     public void sollenRegelnAngezeigtWerden() {
         System.out.println();
         System.out.println("Möchtet ihr euch die Regeln anzeigen lassen,\n" +
-                "bevor ihr entscheidet, ob ihr mit einfachen oder erweiterten Regeln spielt?\n" +
+                "bevor ihr entscheidet ob ihr mit einfachen oder erweiterten Regeln spielt?\n" +
                 "ACHTUNG: Die Regeln können nur jetzt angesehen werden.");
     }
 
