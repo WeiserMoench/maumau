@@ -29,11 +29,16 @@ public class ErweiterteRegelnServiceImpl implements RegelnService {
         kartenFarbelegendeKarte=legendeKarte.getFarbe();
 
         if(kartenwertLetzteKarte == "Bube"){
-            return farbe == kartenFarbelegendeKarte;
+            if(farbe==null){
+                return kartenFarbeLetzteKarte==kartenFarbelegendeKarte;
+            }else{
+                return farbe == kartenFarbelegendeKarte;
+            }
         }else{
             if(kartenwertLetzteKarte == kartenwertlegendeKarte){
                 return true;
-            }else return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
+            }else
+                return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
         }
     }
 

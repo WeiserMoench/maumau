@@ -8,7 +8,6 @@ public class SpielViewer {
     /**
      * Diese Methode fragt ab, ob ein weiterer Spieler hinzugefuegt werden soll
      *
-     * @return boolean, ob weiterer Spieler erwuenscht ist
      */
     public void sollSpielerHinzugefuegtWerden() {
         System.out.println();
@@ -17,21 +16,18 @@ public class SpielViewer {
 
     /**
      * Diese Methode fragt ab, ob der neue Spieler ein Mensch sein soll, oder sonst ein KI
-     *
-     * @return - boolean, der angibt ob der neuste Spieler ein Mensch sein soll
      */
     public void sollSpielerMenschSein() {
         System.out.println();
         System.out.println("Wenn der Spieler ein Mensch sein soll, gib bitte \"ja\" ein.");
-        System.out.println("Soll der Spieler hingegen ein Computerspieler sein, gib \"nein\" ein");
+        System.out.println("Soll der Spieler hingegen ein Computerspieler sein, gib \"nein\" ein ACHTUNG, \n" +
+                "DIES IST EINE VORBEREITUNG FÜR DIE NÄCHSTE ABGABE UND FÜHRT DAHER ZU PROBLEMEN");
     }
 
     /**
      * Diese Methode liest die Konsoleneingabe und prueft, ob mit ja oder nein geantwortet wurde,
      * sofern dies nicht der Fall ist, wird ein Fehler ausgegeben und der Benutzer wird aufgefordert mit
      * Ja oder nein zu antworten
-     *
-     * @return - boolean: true fuer ja, false fuer nein
      */
     public void jaNeinAbfrageFehlermeldung(){
         System.err.println("Deine Eingabe war fehlerhaft, bitte gib \"ja\" oder \"nein\" ein");
@@ -84,7 +80,7 @@ public class SpielViewer {
      * Außerdem das der Spieler hier Mau sagen könnte
      */
     public void welcheKarteAblegen() {
-        System.out.println("Welche Karte möchtest du legen? (Sollte \"Mau\" nötig sein, gib es jetzt ein)\n" +
+        System.out.println("Welche Karte möchtest du legen? (Sollte \"Mau\" nötig sein, gib es zuerst ein \nund bestätige dies mit ENTER)\n" +
                 "Wenn keine Karte möglich ist, einfach \"ziehen\" eingeben. "+
                 "Gib bitte die Kartennummer ein.");
     }

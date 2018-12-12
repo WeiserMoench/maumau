@@ -25,7 +25,9 @@ public class EinfacheRegelnServiceImpl implements RegelnService {
 
         if(kartenwertLetzteKarte == kartenwertlegendeKarte){
             return true;
-        }else return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
+        }else
+            return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
+
     }
 
     @Override

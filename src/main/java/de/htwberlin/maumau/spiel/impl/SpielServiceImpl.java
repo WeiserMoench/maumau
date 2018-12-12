@@ -20,6 +20,8 @@ import de.htwberlin.maumau.spieler.export.SpielerService;
 import de.htwberlin.maumau.spieler.impl.SpielerServiceImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +32,12 @@ public class SpielServiceImpl implements SpielService {
 
     private KartenService kartenService = new KartenServiceImpl();
     private RegelnService regeln;
-    static Log log = LogFactory.getLog(SpielServiceImpl.class);
+    private static Logger log = Logger.getRootLogger();
 
     @Override
 
     public Spiel anlegenSpiel(List<String> spielerliste, boolean erweiterteRegeln) {
+        log.setLevel(Level.WARN);//ALL, DEBUG, INFO, WARN, ERROR, FATAL, OFF
         log.debug("anlegenSpiel");
         Spiel spiel = new Spiel();
         if(erweiterteRegeln){

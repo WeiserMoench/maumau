@@ -7,6 +7,8 @@ import de.htwberlin.maumau.spiel.impl.SpielServiceImpl;
 import de.htwberlin.maumau.ui.export.SpielController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +24,15 @@ public class SpielControllerImpl implements SpielController {
     private int spielrundenindex = 0;
     private boolean erweiterteRegeln;
     private Scanner sc = new Scanner(System.in);
-    static Log log = LogFactory.getLog(SpielControllerImpl.class);
+    private static Logger log = Logger.getRootLogger();
+
 
 
     public void run(){
+        log.setLevel(Level.WARN);//ALL, DEBUG, INFO, WARN, ERROR, FATAL, OFF
         log.debug("run");
 
+        view.willkommen();
 //        if(welcheSpielart()==1){ //vorbereitung nächste Abgabe
             erweiterteRegeln=erweiterteRegeln();
             do {
@@ -51,7 +56,7 @@ public class SpielControllerImpl implements SpielController {
                 }
                 dasSpiel=mauPruefung(dasSpiel);
                 spielService.setzeMau(dasSpiel.getAktiverSpieler(),false);
-                spielService.mussGemischtWerden(dasSpiel);
+                spielService.mussGemischtWerden(dasSpiel); // Wenn die Spieler betrügen, kann es zu einer Exception kommen, diese wird bei der nächsten Abgabe gefangen
                 spielLaeuft=spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
                 spielrundenindex++;
             }
@@ -112,7 +117,9 @@ public class SpielControllerImpl implements SpielController {
         view.infosfuerNaechstenSpieler(obersteKarteAblagestapelFarbe, obersteKarteAblagestapelWert,spielername, anzahlGezogenerKarten);
 
         if(obersteKarteAblagestapelWert.equals("Bube")){
-            view.spielerInfoNachBube(farbeNachBube);
+            if(dasSpiel.getFarbe()!=null) {
+                view.spielerInfoNachBube(farbeNachBube);
+            }
         }
 
         dasSpiel.setSummeZuziehendeKarten(0);
