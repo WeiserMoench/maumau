@@ -107,8 +107,9 @@ public interface SpielService {
      * Setzt Mau bei Spieler
      *
      * @param spieler - bei dem Mau gesetzt werden muss
+     * @param neuerZustand - Der Zustand den der Mauzustand danach haben soll,
      */
-    void setzeMau(Spieler spieler);
+    void setzeMau(Spieler spieler, boolean neuerZustand);
 
 //    /**
 //     * Methode bestimmt, wie viele Handkarten jeder Spieler bei Beginn bekommen muss
