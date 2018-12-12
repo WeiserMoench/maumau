@@ -9,8 +9,12 @@ package de.htwberlin.maumau.regelnmaumau.impl;
 import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.regelnmaumau.export.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class ErweiterteRegelnServiceImpl implements RegelnService {
+
+    static Log log = LogFactory.getLog(ErweiterteRegelnServiceImpl.class);
 
 
     @Override
@@ -65,9 +69,10 @@ public class ErweiterteRegelnServiceImpl implements RegelnService {
 
     @Override
     /**
-     * Bei Kartenwert 9 muss der naechste Spieler Aussetzen
+     * Bei Kartenwert 9 wird die Richtung gewechselt
      */
     public boolean richtungWechsel(Karte gelegteKarte) {
+        log.debug("richtungswechsel");
         String kartenwert;
         kartenwert=gelegteKarte.getWert();
         return kartenwert == "9";

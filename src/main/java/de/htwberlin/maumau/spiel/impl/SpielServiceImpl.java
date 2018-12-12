@@ -45,7 +45,6 @@ public class SpielServiceImpl implements SpielService {
         List<Spieler> spielerListe = new ArrayList<>();
         List<Karte> ablagestapel = new ArrayList<>();
 
-        //Testimplementierung für Controller und Viewer, eigentlich schon fertig
 
             for (String wert :spielerliste) {
                 Spieler derSpieler = new Spieler();
@@ -127,7 +126,7 @@ public class SpielServiceImpl implements SpielService {
         if (spiel.isIstSpielrichtungRechts()) {
             indexNaechsterSpieler = spiel.getSpielerDesSpieles().indexOf(spiel.getAktiverSpieler()) + veraenderung;
         } else {
-            indexNaechsterSpieler = spiel.getSpielerDesSpieles().indexOf(spiel.getAktiverSpieler()) + veraenderung;
+            indexNaechsterSpieler = spiel.getSpielerDesSpieles().indexOf(spiel.getAktiverSpieler()) - veraenderung;
         }
         if (indexNaechsterSpieler >= laengeSpielerliste) {
             spiel.setAktiverSpieler(spiel.getSpielerDesSpieles().get(indexNaechsterSpieler-laengeSpielerliste));

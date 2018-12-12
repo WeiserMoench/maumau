@@ -2,7 +2,6 @@ package de.htwberlin.maumau.ui.impl;
 
 
 import de.htwberlin.maumau.karten.entity.Farbe;
-import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spiel.impl.SpielServiceImpl;
 import de.htwberlin.maumau.ui.export.SpielController;
@@ -23,11 +22,7 @@ public class SpielControllerImpl implements SpielController {
     private int spielrundenindex = 0;
     private boolean erweiterteRegeln;
     private Scanner sc = new Scanner(System.in);
-//    private boolean weitererspieler=true;
-
     static Log log = LogFactory.getLog(SpielControllerImpl.class);
-
-
 
 
     public void run(){
