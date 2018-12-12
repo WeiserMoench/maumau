@@ -49,7 +49,7 @@ public class SpielControllerImpl implements SpielController {
                 if(spielrundenindex >0 ){
                     spielService.naechsterSpieler(dasSpiel);
                 }
-                spielService.zuZiehendeKarte(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
+                spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
                 dasSpiel=spielerInfos(dasSpiel);
                 dasSpiel=kartelegen(dasSpiel);
                 dasSpiel=mauPruefung(dasSpiel);

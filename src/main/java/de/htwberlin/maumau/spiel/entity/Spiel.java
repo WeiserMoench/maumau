@@ -22,7 +22,6 @@ public class Spiel {
     private List<Karte> ablagestapelkarten = new ArrayList<>();
     private List<Karte> ziehstapelkarten = new ArrayList<>();
     private List<Spieler> spielerDesSpieles = new ArrayList<>();
-    private int kartendeck; //Diskussion hatten wir schon, aber ist das noch Nötig??? würde einfach auf 54 Karten festlegen
     private Farbe farbe;
     private boolean mussFarbeWuenschen = false;
     private boolean erfolgreichgelegt;
@@ -91,13 +90,6 @@ public class Spiel {
         this.spielerDesSpieles = spielerDesSpieles;
     }
 
-    public int getKartendeck() {
-        return kartendeck;
-    }
-
-    public void setKartendeck(int kartendeck) {
-        this.kartendeck = kartendeck;
-    }
 
     public Farbe getFarbe() {
         return farbe;

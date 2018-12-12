@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181113
+ * @version 20181212
  *
  */
 
@@ -22,20 +22,13 @@ public interface SpielService {
      */
     Spiel anlegenSpiel(List<String> spielerliste, boolean erweiterteRegeln);
 
-    /**
-     * Diese Methode sorgt dafuer, dass ein gewuenschtes Kartenblatt dem Spiel hinzugefuegt wird.
-     *
-     * @param kartenblatt - int Wert aus Listener
-     */
-    List<Karte> auswaehlenKartendeck(int kartenblatt);
-
 
     /**
      * Diese Methode soll eine Karte aus
      * Ziehstapel entnehmen
      *
-     * @param ziehStapel - Der Ziehstapel des Spieles
-     * @return - die oberste Karte
+     * @param spiel - Das Spiel
+     * @return - Das veraenderte Spiel
      */
     Spiel ziehenKarteVomZiehstapel(Spiel spiel);
 
@@ -56,7 +49,7 @@ public interface SpielService {
      * @param durchgaenge - Anzahl der Durchgaenger des Verteilens (Startanzahl Handkarten)
      * @return Liste der restlichen Karten, stellt Ziehstapel des Spieles dar
      */
-    List<Karte> austeilenStart(List<Karte> kartenDeck, List<Spieler> spielerListe, int durchgaenge);
+    List<Karte> austeilenVonKarten(List<Karte> kartenDeck, List<Spieler> spielerListe, int durchgaenge);
 
     /**
      * Diese Methode zieht Karten vom Ablagestapel und sorgt dafuer, dass der Spieler sie als Handkarten bekommt
@@ -66,7 +59,7 @@ public interface SpielService {
      * @param spieler - Spieler, der die Karten ziehen soll
      * @return Liste der restlichen Karten, stellt Ziehstapel des Spieles dar
      */
-    List<Karte> zuZiehendeKarte(int anzahl, List<Karte> karteStapel, Spieler spieler); //umbennenen in karteZiehen
+    List<Karte> karteZiehen(int anzahl, List<Karte> karteStapel, Spieler spieler);
 
     /**
      * Diese Methode entfernt eine Handkarte aus den Handkarten des Spielers und legt diese auf den Ablagestapel.
@@ -78,14 +71,10 @@ public interface SpielService {
      */
     List<Karte> legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte);
 
-//    boolean spielerLegtKarteAb(Spieler spieler, Karte karte);
-
     /**
      * Methode bietet die Moeglichkeit, die Spielrichtung zu aendern.
-     *
-     * @return der boolean gibt an, ob die Spielrichtung rechts ist, sodass dieser dann im Spiel gespeichert werden kann
      */
-    void aendernSpielrichtung(Spiel spiel);//da methode nur aufgerufen wird, wenn benoetigt, tauscht er einfach true gegen fals, somit ist kein Parameter erforderlich
+    void aendernSpielrichtung(Spiel spiel);
 
 
     /**
@@ -97,37 +86,30 @@ public interface SpielService {
      */
     Spiel aendernFarbe(Spiel spiel, Farbe neueFarbe);
 
-//    /**
-//     * Prueft am Ende eines Zuges, ob das Spiel zu Ende ist
-//     *
-//     * @param spieler - aktueller Spieler
-//     * @return boolean, der angibt, ob das Spiel zu Ende ist
-//     */
-//    boolean ermittleSpielende(Spieler spieler);
-//
-//    /**
-//     * Prueft ob der Spieler Mau geklickt hat
-//     *
-//     * @param spieler - Der zu pruefende Spieler
-//     * @return boolean, der angibt ob der Spieler vergessen hat Mau zu klicken
-//     */
-//    boolean pruefeAufMau(Spieler spieler);
-//
-//    /**
-//     * Prueft ob der Spieler Mau klicken musste
-//     *
-//     * @param spieler - Der zu pruefende Spieler
-//     * @return boolean, der angibt ob Mau noetig ist
-//     */
-//    boolean istMauNoetig(Spieler spieler);
-//
-//    /**
-//     * Setzt Mau bei Spieler
-//     *
-//     * @param spieler - bei dem Mau gesetzt werden muss
-//     */
-//    void setzeMau(Spieler spieler);
-//
+    /**
+     * Prueft am Ende eines Zuges, ob das Spiel zu Ende ist
+     *
+     * @param spieler - aktueller Spieler
+     * @return boolean, der angibt, ob das Spiel zu Ende ist
+     */
+    boolean ermittleSpielende(Spieler spieler);
+
+    /**
+     * Prueft ob der Spieler Mau geklickt hat
+     * und falls nicht, bekommt der Spieler auch die Strafkarten auf die Hand
+     *
+     * @param spiel - Das Spiel
+     * @return Das Spiel, nachdem ggfs. Strafkarten dem Spieler zugefuehrt wurden
+     */
+    Spiel pruefeAufMau(Spiel spiel);
+
+    /**
+     * Setzt Mau bei Spieler
+     *
+     * @param spieler - bei dem Mau gesetzt werden muss
+     */
+    void setzeMau(Spieler spieler);
+
 //    /**
 //     * Methode bestimmt, wie viele Handkarten jeder Spieler bei Beginn bekommen muss
 //     *

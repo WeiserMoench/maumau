@@ -60,25 +60,13 @@ public class SpielServiceImpl implements SpielService {
         spiel.setAktiverSpieler(spiel.getSpielerDesSpieles().get(0));
 
         spiel.setZiehstapelkarten(kartenService.mischenKartenstapel(kartenService.anlegenKartenstapel(), false));
-        spiel.setZiehstapelkarten(austeilenStart(spiel.getZiehstapelkarten(), spiel.getSpielerDesSpieles(), anzahlStartkartenbestimmen(spiel.getSpielerDesSpieles(), spiel.getZiehstapelkarten())));
+        spiel.setZiehstapelkarten(austeilenVonKarten(spiel.getZiehstapelkarten(), spiel.getSpielerDesSpieles(), anzahlStartkartenbestimmen(spiel.getSpielerDesSpieles(), spiel.getZiehstapelkarten())));
         ablagestapel.add(spiel.getZiehstapelkarten().get(spiel.getZiehstapelkarten().size()-1));
         spiel.setZiehstapelkarten(entferneGezogendeKarteVomZiehstapel(spiel.getZiehstapelkarten(), spiel.getZiehstapelkarten().get(spiel.getZiehstapelkarten().size()-1)));
         spiel.setAblagestapelkarten(ablagestapel);
         return spiel;
     }
 
-    //Dustin
-
-    //noetig?
-    // ist das nicht intern?
-    // aufgabe ueberarbeiten und fixes Kartendeck nutzen
-    @Override
-    public List<Karte> auswaehlenKartendeck(int kartenblatt) {
-//        kartenService.anlegenKartenstapel();
-        return null;
-    }
-
-    //Dustin
     // ist das nicht intern?
     @Override
     public Spiel ziehenKarteVomZiehstapel(Spiel spiel) {
@@ -157,8 +145,8 @@ public class SpielServiceImpl implements SpielService {
     // ist das nicht intern?
     // macht das so sinn, was ist mit den veraenderten Spielern
     @Override
-    public List<Karte> austeilenStart(List<Karte> ziehstapel, List<Spieler> spielerListe, int durchgaenge) {
-        log.debug("austeilenStart");
+    public List<Karte> austeilenVonKarten(List<Karte> ziehstapel, List<Spieler> spielerListe, int durchgaenge) {
+        log.debug("austeilenVonKarten");
         for (int runden = 0; runden < durchgaenge; runden++) {
             for (int spielerzaehler = 0; spielerzaehler < spielerListe.size(); spielerzaehler++) {
                 Karte karte = ziehstapel.get(ziehstapel.size() - 1);
@@ -171,11 +159,11 @@ public class SpielServiceImpl implements SpielService {
 
     // ist das nicht intern?
     @Override
-    public List<Karte> zuZiehendeKarte(int anzahl, List<Karte> karteStapel, Spieler spieler) {
-        log.debug("zuZiehendeKarte");
+    public List<Karte> karteZiehen(int anzahl, List<Karte> karteStapel, Spieler spieler) {
+        log.debug("karteZiehen");
         List<Spieler> spielerliste = new ArrayList<>();
         spielerliste.add(spieler);
-        austeilenStart(karteStapel, spielerliste, anzahl);
+        austeilenVonKarten(karteStapel, spielerliste, anzahl);
         return karteStapel;
     }
 
@@ -214,7 +202,7 @@ public class SpielServiceImpl implements SpielService {
         spielerAlsListe.add(spiel.getAktiverSpieler());
         if(istMauNoetig(spiel.getAktiverSpieler())){
             if(!spiel.getAktiverSpieler().isMauistgesetzt()){
-                austeilenStart(spiel.getZiehstapelkarten(), spielerAlsListe, 2);
+                austeilenVonKarten(spiel.getZiehstapelkarten(), spielerAlsListe, 2);
             }
 
         }
