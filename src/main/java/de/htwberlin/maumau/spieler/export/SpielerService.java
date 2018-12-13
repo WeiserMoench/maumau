@@ -34,8 +34,4 @@ public interface SpielerService {
      * @return der neue spieler
      */
     Spieler neuerSpielerAnlegen(String name);
-
-
-
-
 }

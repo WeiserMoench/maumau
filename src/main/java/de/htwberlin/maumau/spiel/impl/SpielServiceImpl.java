@@ -5,20 +5,15 @@
 
 package de.htwberlin.maumau.spiel.impl;
 
+
 import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.karten.export.KartenService;
-import de.htwberlin.maumau.karten.impl.KartenServiceImpl;
 import de.htwberlin.maumau.regelnmaumau.export.RegelnService;
-import de.htwberlin.maumau.regelnmaumau.impl.EinfacheRegelnServiceImpl;
-import de.htwberlin.maumau.regelnmaumau.impl.ErweiterteRegelnServiceImpl;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spiel.export.SpielService;
 import de.htwberlin.maumau.spieler.entity.Spieler;
 import de.htwberlin.maumau.spieler.export.SpielerService;
-import de.htwberlin.maumau.spieler.impl.SpielerServiceImpl;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -27,21 +22,28 @@ import java.util.List;
 
 public class SpielServiceImpl implements SpielService {
 
-    private static SpielerService spielerService = new SpielerServiceImpl();
+    public SpielServiceImpl(SpielerService spielerService, KartenService kartenService, RegelnService einfacheRegeln, RegelnService erweiterteRegeln) {
+        this.spielerService = spielerService;
+        this.kartenService = kartenService;
+        this.regelnEinfach = einfacheRegeln;
+        this.regelnErweitert = erweiterteRegeln;
+    }
 
-    private KartenService kartenService = new KartenServiceImpl();
+    private SpielerService spielerService;
+    private KartenService kartenService;
+    private RegelnService regelnEinfach;
+    private RegelnService regelnErweitert;
     private RegelnService regeln;
     private static Logger log = Logger.getRootLogger();
 
     @Override
     public Spiel anlegenSpiel(List<String> spielerliste, boolean erweiterteRegeln) {
-        log.setLevel(Level.WARN);//ALL, DEBUG, INFO, WARN, ERROR, FATAL, OFF
         log.debug("anlegenSpiel");
         Spiel spiel = new Spiel();
         if (erweiterteRegeln) {
-            regeln = new ErweiterteRegelnServiceImpl();
+            regeln = regelnErweitert;
         } else {
-            regeln = new EinfacheRegelnServiceImpl();
+            regeln = regelnEinfach;
         }
         List<Spieler> spielerListe = new ArrayList<>();
         List<Karte> ablagestapel = new ArrayList<>();
@@ -49,7 +51,6 @@ public class SpielServiceImpl implements SpielService {
 
         for (String wert : spielerliste) {
             Spieler derSpieler = spielerService.neuerSpielerAnlegen(wert);
-//            derSpieler.setName(wert);
             spielerListe.add(derSpieler);
         }
         spiel.setSpielerDesSpieles(spielerListe);
@@ -78,7 +79,9 @@ public class SpielServiceImpl implements SpielService {
         if (regeln.darfKartegelegtwerden(spiel.getAblagestapelkarten().get(spiel.getAblagestapelkarten().size() - 1), zulegendeKarte, spiel.getFarbe())) {
             spiel.setAblagestapelkarten(legenKarteAufAblageStapel(spieler, spiel.getAblagestapelkarten(), zulegendeKarte));
             spiel.setSummeZuziehendeKarten(regeln.mussZweiKartenZiehen(zulegendeKarte, spiel.getSummeZuziehendeKarten()));
-            spiel.setIstSpielrichtungRechts(regeln.richtungWechsel(zulegendeKarte));
+            if(regeln.richtungWechsel(zulegendeKarte)){
+                spiel.setIstSpielrichtungRechts(!spiel.isIstSpielrichtungRechts());
+            }
             spiel.setErfolgreichgelegt(true);
             if (regeln.mussSichFarbeWuenschen(zulegendeKarte)) {
                 spiel.setMussFarbeWuenschen(true);
@@ -124,15 +127,12 @@ public class SpielServiceImpl implements SpielService {
         return spiel;
     }
 
-//    @Override
-
     private List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte) {
         log.debug("entferneGezogendeKarteVomZiehstapel");
         karteStapel.remove(karte);
         return karteStapel;
     }
 
-    //    @Override
     private List<Karte> austeilenVonKarten(List<Karte> ziehstapel, List<Spieler> spielerListe, int durchgaenge) {
         log.debug("austeilenVonKarten");
         for (int runden = 0; runden < durchgaenge; runden++) {
@@ -154,28 +154,13 @@ public class SpielServiceImpl implements SpielService {
         return karteStapel;
     }
 
-    //    @Override
     private List<Karte> legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte) {
         log.debug("legenKarteAufAblageStapel");
         spielerService.karteausHandblattentfernden(karte, spieler);
         kartenAblagestapel.add(karte);
         return kartenAblagestapel;
     }
-//
-//    @Override
-//    public void aendernSpielrichtung(Spiel spiel) {
-//        log.debug("aendernSpielrichtung");
-//        spiel.setIstSpielrichtungRechts(!spiel.isIstSpielrichtungRechts());
-//    }
-//
-//
 
-    //    @Override
-//    public Spiel aendernFarbe(Spiel spiel, Farbe neueFarbe) {
-//        log.debug("aendernFarbe");
-//        spiel.setFarbe(neueFarbe);
-//        return spiel;
-//    }
     @Override
     public boolean ermittleSpielende(Spieler spieler) {
         log.debug("ermittleSpielende");
@@ -191,7 +176,6 @@ public class SpielServiceImpl implements SpielService {
             if (!spiel.getAktiverSpieler().isMauistgesetzt()) {
                 austeilenVonKarten(spiel.getZiehstapelkarten(), spielerAlsListe, 2);
             }
-
         }
         return spiel;
     }

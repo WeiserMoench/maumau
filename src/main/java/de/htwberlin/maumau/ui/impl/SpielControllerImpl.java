@@ -8,9 +8,8 @@ package de.htwberlin.maumau.ui.impl;
 
 import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.spiel.entity.Spiel;
-import de.htwberlin.maumau.spiel.impl.SpielServiceImpl;
+import de.htwberlin.maumau.spiel.export.SpielService;
 import de.htwberlin.maumau.ui.export.SpielController;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -18,8 +17,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SpielControllerImpl implements SpielController {
+    public SpielControllerImpl(SpielService spielService) {
+        this.spielService = spielService;
+    }
 
-    private SpielServiceImpl spielService = new SpielServiceImpl();
+    private SpielService spielService;
     private SpielViewer view = new SpielViewer();
     private List<String> spielerliste = new ArrayList();
     private Spiel dasSpiel = new Spiel();
@@ -31,7 +33,6 @@ public class SpielControllerImpl implements SpielController {
 
 
     public void run(){
-        log.setLevel(Level.WARN);//ALL, DEBUG, INFO, WARN, ERROR, FATAL, OFF
         log.debug("run");
 
         view.willkommen();

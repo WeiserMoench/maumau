@@ -18,7 +18,6 @@ import java.util.List;
 public class KartenServiceImpl implements KartenService {
    private String[] kartenwerte = {"Ass", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Bube", "Dame", "Koenig"};
 
-   //Bitte Diskutieren
     @Override
     public List<Karte> anlegenKartenstapel() {
         List<Karte> kartenStapel = new ArrayList();
@@ -30,8 +29,6 @@ public class KartenServiceImpl implements KartenService {
         return kartenStapel;
     }
 
-
-    // Wo wird die oberste Karte gespeicher???
     @Override
     public List<Karte> mischenKartenstapel(List<Karte> karten, boolean obersteKarteBleibt) {
         if (obersteKarteBleibt) {
@@ -44,19 +41,9 @@ public class KartenServiceImpl implements KartenService {
         return karten;
     }
 
-//    @Override
-//    public List<Karte> austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler) {
-//        Karte karte = kartenDeck.get(0);
-//        kartenDeck.remove(0);
-//        List<Karte> spielerKarten = spieler.getHandkarten();
-//        spielerKarten.add(karte);
-//        return spielerKarten;
-//    }
-
     @Override
     public Karte erstellenNeuerKarte(Farbe farbe, String wert) {
         Karte karte = new Karte(farbe, wert);
-
         return karte;
     }
 }

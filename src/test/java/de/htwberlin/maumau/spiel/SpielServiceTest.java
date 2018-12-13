@@ -23,34 +23,34 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class SpielServiceTest {
-
-    private SpielService service;
-    private SpielerService spielerService;
-    private Karte pik8;
-    private Karte pik9;
-    private Karte pikkoenig;
-    private List<Karte> ziehstapel;
-    private Spieler paul;
-    private List<Spieler> spielerliste;
-    private Spieler sven;
-    private Spiel spiel = new Spiel();
-
-
-    @Before
-    public void initialize() {
-        service = new SpielServiceImpl();
-        spielerService = new SpielerServiceImpl();
-        pik8 = new Karte(Farbe.PIK, "8");
-        pik9 = new Karte(Farbe.PIK, "9");
-        pikkoenig = new Karte(Farbe.PIK, "König");
-        ziehstapel = new ArrayList<>();
-        paul = new Spieler();
-        sven = new Spieler();
-        spiel.setFarbe(Farbe.PIK);
-        spielerliste = new ArrayList<>();
-
-    }
+//public class SpielServiceTest {
+//
+//    private SpielService service;
+//    private SpielerService spielerService;
+//    private Karte pik8;
+//    private Karte pik9;
+//    private Karte pikkoenig;
+//    private List<Karte> ziehstapel;
+//    private Spieler paul;
+//    private List<Spieler> spielerliste;
+//    private Spieler sven;
+//    private Spiel spiel = new Spiel();
+//
+//
+//    @Before
+//    public void initialize() {
+//        service = new SpielServiceImpl();
+//        spielerService = new SpielerServiceImpl();
+//        pik8 = new Karte(Farbe.PIK, "8");
+//        pik9 = new Karte(Farbe.PIK, "9");
+//        pikkoenig = new Karte(Farbe.PIK, "König");
+//        ziehstapel = new ArrayList<>();
+//        paul = new Spieler();
+//        sven = new Spieler();
+//        spiel.setFarbe(Farbe.PIK);
+//        spielerliste = new ArrayList<>();
+//
+//    }
 
 //    @Test
 //    public void testMauistNoetig(){
@@ -246,4 +246,4 @@ public class SpielServiceTest {
 //        assertEquals(spiel, testSpiel);
 //
 //    }
-}
+//}

@@ -29,15 +29,6 @@ public interface KartenService {
      */
     List<Karte> mischenKartenstapel(List<Karte> karten, boolean obersteKarteBleibt);
 
-//    /**
-//     * Diese Methode entscheidet welche Karte, ruft den Spieler auf und übergibt diese ihm
-//     *
-//     * @param kartenDeck
-//     * @param spieler
-//     * @return
-//     */
-//    List austeilenvonKarten(List<Karte> kartenDeck, Spieler spieler);//in spielerService
-
     /**
      * Diese Methode legt neue Karten an
      *

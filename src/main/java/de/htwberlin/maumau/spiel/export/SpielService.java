@@ -48,26 +48,6 @@ public interface SpielService {
      */
     Spiel farbeGewaehlt(Spiel spiel, Farbe farbe);
 
-
-//    /**
-//     * Diese Methode entfernt eine Karte aus einem Stapel
-//     *
-//     * @param karteStapel - Der Stapel, von dem die Karte entfernt werden soll
-//     * @param karte - Die zu entfernende Karte
-//     * @return Liste der restlichen Karten
-//     */
-//    List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte);
-
-//    /**
-//     * Diese Methode wird beim Start eines Spieles ausgefuehrt und verteilt die Handkarten
-//     *
-//     * @param kartenDeck - Liste an Karten, die den Kartenstapel darstellen, von dem verteilt werden soll
-//     * @param spielerListe - Liste mit Spielern aus dem Spiel, die die Karten erhalten sollen
-//     * @param durchgaenge - Anzahl der Durchgaenger des Verteilens (Startanzahl Handkarten)
-//     * @return Liste der restlichen Karten, stellt Ziehstapel des Spieles dar
-//     */
-//    List<Karte> austeilenVonKarten(List<Karte> kartenDeck, List<Spieler> spielerListe, int durchgaenge);
-
     /** Setzt den Nächsten Spieler als Aktiv
      *
      * @param spiel Das Spiel
@@ -84,31 +64,6 @@ public interface SpielService {
      * @return Liste der restlichen Karten, stellt Ziehstapel des Spieles dar
      */
     List<Karte> karteZiehen(int anzahl, List<Karte> karteStapel, Spieler spieler);
-
-//    /**
-//     * Diese Methode entfernt eine Handkarte aus den Handkarten des Spielers und legt diese auf den Ablagestapel.
-//     *
-//     * @param spieler - Der Spieler, bei dem die Karte entfernt werden soll
-//     * @param kartenAblagestapel - der Ablagestapel, auf den die Karte gelegt werden soll
-//     * @param karte - Die Karte, die abgelegt werden soll
-//     * @return - Liste der abgelegten Karten (Ablagestapel)
-//     */
-//    List<Karte> legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte);
-//
-//    /**
-//     * Methode bietet die Moeglichkeit, die Spielrichtung zu aendern.
-//     */
-//    void aendernSpielrichtung(Spiel spiel);
-//
-//
-//    /**
-//     * Farbe des Spiels wird gewechselt.
-//     *
-//     * @param spiel     - Laufendes Spiel.
-//     * @param neueFarbe - Die neue Farbe (Enum Farbe beachten)
-//     * @return Das Spiel mit der geaenderten Einstellung fuer Farbe
-//     */
-//    Spiel aendernFarbe(Spiel spiel, Farbe neueFarbe);
 
     /**
      * Prueft am Ende eines Zuges, ob das Spiel zu Ende ist
@@ -146,20 +101,4 @@ public interface SpielService {
         da die Wahrscheinlichkeit sehr gering ist, das so gespielt wird, wird dieses Mal die Exception noch nicht gefangen und bearbeitet,
         dies erfolgt bei der nächsten Abgabe
         */
-//    /**
-//     * Methode bestimmt, wie viele Handkarten jeder Spieler bei Beginn bekommen muss
-//     *
-//     * @param spielerListe - Liste der Spieler
-//     * @param ziehstapel - Der Ziehstapel der verteilt verden soll
-//     * @return Anzahl der Handkarten zu Spielbeginn
-//     */
-//    int anzahlStartkartenbestimmen(List<Spieler> spielerListe, List<Karte> ziehstapel);
-//
-//    /**
-//     * Methode prueft, ob Karten waehrend des Spiels gemischt werden
-//     *
-//     * @param ziehstapel - Der Ziehstapel
-//     * @return boolean, der angibt ob gemischt werden muss
-//     */
-//    boolean mussGemischtWerden(List<Karte> ziehstapel);
 }

@@ -18,14 +18,9 @@ public class ErweiterteRegelnServiceImpl implements RegelnService {
 
     @Override
     public boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, Farbe farbe) {
-        log.setLevel(Level.WARN);
-//        String kartenwertLetzteKarte;
         String kartenwertLetzteKarte = letzteKarteKartenstapel.getWert();
-//        Farbe kartenFarbeLetzteKarte;
         Farbe kartenFarbeLetzteKarte = letzteKarteKartenstapel.getFarbe();
-//        String kartenwertlegendeKarte;
         String kartenwertlegendeKarte = legendeKarte.getWert();
-//        Farbe kartenFarbelegendeKarte;
         Farbe kartenFarbelegendeKarte = legendeKarte.getFarbe();
 
         if (kartenwertLetzteKarte == "Bube") {

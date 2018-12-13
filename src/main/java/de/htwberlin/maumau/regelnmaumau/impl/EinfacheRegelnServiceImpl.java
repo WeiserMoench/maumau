@@ -16,21 +16,15 @@ public class EinfacheRegelnServiceImpl implements RegelnService {
 
     @Override
     public boolean darfKartegelegtwerden(Karte letzteKarteKartenstapel, Karte legendeKarte, Farbe farbe) {
-        log.setLevel(Level.WARN);
-        String kartenwertLetzteKarte;
-        kartenwertLetzteKarte = letzteKarteKartenstapel.getWert();
-        Farbe kartenFarbeLetzteKarte;
-        kartenFarbeLetzteKarte = letzteKarteKartenstapel.getFarbe();
-        String kartenwertlegendeKarte;
-        kartenwertlegendeKarte = legendeKarte.getWert();
-        Farbe kartenFarbelegendeKarte;
-        kartenFarbelegendeKarte = legendeKarte.getFarbe();
+        String kartenwertLetzteKarte = letzteKarteKartenstapel.getWert();
+        Farbe kartenFarbeLetzteKarte = letzteKarteKartenstapel.getFarbe();
+        String kartenwertlegendeKarte = legendeKarte.getWert();
+        Farbe kartenFarbelegendeKarte = legendeKarte.getFarbe();
 
         if (kartenwertLetzteKarte == kartenwertlegendeKarte) {
             return true;
         } else
             return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
-
     }
 
     @Override

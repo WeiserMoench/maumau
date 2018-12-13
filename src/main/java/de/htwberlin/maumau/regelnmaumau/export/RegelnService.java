@@ -47,7 +47,7 @@ public interface RegelnService {
      * @param gelegteKarte - die letzte Karte die gelegt wurde (also die oberste auf dem Ablagestapel)
      * @return boolean, der angibt ob der aktuelle Spieler spielen darf
      */
-    boolean mussRundeAussetzen(Karte gelegteKarte); //ist es nicht eher die letzte Karte auf dem Ablagestapel und muss das nicht zu Beginn einer Runde geprueft werden, oder sorgt diese Methode dafür, das der naechste Spieler aussetzen muss
+    boolean mussRundeAussetzen(Karte gelegteKarte);
 
     /**
      * Diese Methode prueft, ob ein Richtungswechsel ausgeloest werden muss
