@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class KartenServiceTest {
 
@@ -32,43 +31,35 @@ public class KartenServiceTest {
     private Spieler spieler1 = new Spieler();
     private Spiel spiel = new Spiel();
 
-//
-//    @Before
-//    public void setUp() {
-//        karten.add(karte1);
-//        karten.add(karte2);
-//        karten.add(karte3);
-//    }
-//
-//
-//    @Test
-//    public void testMischenKartenstapel() {
-//        List<Karte> testMisch = new ArrayList<>();
-//        testMisch.add(karte2);
-//        testMisch.add(karte1);
-//        testMisch.add(karte3);
-//        List<Karte> gemischtKarten = kartenService.mischenKartenstapel(karten, true);
-//        assertEquals(testMisch, gemischtKarten);
-//    }
 
-//    @Test
-//    public void testAusteilenvonKarten() {
-//        kartenService.austeilenvonKarten(karten, spieler1);
-//        assertFalse(spieler1.getHandkarten().isEmpty());
-//
-//    }
-//
-//    @Test
-//    public void testErstellenNeueKarte(){
-//        Karte karteTest = kartenService.erstellenNeuerKarte(Farbe.PIK, "10");
-//        assertEquals(karte1.getFarbe(), karteTest.getFarbe());
-//        assertEquals(karte1.getWert(), karteTest.getWert());
-//    }
+    @Before
+    public void setUp() {
+        karten.add(karte1);
+        karten.add(karte2);
+        karten.add(karte3);
+    }
 
-//    @Test
-//    public void testAnlegenKartenstapel(){ //aus Testgründen erstmal nur mit 3 Karten geplant, später alle
-//        spiel.setKartendeck(3);
-//        spiel = kartenService.anlegenKartenstapel(spiel);
-//        assertEquals(52, kartenService.anlegenKartenstapel().size());
-//    }
+
+    @Test
+    public void testMischenKartenstapel() {
+        List<Karte> testMisch = new ArrayList<>();
+        testMisch.add(karte2);
+        testMisch.add(karte1);
+        testMisch.add(karte3);
+        List<Karte> gemischtKarten = kartenService.mischenKartenstapel(karten, true);
+        assertEquals(testMisch.get(karten.size() -1), gemischtKarten.get(karten.size() -1));
+    }
+
+
+    @Test
+    public void testErstellenNeueKarte(){
+        Karte karteTest = kartenService.erstellenNeuerKarte(Farbe.PIK, "10");
+        assertEquals(karte1.getFarbe(), karteTest.getFarbe());
+        assertEquals(karte1.getWert(), karteTest.getWert());
+    }
+
+    @Test
+    public void testAnlegenKartenstapel(){
+        assertEquals(52, kartenService.anlegenKartenstapel().size());
+    }
 }

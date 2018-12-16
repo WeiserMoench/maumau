@@ -11,7 +11,6 @@ import de.htwberlin.maumau.ui.impl.SpielViewer;
 import org.picocontainer.Characteristics;
 import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.MutablePicoContainer;
-import org.picocontainer.PicoBuilder;
 import org.picocontainer.injectors.ConstructorInjection;
 
 

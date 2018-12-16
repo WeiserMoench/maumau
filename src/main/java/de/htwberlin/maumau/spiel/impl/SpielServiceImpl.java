@@ -14,7 +14,6 @@ import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spiel.export.SpielService;
 import de.htwberlin.maumau.spieler.entity.Spieler;
 import de.htwberlin.maumau.spieler.export.SpielerService;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;

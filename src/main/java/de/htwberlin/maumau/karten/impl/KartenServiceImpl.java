@@ -8,7 +8,6 @@ package de.htwberlin.maumau.karten.impl;
 import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
 import de.htwberlin.maumau.karten.export.KartenService;
-import de.htwberlin.maumau.spieler.entity.Spieler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,8 +32,11 @@ public class KartenServiceImpl implements KartenService {
     public List<Karte> mischenKartenstapel(List<Karte> karten, boolean obersteKarteBleibt) {
         if (obersteKarteBleibt) {
             Karte oberstekarte = karten.get(karten.size() - 1);
+            System.out.println(oberstekarte.getWert()+ oberstekarte.getFarbe());
             karten.remove(karten.size() - 1);
             Collections.shuffle(karten);
+            karten.add( oberstekarte);
+            System.out.println(karten.get(karten.size() -1).getWert()+ oberstekarte.getFarbe());
         } else {
             Collections.shuffle(karten);
         }

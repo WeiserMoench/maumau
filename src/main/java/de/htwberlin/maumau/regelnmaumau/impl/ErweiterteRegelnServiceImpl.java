@@ -7,8 +7,7 @@ package de.htwberlin.maumau.regelnmaumau.impl;
 
 import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.karten.entity.Karte;
-import de.htwberlin.maumau.regelnmaumau.export.*;
-import org.apache.log4j.Level;
+import de.htwberlin.maumau.regelnmaumau.export.RegelnService;
 import org.apache.log4j.Logger;
 
 public class ErweiterteRegelnServiceImpl implements RegelnService {
