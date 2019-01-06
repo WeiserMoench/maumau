@@ -34,7 +34,6 @@ public class SpielerServiceTest {
 
 
     @Before
-
     public void setUp() {
         spielerService = new SpielerServiceImpl();
         handkarten.add(karte1);
@@ -62,4 +61,5 @@ public class SpielerServiceTest {
         spieler.setName("Hans");
         assertEquals(spieler.getName(), spielerHans.getName());
     }
+
 }

@@ -17,12 +17,12 @@ import static org.junit.Assert.*;
 
 public class ErweiterterRegelnServiceTest {
 
-    private static RegelnService service;
-    Karte pik8;
-    Karte pikkoenig;
-    Karte pik7;
-    Karte herz7;
-    Karte herzBube;
+    private  RegelnService service;
+    private Karte pik8;
+    private Karte pikkoenig;
+    private Karte pik7;
+    private Karte herz7;
+    private Karte herzBube;
 
     @Before
     public void initialize() {
