@@ -21,6 +21,7 @@ public class SpielControllerImpl implements SpielController {
         this.spielService = spielService;
     }
 
+    //view waere cooler
     private SpielService spielService;
     private SpielViewer view = new SpielViewer();
     private List<String> spielerliste = new ArrayList();
@@ -50,6 +51,7 @@ public class SpielControllerImpl implements SpielController {
                 if(spielrundenindex >0 ){
                     spielService.naechsterSpieler(dasSpiel);
                 }
+                //jpa laden
                 spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
                 dasSpiel=spielerInfos(dasSpiel);
                 dasSpiel=kartelegen(dasSpiel);
@@ -61,6 +63,7 @@ public class SpielControllerImpl implements SpielController {
                     System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
                 }
                 spielrundenindex++;
+                //jpa speichern
             }
 //        }else{ //vorbereitung nächste Abgabe
 //            System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");

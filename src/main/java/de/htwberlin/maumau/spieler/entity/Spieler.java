@@ -16,6 +16,7 @@ public class Spieler {
     private String name;
     private List<Karte> handkarten = new ArrayList<>();
     private boolean mauistgesetzt = false;
+    private boolean ki;
 
     public boolean isMauistgesetzt() {
         return mauistgesetzt;
@@ -41,4 +42,11 @@ public class Spieler {
         this.handkarten = handkarten;
     }
 
+    public boolean isKi() {
+        return ki;
+    }
+
+    public void setKi(boolean ki) {
+        this.ki = ki;
+    }
 }
