@@ -9,6 +9,7 @@ package de.htwberlin.maumau.ui.impl;
 import de.htwberlin.maumau.karten.entity.Farbe;
 import de.htwberlin.maumau.spiel.entity.Spiel;
 import de.htwberlin.maumau.spiel.export.SpielService;
+import de.htwberlin.maumau.spieler.export.KiService;
 import de.htwberlin.maumau.ui.export.SpielController;
 import org.apache.log4j.Logger;
 
@@ -17,11 +18,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SpielControllerImpl implements SpielController {
-    public SpielControllerImpl(SpielService spielService) {
+    public SpielControllerImpl(SpielService spielService, KiService kiService) {
         this.spielService = spielService;
+        this.kiService = kiService;
     }
 
     //view waere cooler
+    private KiService kiService;
     private SpielService spielService;
     private SpielViewer view = new SpielViewer();
     private List<String> spielerliste = new ArrayList();
@@ -40,11 +43,11 @@ public class SpielControllerImpl implements SpielController {
 //        if(welcheSpielart()==1){ //vorbereitung nächste Abgabe
             erweiterteRegeln=erweiterteRegeln();
             do {
-//                if(sollSpielerMenschSein()==true){//Vorbereitung nächste Abgabe
+                if(sollSpielerMenschSein()==true){//Vorbereitung nächste Abgabe
                     spielerliste.add(spielerHinzufuegen());
-//                }else{
-//                    System.out.println("KI Spieler hinzufügen, diese Funktion ist bisher nicht implementiert");
-//                }
+                }else{
+                    spielerliste.add(kiService.kiAnlegen());
+                }
             }while(weitererSpieler()==true);
             dasSpiel=spielService.anlegenSpiel(spielerliste,erweiterteRegeln);
             while(spielLaeuft){
@@ -53,12 +56,17 @@ public class SpielControllerImpl implements SpielController {
                 }
                 //jpa laden
                 spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
-                dasSpiel=spielerInfos(dasSpiel);
-                dasSpiel=kartelegen(dasSpiel);
-                dasSpiel=mauPruefung(dasSpiel);
-                spielService.setzeMau(dasSpiel.getAktiverSpieler(),false);
-                spielService.mussGemischtWerden(dasSpiel); // Wenn die Spieler betrügen, kann es zu einer Exception kommen, diese wird bei der nächsten Abgabe gefangen
-                spielLaeuft=spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
+                if(!dasSpiel.getAktiverSpieler().isKi()){ //menschlicher Spieler
+                    dasSpiel=spielerInfos(dasSpiel);
+                    dasSpiel=kartelegen(dasSpiel);
+                    dasSpiel=mauPruefung(dasSpiel);
+                    spielService.setzeMau(dasSpiel.getAktiverSpieler(),false);
+                    spielService.mussGemischtWerden(dasSpiel); // Wenn die Spieler betrügen, kann es zu einer Exception kommen, diese wird bei der nächsten Abgabe gefangen
+                    spielLaeuft=spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
+                }else{//KI Spieler
+
+                }
+
                 if(!spielLaeuft){
                     System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
                 }

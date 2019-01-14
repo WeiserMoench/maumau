@@ -49,6 +49,7 @@ public class SpielServiceImpl implements SpielService {
 
 
         for (String wert : spielerliste) {
+
             Spieler derSpieler = spielerService.neuerSpielerAnlegen(wert);
             spielerListe.add(derSpieler);
         }

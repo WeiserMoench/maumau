@@ -4,6 +4,7 @@ import de.htwberlin.maumau.karten.impl.KartenServiceImpl;
 import de.htwberlin.maumau.regelnmaumau.impl.EinfacheRegelnServiceImpl;
 import de.htwberlin.maumau.regelnmaumau.impl.ErweiterteRegelnServiceImpl;
 import de.htwberlin.maumau.spiel.impl.SpielServiceImpl;
+import de.htwberlin.maumau.spieler.impl.KiServiceImpl;
 import de.htwberlin.maumau.spieler.impl.SpielerServiceImpl;
 import de.htwberlin.maumau.ui.export.SpielController;
 import de.htwberlin.maumau.ui.impl.SpielControllerImpl;
@@ -29,6 +30,7 @@ public class Config {
         container.addComponent(SpielerServiceImpl.class);
         container.addComponent(SpielViewer.class);
         container.addComponent(SpielControllerImpl.class);
+        container.addComponent(KiServiceImpl.class);
         container.as(Characteristics.USE_NAMES).addComponent(SpielServiceImpl.class);
     }
 }
