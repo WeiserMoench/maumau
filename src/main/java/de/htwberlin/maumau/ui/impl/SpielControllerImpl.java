@@ -57,16 +57,12 @@ public class SpielControllerImpl implements SpielController {
                 //jpa laden
                 spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
                 if(!dasSpiel.getAktiverSpieler().isKi()){ //menschlicher Spieler
-                    dasSpiel=spielerInfos(dasSpiel);
-                    dasSpiel=kartelegen(dasSpiel);
-                    dasSpiel=mauPruefung(dasSpiel);
-                    spielService.setzeMau(dasSpiel.getAktiverSpieler(),false);
-                    spielService.mussGemischtWerden(dasSpiel); // Wenn die Spieler betrügen, kann es zu einer Exception kommen, diese wird bei der nächsten Abgabe gefangen
-                    spielLaeuft=spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
+                    dasSpiel=menschlicherSpielerSpielt(dasSpiel);
                 }else{//KI Spieler
-
+                    //kiSpielt
+                    System.out.println("KI Spieler an zug");
                 }
-
+                spielLaeuft=spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
                 if(!spielLaeuft){
                     System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
                 }
@@ -77,6 +73,15 @@ public class SpielControllerImpl implements SpielController {
 //            System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
 //            System.out.println("Bitte komme später wieder");
 //        }
+    }
+
+    private Spiel menschlicherSpielerSpielt(Spiel dasSpiel) {
+        dasSpiel=spielerInfos(dasSpiel);
+        dasSpiel=kartelegen(dasSpiel);
+        dasSpiel=mauPruefung(dasSpiel);
+        spielService.setzeMau(dasSpiel.getAktiverSpieler(),false);
+        spielService.mussGemischtWerden(dasSpiel); // Wenn die Spieler betrügen, kann es zu einer Exception kommen, diese wird bei der nächsten Abgabe gefangen
+        return dasSpiel;
     }
 
     /**

@@ -16,7 +16,7 @@ public class Spieler {
     private String name;
     private List<Karte> handkarten = new ArrayList<>();
     private boolean mauistgesetzt = false;
-    private boolean ki;
+    private boolean ki = false;
 
     public boolean isMauistgesetzt() {
         return mauistgesetzt;

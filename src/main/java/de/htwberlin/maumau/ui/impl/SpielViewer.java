@@ -26,8 +26,7 @@ public class SpielViewer {
     public void sollSpielerMenschSein() {
         System.out.println();
         System.out.println("Wenn der Spieler ein Mensch sein soll, gib bitte \"ja\" ein.");
-        System.out.println("Soll der Spieler hingegen ein Computerspieler sein, gib \"nein\" ein ACHTUNG, \n" +
-                "DIES IST EINE VORBEREITUNG FÜR DIE NÄCHSTE ABGABE UND FÜHRT DAHER ZU PROBLEMEN!");
+        System.out.println("Soll der Spieler hingegen ein Computerspieler sein, gib \"nein\" ein.");
     }
 
     /**

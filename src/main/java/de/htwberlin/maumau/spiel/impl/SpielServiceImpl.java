@@ -49,8 +49,13 @@ public class SpielServiceImpl implements SpielService {
 
 
         for (String wert : spielerliste) {
-
-            Spieler derSpieler = spielerService.neuerSpielerAnlegen(wert);
+            Spieler derSpieler =null;
+            String kiPruefung;
+            kiPruefung=wert.replaceAll("\\d", "");
+            derSpieler = spielerService.neuerSpielerAnlegen(wert);
+            if(kiPruefung.equals("Computer")){
+                derSpieler.setKi(true);
+            }
             spielerListe.add(derSpieler);
         }
         spiel.setSpielerDesSpieles(spielerListe);

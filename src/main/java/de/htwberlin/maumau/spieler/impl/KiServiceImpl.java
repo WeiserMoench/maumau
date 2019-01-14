@@ -1,6 +1,7 @@
 package de.htwberlin.maumau.spieler.impl;
 
-import de.htwberlin.maumau.spiel.entity.Spiel;
+import de.htwberlin.maumau.karten.entity.Karte;
+import de.htwberlin.maumau.spieler.entity.Spieler;
 import de.htwberlin.maumau.spieler.export.KiService;
 
 
@@ -10,9 +11,10 @@ public class KiServiceImpl implements KiService {
     private int kiZaehler=1;
 
     @Override
-    public Spiel kiSpielt(Spiel spiel) {
+    public Karte kiSpielt(Spieler spieler, Karte letzteKarte) {
+        Karte zulegendeKarte = null;
 
-        return spiel;
+        return zulegendeKarte;
     }
 
     @Override
