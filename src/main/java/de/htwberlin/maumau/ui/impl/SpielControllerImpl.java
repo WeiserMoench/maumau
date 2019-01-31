@@ -41,10 +41,10 @@ public class SpielControllerImpl implements SpielController {
         log.debug("run");
         do {
             view.willkommen();
-            //        if(welcheSpielart()==1){ //vorbereitung nächste Abgabe
+            //        if(welcheSpielart()==1){ //vorbereitung persistenz
             erweiterteRegeln = erweiterteRegeln();
             do {
-                if (sollSpielerMenschSein() == true) {//Vorbereitung nächste Abgabe
+                if (sollSpielerMenschSein() == true) {
                     spielerliste.add(spielerHinzufuegen());
                 } else {
                     spielerliste.add(kiService.kiAnlegen());
@@ -71,7 +71,7 @@ public class SpielControllerImpl implements SpielController {
                 spielrundenindex++;
                 //jpa speichern
             }
-            //        }else{ //vorbereitung nächste Abgabe
+            //        }else{ //vorbereitung persistenz
             //            System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
             //            System.out.println("Bitte komme später wieder");
             //        }
@@ -235,7 +235,11 @@ public class SpielControllerImpl implements SpielController {
                 spielService.setzeMau(spiel.getAktiverSpieler(), true);
                 erneutesFragen=true;
             }else if(antwort.equals("ziehen")){
-                spiel=spielService.ziehenKarteVomZiehstapel(spiel);
+                try {
+                    spiel = spielService.ziehenKarteVomZiehstapel(spiel);
+                } catch(Exception e) {
+                    view.spielerBetruegen();
+                }
                 erneutesFragen=false;
             }else{
                 try{

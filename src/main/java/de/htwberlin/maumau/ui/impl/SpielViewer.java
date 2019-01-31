@@ -208,4 +208,9 @@ public class SpielViewer {
     public void siegerAusgabe(String name) {
         System.out.println("Gewonnen hat " + name);
     }
+
+    public void spielerBetruegen() {
+        System.err.println("Ein Kartenziehen ist nicht mehr möglich, da ihr betrogen habt " +
+                "\nund sich nun alle Karten auf euren Händen befinden ");
+    }
 }
