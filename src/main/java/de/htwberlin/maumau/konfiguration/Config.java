@@ -1,11 +1,11 @@
 package de.htwberlin.maumau.konfiguration;
 
-import de.htwberlin.maumau.karten.impl.KartenServiceImpl;
-import de.htwberlin.maumau.regelnmaumau.impl.EinfacheRegelnServiceImpl;
-import de.htwberlin.maumau.regelnmaumau.impl.ErweiterteRegelnServiceImpl;
-import de.htwberlin.maumau.spiel.impl.SpielServiceImpl;
-import de.htwberlin.maumau.spieler.impl.KiServiceImpl;
-import de.htwberlin.maumau.spieler.impl.SpielerServiceImpl;
+import de.htwberlin.maumau.kartenverwaltung.impl.KartenServiceImpl;
+import de.htwberlin.maumau.regelnverwaltung.impl.EinfacheRegelnServiceImpl;
+import de.htwberlin.maumau.regelnverwaltung.impl.ErweiterteRegelnServiceImpl;
+import de.htwberlin.maumau.spielverwaltung.impl.SpielServiceImpl;
+import de.htwberlin.maumau.spielerverwaltung.impl.KiServiceImpl;
+import de.htwberlin.maumau.spielerverwaltung.impl.SpielerServiceImpl;
 import de.htwberlin.maumau.ui.export.SpielController;
 import de.htwberlin.maumau.ui.impl.SpielControllerImpl;
 import de.htwberlin.maumau.ui.impl.SpielViewer;
@@ -18,6 +18,7 @@ import org.picocontainer.injectors.ConstructorInjection;
 public class Config {
     private static MutablePicoContainer container = new DefaultPicoContainer(new ConstructorInjection());
 
+    //TODO exeption falls fehler drin abfangen
     public static void main(String[] arg) {
         registriereKomponenten();
         container.getComponent(SpielController.class).run();

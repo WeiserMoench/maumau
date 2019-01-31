@@ -6,7 +6,7 @@
 
 package de.htwberlin.maumau.ui.impl;
 
-import de.htwberlin.maumau.karten.entity.Farbe;
+import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 
 public class SpielViewer {
 
@@ -25,8 +25,8 @@ public class SpielViewer {
      */
     public void sollSpielerMenschSein() {
         System.out.println();
-        System.out.println("Wenn der Spieler ein Mensch sein soll, gib bitte \"ja\" ein.");
-        System.out.println("Soll der Spieler hingegen ein Computerspieler sein, gib \"nein\" ein.");
+        System.out.println("Wenn der nächste Spieler ein Mensch sein soll, gib bitte \"ja\" ein.");
+        System.out.println("Soll der hingegen ein Computerspieler sein, gib \"nein\" ein.");
     }
 
     /**
@@ -54,6 +54,7 @@ public class SpielViewer {
                 "Die nachfolgenden Reglen gelten zusätzlich zu den einfachen Regeln.\n" +
                 "Wenn ein Spieler einen \"Buben\" legt, muss er sich eine Farbe wünschen, dabei spielt es keine Rolle,\n" +
                 "um welche Farbe es sich handelt.\n" +
+                "Aber auf einen Buben darf kein weiterer gelegt werden." +
                 "Legt ein Spieler eine \"7\", so muss der nächste Spieler 2 Karten ziehen.\n" +
                 "Legt ein Spieler eine \"8\", so muss der nachfolgende Aussetzen.\n" +
                 "Legt hingegen ein Spieler eine \"9\" so wird die Spielrichtung umgedreht.\n");

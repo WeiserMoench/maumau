@@ -6,10 +6,10 @@
 
 package de.htwberlin.maumau.ui.impl;
 
-import de.htwberlin.maumau.karten.entity.Farbe;
-import de.htwberlin.maumau.spiel.entity.Spiel;
-import de.htwberlin.maumau.spiel.export.SpielService;
-import de.htwberlin.maumau.spieler.export.KiService;
+import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
+import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
+import de.htwberlin.maumau.spielverwaltung.export.SpielService;
+import de.htwberlin.maumau.spielerverwaltung.export.KiService;
 import de.htwberlin.maumau.ui.export.SpielController;
 import org.apache.log4j.Logger;
 
@@ -28,10 +28,10 @@ public class SpielControllerImpl implements SpielController {
     private KiService kiService;
     private SpielService spielService;
     private SpielViewer view = new SpielViewer();
-    private List<String> spielerliste = new ArrayList();
-    private Spiel dasSpiel = new Spiel();
-    private boolean spielLaeuft = true;
-    private int spielrundenindex = 0;
+    private List<String> spielerliste;
+    private Spiel dasSpiel;
+    private boolean spielLaeuft;
+    private int spielrundenindex;
     private boolean erweiterteRegeln;
     private Scanner sc = new Scanner(System.in);
     private static Logger log = Logger.getRootLogger();
@@ -40,9 +40,15 @@ public class SpielControllerImpl implements SpielController {
     public void run(){
         log.debug("run");
         do {
+            dasSpiel = new Spiel();
+            spielLaeuft = true;
+            spielerliste = new ArrayList();
+            spielrundenindex = 0;
             view.willkommen();
             //        if(welcheSpielart()==1){ //vorbereitung persistenz
             erweiterteRegeln = erweiterteRegeln();
+            spielerliste.add(spielerHinzufuegen());
+
             do {
                 if (sollSpielerMenschSein() == true) {
                     spielerliste.add(spielerHinzufuegen());
@@ -54,10 +60,11 @@ public class SpielControllerImpl implements SpielController {
             while (spielLaeuft) {
                 if (spielrundenindex > 0) {
                     spielService.naechsterSpieler(dasSpiel);
+                    dasSpiel.setAussetzen(false);
                 }
                 //jpa laden objectdb???
                 spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
-                dasSpiel.setSummeZuziehendeKarten(0);
+
                 if (!dasSpiel.getAktiverSpieler().isKi()) { //menschlicher Spieler
                     dasSpiel = menschlicherSpielerSpielt(dasSpiel);
                 } else {//KI Spieler
@@ -85,12 +92,12 @@ public class SpielControllerImpl implements SpielController {
         int durchgangszaehler = 0;
         boolean erneutesFragen;
 
+        dasSpiel.setSummeZuziehendeKarten(0);
+
         do{
             log.debug("do schleife karte legen");
-            spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(durchgangszaehler), dasSpiel.getAktiverSpieler(), dasSpiel);
-            erneutesFragen=!dasSpiel.isErfolgreichgelegt();
-            durchgangszaehler++;
-            if(durchgangszaehler>=dasSpiel.getAktiverSpieler().getHandkarten().size()){
+
+            if(durchgangszaehler>dasSpiel.getAktiverSpieler().getHandkarten().size()-1){
                 log.debug("Ki muss Karte ziehen, da legen nicht möglich");
                 try{
                     dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
@@ -98,6 +105,10 @@ public class SpielControllerImpl implements SpielController {
                     view.spielerBetruegen();
                 }
                 erneutesFragen=false;
+            }else{
+                spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(durchgangszaehler), dasSpiel.getAktiverSpieler(), dasSpiel);
+                erneutesFragen=!dasSpiel.isErfolgreichgelegt();
+                durchgangszaehler++;
             }
         }while(erneutesFragen);
 
@@ -219,6 +230,7 @@ public class SpielControllerImpl implements SpielController {
             }
 
         }
+        dasSpiel.setSummeZuziehendeKarten(0);
 
         return spiel;
     }
