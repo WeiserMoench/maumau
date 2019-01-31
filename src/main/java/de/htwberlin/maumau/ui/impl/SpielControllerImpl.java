@@ -91,7 +91,11 @@ public class SpielControllerImpl implements SpielController {
             durchgangszaehler++;
             if(durchgangszaehler>=dasSpiel.getAktiverSpieler().getHandkarten().size()){
                 log.debug("Ki muss Karte ziehen, da legen nicht möglich");
-                dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
+                try{
+                    dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
+                } catch (Exception e){
+                    view.spielerBetruegen();
+                }
                 erneutesFragen=false;
             }
         }while(erneutesFragen);
