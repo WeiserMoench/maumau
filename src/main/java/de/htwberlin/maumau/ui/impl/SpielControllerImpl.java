@@ -57,6 +57,7 @@ public class SpielControllerImpl implements SpielController {
                 }
                 //jpa laden objectdb???
                 spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
+                dasSpiel.setSummeZuziehendeKarten(0);
                 if (!dasSpiel.getAktiverSpieler().isKi()) { //menschlicher Spieler
                     dasSpiel = menschlicherSpielerSpielt(dasSpiel);
                 } else {//KI Spieler
@@ -181,6 +182,7 @@ public class SpielControllerImpl implements SpielController {
      * Gibt alle Infos aus, die der Spieler zu Beginn seiner Runde braucht
      * Ausserdem werden dem Spieler ggfs Karten auf die Hand gegeben, falls er ziehen muss
      * Und der Zahler im Spiel, wie viele Karten gezogen werden muessen wird resettet
+     * Außerdem werden Infos ueber die anderen Spieler angezeigt
      *
      * @param spiel - Aus dem die Infos entnommen werden sollen
      * @return - Das angepasste Spiel
@@ -199,6 +201,8 @@ public class SpielControllerImpl implements SpielController {
         spielername = spiel.getAktiverSpieler().getName();
         anzahlGezogenerKarten = spiel.getSummeZuziehendeKarten();
 
+
+
         view.infosfuerNaechstenSpieler(obersteKarteAblagestapelFarbe, obersteKarteAblagestapelWert,spielername, anzahlGezogenerKarten);
 
         if(obersteKarteAblagestapelWert.equals("Bube")){
@@ -206,7 +210,15 @@ public class SpielControllerImpl implements SpielController {
                 view.spielerInfoNachBube(farbeNachBube);
             }
         }
-        spiel.setSummeZuziehendeKarten(0);
+
+        for (int i = 0; i < spiel.getSpielerDesSpieles().size(); i++) {
+            if(!spiel.getSpielerDesSpieles().get(i).equals(spiel.getAktiverSpieler())){
+                String mitspielername = spiel.getSpielerDesSpieles().get(i).getName();
+                int mitspielerhandkarten = spiel.getSpielerDesSpieles().get(i).getHandkarten().size();
+                view.infosUeberAndereSpieler(mitspielername, mitspielerhandkarten);
+            }
+
+        }
 
         return spiel;
     }

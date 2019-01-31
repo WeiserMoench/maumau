@@ -41,6 +41,7 @@ public class KiServiceImpl implements KiService {
     public String kiAnlegen() {
         log.debug("KiServiceImpl - kiAnlegen");
         String spielername = "Computer"+kiZaehler;
+        kiZaehler++;
         return spielername;
     }
 }

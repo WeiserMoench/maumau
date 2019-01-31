@@ -83,7 +83,7 @@ public class SpielViewer {
      * Außerdem das der Spieler hier Mau sagen koennte
      */
     public void welcheKarteAblegen() {
-        System.out.println("Welche Karte möchtest du legen? (Sollte \"Mau\" nötig sein, gib es zuerst ein \nund bestätige dies mit ENTER.)\n" +
+        System.out.println("\nWelche Karte möchtest du legen? (Sollte \"Mau\" nötig sein, gib es zuerst ein \nund bestätige dies mit ENTER.)\n" +
                 "Wenn keine Karte möglich ist, einfach \"ziehen\" eingeben. \n"+
                 "Gib bitte die Kartennummer ein.");
     }
@@ -198,7 +198,7 @@ public class SpielViewer {
     }
 
     public void kiHatGespielt(String pcSpielerName) {
-        System.out.println(pcSpielerName + " hat gespielt.");
+        System.out.println("\n" + pcSpielerName + " hat gespielt.");
     }
 
     public void weitereSpielStarten() {
@@ -212,5 +212,9 @@ public class SpielViewer {
     public void spielerBetruegen() {
         System.err.println("Ein Kartenziehen ist nicht mehr möglich, da ihr betrogen habt " +
                 "\nund sich nun alle Karten auf euren Händen befinden ");
+    }
+
+    public void infosUeberAndereSpieler(String mitspielername, int mitspielerhandkarten) {
+        System.out.println("Der Mitspieler " + mitspielername + " hat " + mitspielerhandkarten + " Handkarte(n)");
     }
 }
