@@ -91,8 +91,25 @@ public class SpielControllerImpl implements SpielController {
         log.debug("kiSpielt");
         int durchgangszaehler = 0;
         boolean erneutesFragen;
+        Farbe farbeNachBube;
+
+        Farbe obersteKarteAblagestapelFarbe;
+        String obersteKarteAblagestapelWert;
+
+        obersteKarteAblagestapelFarbe = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getFarbe();
+        obersteKarteAblagestapelWert = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getWert();
+        farbeNachBube = dasSpiel.getFarbe();
+
+        if(obersteKarteAblagestapelWert.equals("Bube")){
+            if(dasSpiel.getFarbe()!=null) {
+                view.spielerInfoNachBube(farbeNachBube);
+            }
+        }
+
+        view.ablagestapelZeigt(obersteKarteAblagestapelFarbe, obersteKarteAblagestapelWert);
 
         dasSpiel.setSummeZuziehendeKarten(0);
+
 
         do{
             log.debug("do schleife karte legen");
@@ -101,6 +118,7 @@ public class SpielControllerImpl implements SpielController {
                 log.debug("Ki muss Karte ziehen, da legen nicht möglich");
                 try{
                     dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
+                    view.pchatgezogen(dasSpiel.getAktiverSpieler().getName());
                 } catch (Exception e){
                     view.spielerBetruegen();
                 }
@@ -139,6 +157,22 @@ public class SpielControllerImpl implements SpielController {
         dasSpiel.getAktiverSpieler().setMauistgesetzt(kiService.mauSetzen(dasSpiel.getAktiverSpieler()));
 
         view.kiHatGespielt(dasSpiel.getAktiverSpieler().getName());
+        if(dasSpiel.getAktiverSpieler().isMauistgesetzt()){
+            view.kiSagteMau();
+        }
+
+
+        obersteKarteAblagestapelFarbe = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getFarbe();
+        obersteKarteAblagestapelWert = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getWert();
+        farbeNachBube = dasSpiel.getFarbe();
+
+        if(obersteKarteAblagestapelWert.equals("Bube")){
+            if(dasSpiel.getFarbe()!=null) {
+                view.spielerInfoNachBube(farbeNachBube);
+            }
+        }
+
+        view.ablagestapelZeigt(obersteKarteAblagestapelFarbe, obersteKarteAblagestapelWert);
 
         return dasSpiel;
     }
@@ -214,7 +248,8 @@ public class SpielControllerImpl implements SpielController {
 
 
 
-        view.infosfuerNaechstenSpieler(obersteKarteAblagestapelFarbe, obersteKarteAblagestapelWert,spielername, anzahlGezogenerKarten);
+        view.infosfuerNaechstenSpieler(spielername, anzahlGezogenerKarten);
+        view.ablagestapelZeigt(obersteKarteAblagestapelFarbe, obersteKarteAblagestapelWert);
 
         if(obersteKarteAblagestapelWert.equals("Bube")){
             if(spiel.getFarbe()!=null) {
@@ -286,6 +321,7 @@ public class SpielControllerImpl implements SpielController {
                             view.kartennummerUnsinnig();
                         }
                     }else{
+
                         erneutesFragen=true;
                         view.kartennummerUnsinnig();
                     }

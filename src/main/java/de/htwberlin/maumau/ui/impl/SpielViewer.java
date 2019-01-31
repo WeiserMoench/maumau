@@ -142,16 +142,18 @@ public class SpielViewer {
     /**
      * Diese Methode zeigt dem jeweils naechsten Spieler alle wichtigen Infos fuer seinen Zug an
      *
-     * @param obersteKarteAblagestapelFarbe - Farbe der zuletzt gelegten Karte
-     * @param obersteKarteAblagestapelWert - Wert der zuletzt gelegten Karte
      * @param spielername - Name des Spielers
      * @param anzahlGezogenerKarten - Anzahl der Karten die er zu beginn seines Zuges ziehen musste
      */
-    public void infosfuerNaechstenSpieler(Farbe obersteKarteAblagestapelFarbe, String obersteKarteAblagestapelWert, String spielername, int anzahlGezogenerKarten) {
+    public void infosfuerNaechstenSpieler( String spielername, int anzahlGezogenerKarten) {
         System.out.println("\n\n-- Aktueller Spieler --");
         System.out.println(spielername);
         System.out.println("\nDu musstest " + anzahlGezogenerKarten + " Karten ziehen.");
-        System.out.println("\nDie obsterste Karte des Ablagestapels zeigt: " + obersteKarteAblagestapelFarbe + " " + obersteKarteAblagestapelWert+ "\n");
+
+    }
+
+    public void ablagestapelZeigt(Farbe obersteKarteAblagestapelFarbe, String obersteKarteAblagestapelWert){
+        System.out.println("Die obsterste Karte des Ablagestapels zeigt: " + obersteKarteAblagestapelFarbe + " " + obersteKarteAblagestapelWert);
     }
 
     /**
@@ -199,7 +201,7 @@ public class SpielViewer {
     }
 
     public void kiHatGespielt(String pcSpielerName) {
-        System.out.println("\n" + pcSpielerName + " hat gespielt.");
+        System.out.println(pcSpielerName + " hat gespielt.");
     }
 
     public void weitereSpielStarten() {
@@ -217,5 +219,13 @@ public class SpielViewer {
 
     public void infosUeberAndereSpieler(String mitspielername, int mitspielerhandkarten) {
         System.out.println("Der Mitspieler " + mitspielername + " hat " + mitspielerhandkarten + " Handkarte(n)");
+    }
+
+    public void pchatgezogen(String name) {
+        System.out.println(name + " hat gezogen.");
+    }
+
+    public void kiSagteMau() {
+        System.out.println("Computer sagte Mau");
     }
 }
