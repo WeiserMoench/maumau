@@ -5,7 +5,9 @@ import de.htwberlin.maumau.spieler.entity.Spieler;
 
 public interface KiService {
 
-    Karte kiSpielt(Spieler spieler, Karte letzteKarte);
+    Karte kiWaehltKarte(Spieler spieler, int durchgangszaehler);
+
+    boolean mauSetzen(Spieler spieler);
 
     String kiAnlegen();
 

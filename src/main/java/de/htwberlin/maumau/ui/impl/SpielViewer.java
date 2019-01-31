@@ -196,4 +196,8 @@ public class SpielViewer {
     public void weitererSpielerNoetig() {
         System.out.println("Da für ein Spiel mindestens zwei Spieler nötig sind,\nmuss ein weiterer hinzugefügt werden.");
     }
+
+    public void kiHatGespielt(String pcSpielerName) {
+        System.out.println(pcSpielerName + " hat gespielt.");
+    }
 }

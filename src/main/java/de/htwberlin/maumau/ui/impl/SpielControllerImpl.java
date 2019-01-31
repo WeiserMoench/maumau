@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class SpielControllerImpl implements SpielController {
@@ -54,13 +55,14 @@ public class SpielControllerImpl implements SpielController {
                 if(spielrundenindex >0 ){
                     spielService.naechsterSpieler(dasSpiel);
                 }
-                //jpa laden
+                //jpa laden objectdb???
                 spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
                 if(!dasSpiel.getAktiverSpieler().isKi()){ //menschlicher Spieler
                     dasSpiel=menschlicherSpielerSpielt(dasSpiel);
                 }else{//KI Spieler
-                    //kiSpielt
-                    System.out.println("KI Spieler an zug");
+                    log.debug("KI Spieler am Zug");
+                    dasSpiel=kiSpielt(dasSpiel);
+
                 }
                 spielLaeuft=spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
                 if(!spielLaeuft){
@@ -73,6 +75,54 @@ public class SpielControllerImpl implements SpielController {
 //            System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
 //            System.out.println("Bitte komme später wieder");
 //        }
+    }
+
+    private Spiel kiSpielt(Spiel dasSpiel) {
+        log.debug("run");
+        int durchgangszaehler = 0;
+        boolean erneutesFragen;
+
+        do{
+            log.debug("do schleife karte legen");
+            spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(durchgangszaehler), dasSpiel.getAktiverSpieler(), dasSpiel);
+            erneutesFragen=!dasSpiel.isErfolgreichgelegt();
+            durchgangszaehler++;
+            if(durchgangszaehler>=dasSpiel.getAktiverSpieler().getHandkarten().size()){
+                log.debug("Ki muss Karte ziehen, da legen nicht möglich");
+                dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
+                erneutesFragen=false;
+            }
+        }while(erneutesFragen);
+
+        if(dasSpiel.isMussFarbeWuenschen()){
+            log.debug("if schleife Farbe wünschen");
+            Farbe neueFarbe = null;
+            Random random =new Random();
+            int zahl = random.nextInt(4);
+            switch (zahl){
+                case 0:
+                    neueFarbe = Farbe.PIK;
+                    break;
+                case 1:
+                    neueFarbe = Farbe.KARO;
+                    break;
+                case 2:
+                    neueFarbe = Farbe.KREUZ;
+                    break;
+                case 3:
+                    neueFarbe = Farbe.HERZ;
+                    break;
+            }
+
+            dasSpiel.setFarbe(neueFarbe);
+            dasSpiel.setMussFarbeWuenschen(false);
+        }
+
+        dasSpiel.getAktiverSpieler().setMauistgesetzt(kiService.mauSetzen(dasSpiel.getAktiverSpieler()));
+
+        view.kiHatGespielt(dasSpiel.getAktiverSpieler().getName());
+
+        return dasSpiel;
     }
 
     private Spiel menschlicherSpielerSpielt(Spiel dasSpiel) {
