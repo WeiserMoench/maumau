@@ -39,46 +39,48 @@ public class SpielControllerImpl implements SpielController {
 
     public void run(){
         log.debug("run");
-
-        view.willkommen();
-//        if(welcheSpielart()==1){ //vorbereitung nächste Abgabe
-            erweiterteRegeln=erweiterteRegeln();
+        do {
+            view.willkommen();
+            //        if(welcheSpielart()==1){ //vorbereitung nächste Abgabe
+            erweiterteRegeln = erweiterteRegeln();
             do {
-                if(sollSpielerMenschSein()==true){//Vorbereitung nächste Abgabe
+                if (sollSpielerMenschSein() == true) {//Vorbereitung nächste Abgabe
                     spielerliste.add(spielerHinzufuegen());
-                }else{
+                } else {
                     spielerliste.add(kiService.kiAnlegen());
                 }
-            }while(weitererSpieler()==true);
-            dasSpiel=spielService.anlegenSpiel(spielerliste,erweiterteRegeln);
-            while(spielLaeuft){
-                if(spielrundenindex >0 ){
+            } while (weitererSpieler() == true);
+            dasSpiel = spielService.anlegenSpiel(spielerliste, erweiterteRegeln);
+            while (spielLaeuft) {
+                if (spielrundenindex > 0) {
                     spielService.naechsterSpieler(dasSpiel);
                 }
                 //jpa laden objectdb???
                 spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
-                if(!dasSpiel.getAktiverSpieler().isKi()){ //menschlicher Spieler
-                    dasSpiel=menschlicherSpielerSpielt(dasSpiel);
-                }else{//KI Spieler
+                if (!dasSpiel.getAktiverSpieler().isKi()) { //menschlicher Spieler
+                    dasSpiel = menschlicherSpielerSpielt(dasSpiel);
+                } else {//KI Spieler
                     log.debug("KI Spieler am Zug");
-                    dasSpiel=kiSpielt(dasSpiel);
+                    dasSpiel = kiSpielt(dasSpiel);
 
                 }
-                spielLaeuft=spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
-                if(!spielLaeuft){
+                spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
+                if (!spielLaeuft) {
                     System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
                 }
                 spielrundenindex++;
                 //jpa speichern
             }
-//        }else{ //vorbereitung nächste Abgabe
-//            System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
-//            System.out.println("Bitte komme später wieder");
-//        }
+            //        }else{ //vorbereitung nächste Abgabe
+            //            System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
+            //            System.out.println("Bitte komme später wieder");
+            //        }
+        }
+        while(weitereRunde());
     }
 
     private Spiel kiSpielt(Spiel dasSpiel) {
-        log.debug("run");
+        log.debug("kiSpielt");
         int durchgangszaehler = 0;
         boolean erneutesFragen;
 
@@ -406,6 +408,11 @@ public class SpielControllerImpl implements SpielController {
         view.sollNachErweitertenRegelnGespieltWerden();
         antwort=jaNeinAbfrage();
         return antwort;
+    }
+
+    private boolean weitereRunde() {
+        view.weitereSpielStarten();
+        return jaNeinAbfrage();
     }
 
 }

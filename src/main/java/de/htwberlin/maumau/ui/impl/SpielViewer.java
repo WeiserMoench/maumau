@@ -200,4 +200,8 @@ public class SpielViewer {
     public void kiHatGespielt(String pcSpielerName) {
         System.out.println(pcSpielerName + " hat gespielt.");
     }
+
+    public void weitereSpielStarten() {
+        System.out.println("Möchtest du ein weiteres Spiel starten?");
+    }
 }
