@@ -84,8 +84,8 @@ public class SpielViewer {
      * Außerdem das der Spieler hier Mau sagen koennte
      */
     public void welcheKarteAblegen() {
-        System.out.println("\nWelche Karte möchtest du legen? (Sollte \"Mau\" nötig sein, gib es zuerst ein \nund bestätige dies mit ENTER.)\n" +
-                "Wenn keine Karte möglich ist, einfach \"ziehen\" eingeben. \n"+
+        System.out.println("\nWelche Karte möchtest du legen? (Sollte Mau nötig sein, gib es zuerst ein \"m\" \nund bestätige dies mit ENTER.)\n" +
+                "Wenn keine Karte möglich ist, einfach \"z\" für ziehen eingeben. \n"+
                 "Gib bitte die Kartennummer ein.");
     }
 

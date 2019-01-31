@@ -9,8 +9,8 @@ package de.htwberlin.maumau.ui.impl;
 import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
 import de.htwberlin.maumau.spielverwaltung.export.SpielService;
-import de.htwberlin.maumau.spielerverwaltung.export.KiService;
 import de.htwberlin.maumau.ui.export.SpielController;
+import de.htwberlin.maumau.virtuellerspielerverwaltung.export.KiService;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -258,11 +258,11 @@ public class SpielControllerImpl implements SpielController {
         do{
             antwort=sc.next();
             antwort=antwort.toLowerCase();
-            if(antwort.equals("mau")){
+            if(antwort.equals("m")){
                 view.maugesagt();
                 spielService.setzeMau(spiel.getAktiverSpieler(), true);
                 erneutesFragen=true;
-            }else if(antwort.equals("ziehen")){
+            }else if(antwort.equals("z")){
                 try {
                     spiel = spielService.ziehenKarteVomZiehstapel(spiel);
                 } catch(Exception e) {

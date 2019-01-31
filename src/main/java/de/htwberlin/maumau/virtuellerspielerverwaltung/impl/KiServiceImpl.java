@@ -1,8 +1,8 @@
-package de.htwberlin.maumau.spielerverwaltung.impl;
+package de.htwberlin.maumau.virtuellerspielerverwaltung.impl;
 
 import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
 import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
-import de.htwberlin.maumau.spielerverwaltung.export.KiService;
+import de.htwberlin.maumau.virtuellerspielerverwaltung.export.KiService;
 import org.apache.log4j.Logger;
 
 import java.util.List;
