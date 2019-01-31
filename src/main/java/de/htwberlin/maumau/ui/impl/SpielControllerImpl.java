@@ -66,7 +66,7 @@ public class SpielControllerImpl implements SpielController {
                 }
                 spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
                 if (!spielLaeuft) {
-                    System.out.println("Gewonnen hat " + dasSpiel.getAktiverSpieler().getName());
+                    view.siegerAusgabe(dasSpiel.getAktiverSpieler().getName());
                 }
                 spielrundenindex++;
                 //jpa speichern

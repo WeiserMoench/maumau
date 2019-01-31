@@ -204,4 +204,8 @@ public class SpielViewer {
     public void weitereSpielStarten() {
         System.out.println("Möchtest du ein weiteres Spiel starten?");
     }
+
+    public void siegerAusgabe(String name) {
+        System.out.println("Gewonnen hat " + name);
+    }
 }
