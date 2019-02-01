@@ -1,3 +1,8 @@
+/**
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
+ * @version 20190201
+ *
+ */
 package de.htwberlin.maumau.virtuellerspielerverwaltung.impl;
 
 import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;

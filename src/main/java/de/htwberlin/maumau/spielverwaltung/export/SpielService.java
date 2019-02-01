@@ -96,10 +96,5 @@ public interface SpielService {
      * @return Das Spiel
      */
     Spiel mussGemischtWerden(Spiel spiel);
-  /*TODO
-        Sollten alle Karten auf den Handkarten der Spieler sein, kommt ers zu einer Exception und dem Abbruch des Spieles,
-        da die Wahrscheinlichkeit sehr gering ist, das so gespielt wird, wird dieses Mal die Exception noch nicht gefangen und bearbeitet,
-        dies erfolgt bei der nächsten Abgabe
-        */
 
 }

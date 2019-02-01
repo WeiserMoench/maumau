@@ -133,7 +133,7 @@ public class SpielControllerImpl implements SpielController {
     private void ausgabeNachKiZug(Spiel dasSpiel) {
         view.kiHatGespielt(dasSpiel.getAktiverSpieler().getName());
         if(dasSpiel.getAktiverSpieler().isMauistgesetzt()){
-            view.kiSagteMau();
+            view.spielerSagteMau();
         }
 
         anzeigeObersteKarte(dasSpiel);
@@ -485,5 +485,4 @@ public class SpielControllerImpl implements SpielController {
 
         return eingeleseneZahl;
     }
-
 }

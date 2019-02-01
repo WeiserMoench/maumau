@@ -1,9 +1,8 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181212
+ * @version 20190201
  *
  */
-
 package de.htwberlin.maumau.ui.impl;
 
 import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
@@ -15,7 +14,7 @@ public class SpielViewer {
 
 
     /**
-     * Diese Methode fragt ab, ob ein weiterer Spieler hinzugefuegt werden soll
+     * Diese Methode fragt ab, ob ein weiterer menschlicher Spieler hinzugefuegt werden soll
      *
      */
     public void sollSpielerHinzugefuegtWerden() {
@@ -23,18 +22,12 @@ public class SpielViewer {
         System.out.println("Möchtest du einen weiteren menschlichen Spieler zum Spiel hinzufügen?");
     }
 
+    /**
+     * Diese Methode gibt erst eine gestrichelte Linie und im Anschluss eine leere Zeile aus
+     */
     public void leereZeileMitStichen(){
         System.out.println("-------------------------------------------------------");
         System.out.println();
-    }
-
-    /**
-     * Diese Methode fragt ab, ob der neue Spieler ein Mensch sein soll, oder sonst ein KI
-     */
-    public void sollSpielerMenschSein() {
-        System.out.println();
-        System.out.println("Wenn der nächste Spieler ein Mensch sein soll, gib bitte \"ja\" ein.");
-        System.out.println("Soll der hingegen ein Computerspieler sein, gib \"nein\" ein.");
     }
 
     /**
@@ -46,7 +39,7 @@ public class SpielViewer {
     }
 
     /**
-     * Diese Methode zeigt einfach die Regeln des Spieles an.
+     * Diese Methode zeigt die Regeln des Spieles an.
      */
     public void anzeigenRegeln(){
         System.out.println("\n----  DIE REGELN ----\n" +
@@ -98,7 +91,7 @@ public class SpielViewer {
     }
 
     /**
-     * Methode sagt dem Spieler, das die Nummer siner Handkarte, die er legen wollte, unsinnig ist
+     * Methode sagt dem Spieler, das die Nummer seiner Handkarte, die er legen wollte, unsinnig ist
      */
     public void kartennummerUnsinnig() {
         System.out.println(ANSI_RED + "Du hast eine Eingabe getätigt, die bei deinen Handkarten nicht sinnig ist.\n" +
@@ -107,6 +100,7 @@ public class SpielViewer {
 
     /**
      * Methode begruesst die Spieler zu einem neuen Spiel
+     * und fragt ihn ob er ein neues Spiel starten oder ein altes fortsetzen will
      */
     public void willkommen() {
         System.out.println("Willkommen beim MauMau Spiel.");
@@ -116,11 +110,11 @@ public class SpielViewer {
     }
 
     /**
-     * Methode fragt nach dem Namen des Spieler
+     * Methode fragt nach dem Namen des menschlichen Spieler
      */
     public void spielerNamenAnfragen() {
         System.out.println();
-        System.out.println("Welchen Namen soll der menschliche Spieler haben:");
+        System.out.println("Welchen Namen soll der menschliche Spieler haben?");
     }
 
     /**
@@ -153,6 +147,12 @@ public class SpielViewer {
 
     }
 
+    /**
+     * Diese Methode gibt aus, welche Karte oben auf dem Ablagestapel liegt
+     *
+     * @param obersteKarteAblagestapelFarbe - Farbe der obersten Karte auf dem Ablagestapel
+     * @param obersteKarteAblagestapelWert - Wert der obersten Karte auf dem Ablagestapel
+     */
     public void ablagestapelZeigt(Farbe obersteKarteAblagestapelFarbe, String obersteKarteAblagestapelWert){
         System.out.println("Die obsterste Karte des Ablagestapels zeigt: " + obersteKarteAblagestapelFarbe + " " + obersteKarteAblagestapelWert);
     }
@@ -161,7 +161,8 @@ public class SpielViewer {
      * Methode weisst den Spieler darauf hin, dass er eine falsche Karte legen wollte
      */
     public void falscheKarte() {
-        System.out.println(ANSI_RED + "Du hast versucht eine nicht mögliche Karte zulegen, versuche es erneut." + ANSI_RESET);
+        System.out.println(ANSI_RED + "Du hast versucht eine nicht mögliche Karte zulegen, " +
+                "bitte lege nun eine mögliche." + ANSI_RESET);
     }
 
     /**
@@ -170,13 +171,6 @@ public class SpielViewer {
     public void farbeWaehlen() {
         System.out.println("Du hast einen Buben gelegt bitte wähle die Zahl der Farbe:\n" +
                 "Zur Auswahl stehen\n1: Herz\n2: Kreuz\n3: Karo\n4: Pik\n");
-    }
-
-    /**
-     * Methode weisst den Spieler neutral auf eine fehlerhafte Eingabe hin
-     */
-    public void fehlerhafteEingabe() {
-        System.out.println("Du hast eine fehlerhafte Eingabe getätigt. Bitte wiederhole deine Eingabe.");
     }
 
     /**
@@ -201,44 +195,83 @@ public class SpielViewer {
         System.out.println("Da für ein Spiel mindestens zwei Spieler nötig sind,\nmuss ein weiterer hinzugefügt werden.");
     }
 
-    public void kiHatGespielt(String pcSpielerName) {
-        System.out.println(pcSpielerName + " hat gespielt.");
+    /**
+     * Methode gibt aus, das ein anderer gespielt hat
+     * @param spielerName - Name des Spielers der gespielt hat
+     */
+    public void kiHatGespielt(String spielerName) {
+        System.out.println(spielerName + " hat gespielt.");
     }
 
+    /**
+     * Fragt den Spieler ob er ein neues Spiel starten will
+     */
     public void weitereSpielStarten() {
         System.out.println("Möchtest du ein weiteres Spiel starten?");
     }
 
+    /**
+     * Methode gibt aus, das ein Spieler gewonnen hat.
+     * @param name - Name des Gewinners
+     */
     public void siegerAusgabe(String name) {
         System.out.println("Gewonnen hat " + name);
     }
 
+    /**
+     * Methode informiert den Spieler das ein Karte ziehen nicht moeglich ist,
+     * da alle Karten bereits auf den Spielerhaenden liegen
+     */
     public void spielerBetruegen() {
         System.out.println(ANSI_RED + "Ein Kartenziehen ist nicht mehr möglich, da ihr betrogen habt " +
                 "\nund sich nun alle Karten auf euren Händen befinden " + ANSI_RESET);
     }
 
+    /**
+     * Diese Methode informiert über einen weiteren Mitspieler und dessen Anzahl an Handkarten
+     * @param mitspielername - Name des Mitspielers
+     * @param mitspielerhandkarten - Anzahl der Handkarten jenes Mitspielers
+     */
     public void infosUeberAndereSpieler(String mitspielername, int mitspielerhandkarten) {
         System.out.println("Der Mitspieler " + mitspielername + " hat " + mitspielerhandkarten + " Handkarte(n)");
     }
 
+    /**
+     * Methode informiert darueber das ein anderer Spieler eine Karte gezogen hat
+     * @param name - Name des Spielers, der eine Karte gezogen hat
+     */
     public void pchatgezogen(String name) {
         System.out.println(name + " hat gezogen.");
     }
 
-    public void kiSagteMau() {
-        System.out.println("Computer sagte Mau");
+    /**
+     * Methode gibt aus, das der letzte Spieler Mau sagte
+     */
+    public void spielerSagteMau() {
+        System.out.println("Der letzte Spieler sagte Mau");
     }
 
+    /**
+     * Methode zeigt die Frage, wie viele pc gesteuerte Spieler gewuenscht sind
+     */
     public void anzahlKI() {
         System.out.println("Wie viele computergesteuerte Spieler möchtest du haben?");
     }
 
+    /**
+     * Methode gibt an, dass eine gewisse Zahleneingabe erwartet wurde, diese aber nicht erfuellt wurde
+     *
+     * @param mininaleZahl - kleinste erwartete Zahl
+     * @param maximaleZahl - groesste erwartete Zahl
+     */
     public void eingabeZahlFehlerhaft(int mininaleZahl, int maximaleZahl) {
         System.out.println("Deine Eingabe war fehlerhaft, bitte gib eine Zahl zwischen " + mininaleZahl + " und "
         + maximaleZahl + " ein.");
     }
 
+    /**
+     * Methode gibt dank aus, das der Spieler dieses Spiel spielte
+     */
     public void spielende() {
         System.out.println("Es war schön mit dir zu spielen. Bitte schaue bald wieder vorbei.");
     }
