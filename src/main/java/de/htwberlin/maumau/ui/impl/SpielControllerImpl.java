@@ -106,7 +106,6 @@ public class SpielControllerImpl implements SpielController {
         return spielerliste;
     }
 
-    //todo vergessenes Mau bei KI sorgte nicht für strafkarten
     private Spiel kiSpielt(Spiel dasSpiel) {
         log.debug("kiSpielt");
 

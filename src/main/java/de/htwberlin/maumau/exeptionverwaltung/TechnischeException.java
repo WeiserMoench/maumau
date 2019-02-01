@@ -1,4 +1,4 @@
-package de.htwberlin.maumau.exeptionverwaltung.technischeexceptions;
+package de.htwberlin.maumau.exeptionverwaltung;
 
 public class TechnischeException extends Exception{
 

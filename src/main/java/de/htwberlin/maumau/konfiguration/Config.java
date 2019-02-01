@@ -1,6 +1,6 @@
 package de.htwberlin.maumau.konfiguration;
 
-import de.htwberlin.maumau.exeptionverwaltung.technischeexceptions.TechnischeException;
+import de.htwberlin.maumau.exeptionverwaltung.TechnischeException;
 import de.htwberlin.maumau.kartenverwaltung.impl.KartenServiceImpl;
 import de.htwberlin.maumau.regelnverwaltung.impl.EinfacheRegelnServiceImpl;
 import de.htwberlin.maumau.regelnverwaltung.impl.ErweiterteRegelnServiceImpl;
