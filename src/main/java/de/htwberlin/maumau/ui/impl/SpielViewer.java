@@ -99,7 +99,7 @@ public class SpielViewer {
      */
     public void kartennummerUnsinnig() {
         System.err.println("Du hast eine Eingabe getätigt, die bei deinen Handkarten nicht sinnig ist.\n" +
-                "Bitte gib eine Zahl an, die möglich ist.");
+                "Bitte bitte tätige eine sinnige Eingabe.");
     }
 
     /**
@@ -236,5 +236,14 @@ public class SpielViewer {
 
     public void anzahlKI() {
         System.out.println("Wie viele computergesteuerte Spieler möchtest du haben?");
+    }
+
+    public void eingabeZahlFehlerhaft(int mininaleZahl, int maximaleZahl) {
+        System.out.println("Deine Eingabe war fehlerhaft, bitte gib eine Zahl zwischen " + mininaleZahl + " und "
+        + maximaleZahl + " ein.");
+    }
+
+    public void spielende() {
+        System.out.println("Es war schön mit dir zu spielen. Bitte schaue bald wieder vorbei.");
     }
 }

@@ -82,26 +82,18 @@ public class SpielControllerImpl implements SpielController {
             //        }
         }
         while(weitereRunde());
+        view.spielende();
     }
 
     private List<String> kiSpielerAnlegen(List<String> spielerliste) {
         int anzahl = 0;
-        boolean fehler;
+        int minimaleZahl = 0;
+        int maximaleZahl = 5;
+
         view.anzahlKI();
-        do {
-            String eingabe = sc.next();
-            try {
-                anzahl = Integer.parseInt(eingabe);
-                fehler = false;
-            }catch(java.lang.NumberFormatException e){
-                System.out.println("eingabe");
-                fehler=true;
-            }
-            if(anzahl>5){
-                System.out.println("max 5 erlaubt");
-                fehler = true;
-            }
-        }  while(fehler);
+
+        anzahl=zahlEingabe(minimaleZahl, maximaleZahl);
+
         for(int i = 0; i<anzahl;i++){
             spielerliste.add(kiService.kiAnlegen(i));
         }
@@ -126,7 +118,7 @@ public class SpielControllerImpl implements SpielController {
                 try{
                     dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
                     view.pchatgezogen(dasSpiel.getAktiverSpieler().getName());
-                } catch (Exception e){
+                } catch (IndexOutOfBoundsException e){
                     view.spielerBetruegen();
                 }
                 erneutesFragen=false;
@@ -290,9 +282,7 @@ public class SpielControllerImpl implements SpielController {
      */
     private Spiel kartelegen(Spiel spiel){
         log.debug("kartelegen");
-        String antwort;
-        boolean erneutesFragen=false;
-        int antwortAlsZahl;
+
 
         view.welcheKarteAblegen();
         for (int kartennummer = 0; kartennummer<spiel.getAktiverSpieler().getHandkarten().size();kartennummer++){
@@ -300,6 +290,21 @@ public class SpielControllerImpl implements SpielController {
             String wert = spiel.getAktiverSpieler().getHandkarten().get(kartennummer).getWert();
             view.ausgabeKarte(kartennummer,farbe,wert);
         }
+
+        spiel=eingabeZumKartelegen(spiel);
+
+        if(spiel.isMussFarbeWuenschen()){
+            spiel=farbeWaehlen(spiel);
+        }
+
+        return spiel;
+    }
+
+    private Spiel eingabeZumKartelegen(Spiel spiel) {
+        String antwort;
+        boolean erneutesFragen;
+        int antwortAlsZahl;
+
         do{
             antwort=sc.next();
             antwort=antwort.toLowerCase();
@@ -310,28 +315,20 @@ public class SpielControllerImpl implements SpielController {
             }else if(antwort.equals("z")){
                 try {
                     spiel = spielService.ziehenKarteVomZiehstapel(spiel);
-                } catch(Exception e) {
+                } catch(IndexOutOfBoundsException e) {
                     view.spielerBetruegen();
                 }
                 erneutesFragen=false;
             }else{
                 try{
                     antwortAlsZahl = Integer.parseInt(antwort);
-                    if(antwortAlsZahl>=0){
-                        if(antwortAlsZahl<spiel.getAktiverSpieler().getHandkarten().size()){
-                            spielService.legeKarte(spiel.getAktiverSpieler().getHandkarten().get(antwortAlsZahl), spiel.getAktiverSpieler(), spiel);
-                            erneutesFragen=!spiel.isErfolgreichgelegt();
-                            if(erneutesFragen){
-                                view.falscheKarte();
-                            }else if(spiel.isMussFarbeWuenschen()){
-                                spiel=farbeWaehlen(spiel);
+                    if(antwortAlsZahl>=0 || antwortAlsZahl<spiel.getAktiverSpieler().getHandkarten().size()){
+                        spielService.legeKarte(spiel.getAktiverSpieler().getHandkarten().get(antwortAlsZahl), spiel.getAktiverSpieler(), spiel);
+                        erneutesFragen=!spiel.isErfolgreichgelegt();
+                        if(erneutesFragen){
+                            view.falscheKarte();
                             }
-                        }else{
-                            erneutesFragen=true;
-                            view.kartennummerUnsinnig();
-                        }
                     }else{
-
                         erneutesFragen=true;
                         view.kartennummerUnsinnig();
                     }
@@ -353,29 +350,22 @@ public class SpielControllerImpl implements SpielController {
      */
     private Spiel farbeWaehlen(Spiel spiel) {
         log.debug("farbewaehlen");
-        String antwort;
+        int antwort;
         Farbe farbe = null;
-        boolean keineErfolgreicheWahl = true;
 
-        do{
             view.farbeWaehlen();
-            antwort=sc.next();
+
+            antwort=zahlEingabe(1, 4);
             switch (antwort){
-                case "1":   farbe=Farbe.HERZ;
-                            keineErfolgreicheWahl=false;
+                case 1:   farbe=Farbe.HERZ;
                             break;
-                case "2":   farbe=Farbe.KREUZ;
-                            keineErfolgreicheWahl=false;
+                case 2:   farbe=Farbe.KREUZ;
                             break;
-                case "3":   farbe=Farbe.KARO;
-                            keineErfolgreicheWahl=false;
+                case 3:   farbe=Farbe.KARO;
                             break;
-                case "4":   farbe=Farbe.PIK;
-                            keineErfolgreicheWahl=false;
+                case 4:   farbe=Farbe.PIK;
                             break;
-                default:    view.fehlerhafteEingabe();
             }
-        }while(keineErfolgreicheWahl);
 
         spielService.farbeGewaehlt(spiel, farbe);
 
@@ -492,5 +482,56 @@ public class SpielControllerImpl implements SpielController {
         view.weitereSpielStarten();
         return jaNeinAbfrage();
     }
+
+    private int zahlEingabe(int mininaleZahl, int maximaleZahl){
+        int eingeleseneZahl = 0;
+        boolean fehler;
+        String eingabe;
+        do {
+                eingabe = sc.next();
+            try {
+                eingeleseneZahl = Integer.parseInt(eingabe);
+                fehler = false;
+            }catch(java.lang.NumberFormatException e){
+                view.eingabeZahlFehlerhaft(mininaleZahl, maximaleZahl);
+                fehler=true;
+            }
+            if(eingeleseneZahl<mininaleZahl || eingeleseneZahl>maximaleZahl){
+                view.eingabeZahlFehlerhaft(mininaleZahl, maximaleZahl);
+                fehler = true;
+            }
+//            if(eingeleseneZahl>maximaleZahl){
+//                view.eingabeZahlFehlerhaft(mininaleZahl, maximaleZahl);
+//                fehler = true;
+//            }
+        }  while(fehler);
+
+        return eingeleseneZahl;
+    }
+
+//                    try{
+//        antwortAlsZahl = Integer.parseInt(antwort);
+//        if(antwortAlsZahl>=0){
+//            if(antwortAlsZahl<spiel.getAktiverSpieler().getHandkarten().size()){
+//                spielService.legeKarte(spiel.getAktiverSpieler().getHandkarten().get(antwortAlsZahl), spiel.getAktiverSpieler(), spiel);
+//                erneutesFragen=!spiel.isErfolgreichgelegt();
+//                if(erneutesFragen){
+//                    view.falscheKarte();
+//                }else if(spiel.isMussFarbeWuenschen()){
+//                    spiel=farbeWaehlen(spiel);
+//                }
+//            }else{
+//                erneutesFragen=true;
+//                view.kartennummerUnsinnig();
+//            }
+//        }else{
+//
+//            erneutesFragen=true;
+//            view.kartennummerUnsinnig();
+//        }
+//    }catch (java.lang.NumberFormatException e){
+//        view.kartennummerUnsinnig();
+//        erneutesFragen=true;
+//    }
 
 }
