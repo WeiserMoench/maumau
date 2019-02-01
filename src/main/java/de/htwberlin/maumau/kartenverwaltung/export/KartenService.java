@@ -36,4 +36,5 @@ public interface KartenService {
      * @return Die neue Karte
      */
     Karte erstellenNeuerKarte(Farbe farbe, String wert);
+
 }

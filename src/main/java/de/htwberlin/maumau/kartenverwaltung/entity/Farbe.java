@@ -7,8 +7,6 @@ package de.htwberlin.maumau.kartenverwaltung.entity;
 
 public enum Farbe {
 
-
-
     HERZ {
         public String toString() {
             final String ANSI_RESET = "\u001B[0m";
@@ -42,4 +40,6 @@ public enum Farbe {
             return symbol;
         }
     }
+
+
 }

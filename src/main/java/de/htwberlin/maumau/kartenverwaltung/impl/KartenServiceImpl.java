@@ -48,4 +48,5 @@ public class KartenServiceImpl implements KartenService {
         Karte karte = new Karte(farbe, wert);
         return karte;
     }
+
 }

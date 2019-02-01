@@ -7,8 +7,8 @@ package de.htwberlin.maumau.spielverwaltung.export;
 
 import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
-import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
 import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
+import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
 
 import java.util.List;
 
@@ -101,4 +101,6 @@ public interface SpielService {
         da die Wahrscheinlichkeit sehr gering ist, das so gespielt wird, wird dieses Mal die Exception noch nicht gefangen und bearbeitet,
         dies erfolgt bei der nächsten Abgabe
         */
+
+    Spiel handkartenSortieren(Spiel spiel);
 }

@@ -10,10 +10,10 @@ import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
 import de.htwberlin.maumau.kartenverwaltung.export.KartenService;
 import de.htwberlin.maumau.regelnverwaltung.export.RegelnService;
-import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
-import de.htwberlin.maumau.spielverwaltung.export.SpielService;
 import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
 import de.htwberlin.maumau.spielerverwaltung.export.SpielerService;
+import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
+import de.htwberlin.maumau.spielverwaltung.export.SpielService;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -240,6 +240,12 @@ public class SpielServiceImpl implements SpielService {
             spiel.setZiehstapelkarten(kartenService.mischenKartenstapel(ziehstapel, false));
             spiel.setAblagestapelkarten(ablagestapel);
         }
+        return spiel;
+    }
+
+    @Override
+    public Spiel handkartenSortieren(Spiel spiel) {
+        spiel.getAktiverSpieler().setHandkarten(kartenService.sortieren(spiel.getAktiverSpieler().getHandkarten()));
         return spiel;
     }
 }
