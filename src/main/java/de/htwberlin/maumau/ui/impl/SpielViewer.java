@@ -10,6 +10,9 @@ import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 
 public class SpielViewer {
 
+    final String ANSI_RESET = "\u001B[0m";
+    final String ANSI_RED = "\u001B[31m";
+
 
     /**
      * Diese Methode fragt ab, ob ein weiterer Spieler hinzugefuegt werden soll
@@ -39,7 +42,7 @@ public class SpielViewer {
      * entweder ja oder nein einzugeben
      */
     public void jaNeinAbfrageFehlermeldung(){
-        System.err.println("Deine Eingabe war fehlerhaft, bitte gib \"ja\" oder \"nein\" ein.");
+        System.out.println(ANSI_RED + "Deine Eingabe war fehlerhaft, bitte gib \"ja\" oder \"nein\" ein." + ANSI_RESET);
     }
 
     /**
@@ -98,8 +101,8 @@ public class SpielViewer {
      * Methode sagt dem Spieler, das die Nummer siner Handkarte, die er legen wollte, unsinnig ist
      */
     public void kartennummerUnsinnig() {
-        System.err.println("Du hast eine Eingabe getätigt, die bei deinen Handkarten nicht sinnig ist.\n" +
-                "Bitte bitte tätige eine sinnige Eingabe.");
+        System.out.println(ANSI_RED + "Du hast eine Eingabe getätigt, die bei deinen Handkarten nicht sinnig ist.\n" +
+                "Bitte bitte tätige eine sinnige Eingabe." + ANSI_RESET);
     }
 
     /**
@@ -110,13 +113,6 @@ public class SpielViewer {
 //        System.out.println("Wenn du ein neues Spiel beginnen willst, gibt bitte die 1 ein"); //Vorbereitung Aufgabe 4
 //        System.out.println("Wenn du ein Spiel fortsetzen möchtest, wähle die 2");
 //        System.out.println("Welche Variante möchtest du spielen?");
-    }
-
-    /**
-     * Methode weisst den Spieler daraufhin, dass eine 1 oder 2 erwartet wurde
-     */
-    public void fehlerhafteEingabeEinsZwei() {
-        System.err.println("Deine Eingabe war falsch, bitte gib eine 1 oder eine 2 ein.");
     }
 
     /**
@@ -165,7 +161,7 @@ public class SpielViewer {
      * Methode weisst den Spieler darauf hin, dass er eine falsche Karte legen wollte
      */
     public void falscheKarte() {
-        System.err.println("Du hast versucht eine nicht mögliche Karte zulegen, versuche es erneut.");
+        System.out.println(ANSI_RED + "Du hast versucht eine nicht mögliche Karte zulegen, versuche es erneut." + ANSI_RESET);
     }
 
     /**
@@ -194,8 +190,8 @@ public class SpielViewer {
     /**
      * Information, dass der Spieler vergessen habe Mau zu sagen und daher zwei Strafkarten auf die Hand bekommen hat
      */
-    public void strafkartenVergessenesMau() {
-        System.err.println("Du hast vergessen Mau zu sagen, daher hast du zwei Starfkarten auf die Hand bekommen.");
+    public void strafkartenVergessenesMau(String spielername) {
+        System.out.println(ANSI_RED + "Der Spieler " + spielername + " hat vergessen Mau zu sagen und musste daher 2 Strafkarten ziehen" + ANSI_RESET);
     }
 
     /**
@@ -218,8 +214,8 @@ public class SpielViewer {
     }
 
     public void spielerBetruegen() {
-        System.err.println("Ein Kartenziehen ist nicht mehr möglich, da ihr betrogen habt " +
-                "\nund sich nun alle Karten auf euren Händen befinden ");
+        System.out.println(ANSI_RED + "Ein Kartenziehen ist nicht mehr möglich, da ihr betrogen habt " +
+                "\nund sich nun alle Karten auf euren Händen befinden " + ANSI_RESET);
     }
 
     public void infosUeberAndereSpieler(String mitspielername, int mitspielerhandkarten) {

@@ -28,7 +28,6 @@ public class SpielControllerImpl implements SpielController {
         this.kiService = kiService;
     }
 
-    //view waere cooler
     private KiService kiService;
     private SpielService spielService;
     private SpielViewer view = new SpielViewer();
@@ -107,6 +106,7 @@ public class SpielControllerImpl implements SpielController {
         return spielerliste;
     }
 
+    //todo vergessenes Mau bei KI sorgte nicht für strafkarten
     private Spiel kiSpielt(Spiel dasSpiel) {
         log.debug("kiSpielt");
 
@@ -125,6 +125,8 @@ public class SpielControllerImpl implements SpielController {
         dasSpiel.getAktiverSpieler().setMauistgesetzt(kiService.mauSetzen(dasSpiel.getAktiverSpieler()));
 
         ausgabeNachKiZug(dasSpiel);
+
+        dasSpiel = mauPruefung(dasSpiel);
 
         return dasSpiel;
     }
@@ -206,8 +208,9 @@ public class SpielControllerImpl implements SpielController {
         spiel = spielService.pruefeAufMau(spiel);
         anzahlHandkartenNachPruefung=spiel.getAktiverSpieler().getHandkarten().size();
 
+
         if (anzahlHandkartenNachPruefung>anzahlHandkartenVorPruefung){
-            view.strafkartenVergessenesMau();
+            view.strafkartenVergessenesMau(dasSpiel.getAktiverSpieler().getName());
         }
         return spiel;
     }
@@ -380,17 +383,7 @@ public class SpielControllerImpl implements SpielController {
         log.debug("welcheSpielart");
         int spielart=0;
         view.willkommen();
-
-        while(spielart==0){
-            String eingabe = sc.next();
-            if(eingabe.equals("1")){
-                spielart=1;
-            }else if (eingabe.equals("2")){
-                spielart=2;
-            }else{
-                view.fehlerhafteEingabeEinsZwei();
-            }
-        }
+        spielart=zahlEingabe(1, 2);
         return spielart;
     }
 
