@@ -102,5 +102,4 @@ public interface SpielService {
         dies erfolgt bei der nächsten Abgabe
         */
 
-    Spiel handkartenSortieren(Spiel spiel);
 }

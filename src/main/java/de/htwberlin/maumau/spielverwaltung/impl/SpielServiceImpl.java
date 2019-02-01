@@ -243,9 +243,4 @@ public class SpielServiceImpl implements SpielService {
         return spiel;
     }
 
-    @Override
-    public Spiel handkartenSortieren(Spiel spiel) {
-        spiel.getAktiverSpieler().setHandkarten(kartenService.sortieren(spiel.getAktiverSpieler().getHandkarten()));
-        return spiel;
-    }
 }
