@@ -17,7 +17,12 @@ public class SpielViewer {
      */
     public void sollSpielerHinzugefuegtWerden() {
         System.out.println();
-        System.out.println("Möchtest du einen weiteren Spieler zum Spiel hinzufügen?");
+        System.out.println("Möchtest du einen weiteren menschlichen Spieler zum Spiel hinzufügen?");
+    }
+
+    public void leereZeileMitStichen(){
+        System.out.println("-------------------------------------------------------");
+        System.out.println();
     }
 
     /**
@@ -119,7 +124,7 @@ public class SpielViewer {
      */
     public void spielerNamenAnfragen() {
         System.out.println();
-        System.out.println("Name des Spielers:");
+        System.out.println("Welchen Namen soll der menschliche Spieler haben:");
     }
 
     /**
@@ -227,5 +232,9 @@ public class SpielViewer {
 
     public void kiSagteMau() {
         System.out.println("Computer sagte Mau");
+    }
+
+    public void anzahlKI() {
+        System.out.println("Wie viele computergesteuerte Spieler möchtest du haben?");
     }
 }

@@ -9,6 +9,6 @@ public interface KiService {
 
     boolean mauSetzen(Spieler spieler);
 
-    String kiAnlegen();
+    String kiAnlegen(int kiZaehler);
 
 }

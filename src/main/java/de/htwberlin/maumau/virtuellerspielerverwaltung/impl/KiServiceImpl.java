@@ -12,9 +12,6 @@ import java.util.Random;
 public class KiServiceImpl implements KiService {
     private static Logger log = Logger.getRootLogger();
 
-    //ToDo ueberdenken
-    private int kiZaehler=1;
-
     @Override
     public Karte kiWaehltKarte(Spieler spieler, int durchgangszaehler) {
         log.debug("KiServiceImpl - kiWaehltKarte");
@@ -38,10 +35,10 @@ public class KiServiceImpl implements KiService {
     }
 
     @Override
-    public String kiAnlegen() {
+    public String kiAnlegen(int kiZaehler) {
         log.debug("KiServiceImpl - kiAnlegen");
-        String spielername = "Computer"+kiZaehler;
         kiZaehler++;
+        String spielername = "Computer"+kiZaehler;
         return spielername;
     }
 }
