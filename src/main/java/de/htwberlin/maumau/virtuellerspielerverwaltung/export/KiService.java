@@ -1,5 +1,6 @@
 package de.htwberlin.maumau.virtuellerspielerverwaltung.export;
 
+import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
 import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
 
@@ -11,4 +12,5 @@ public interface KiService {
 
     String kiAnlegen(int kiZaehler);
 
+    Farbe kiMussFarbeWuenschen();
 }

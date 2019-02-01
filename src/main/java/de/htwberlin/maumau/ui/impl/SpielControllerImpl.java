@@ -15,7 +15,6 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 public class SpielControllerImpl implements SpielController {
@@ -102,17 +101,42 @@ public class SpielControllerImpl implements SpielController {
 
     private Spiel kiSpielt(Spiel dasSpiel) {
         log.debug("kiSpielt");
+
+        anzeigeObersteKarte(dasSpiel);
+        dasSpiel.setSummeZuziehendeKarten(0);
+
+        dasSpiel = kiLegt(dasSpiel);
+
+        if(dasSpiel.isMussFarbeWuenschen()){
+            log.debug("if schleife Farbe wünschen");
+
+            dasSpiel.setFarbe(kiService.kiMussFarbeWuenschen());
+            dasSpiel.setMussFarbeWuenschen(false);
+        }
+
+        dasSpiel.getAktiverSpieler().setMauistgesetzt(kiService.mauSetzen(dasSpiel.getAktiverSpieler()));
+
+        ausgabeNachKiZug(dasSpiel);
+
+        return dasSpiel;
+    }
+
+    private void ausgabeNachKiZug(Spiel dasSpiel) {
+        view.kiHatGespielt(dasSpiel.getAktiverSpieler().getName());
+        if(dasSpiel.getAktiverSpieler().isMauistgesetzt()){
+            view.kiSagteMau();
+        }
+
+        anzeigeObersteKarte(dasSpiel);
+        view.leereZeileMitStichen();
+    }
+
+    private Spiel kiLegt(Spiel dasSpiel) {
+        log.debug("kiLegt");
         int durchgangszaehler = 0;
         boolean erneutesFragen;
 
-        anzeigeObersteKarte(dasSpiel);
-
-        dasSpiel.setSummeZuziehendeKarten(0);
-
-
         do{
-            log.debug("do schleife karte legen");
-
             if(durchgangszaehler>dasSpiel.getAktiverSpieler().getHandkarten().size()-1){
                 log.debug("Ki muss Karte ziehen, da legen nicht möglich");
                 try{
@@ -128,41 +152,6 @@ public class SpielControllerImpl implements SpielController {
                 durchgangszaehler++;
             }
         }while(erneutesFragen);
-
-        if(dasSpiel.isMussFarbeWuenschen()){
-            log.debug("if schleife Farbe wünschen");
-            Farbe neueFarbe = null;
-            Random random =new Random();
-            int zahl = random.nextInt(4);
-            switch (zahl){
-                case 0:
-                    neueFarbe = Farbe.PIK;
-                    break;
-                case 1:
-                    neueFarbe = Farbe.KARO;
-                    break;
-                case 2:
-                    neueFarbe = Farbe.KREUZ;
-                    break;
-                case 3:
-                    neueFarbe = Farbe.HERZ;
-                    break;
-            }
-
-            dasSpiel.setFarbe(neueFarbe);
-            dasSpiel.setMussFarbeWuenschen(false);
-        }
-
-        dasSpiel.getAktiverSpieler().setMauistgesetzt(kiService.mauSetzen(dasSpiel.getAktiverSpieler()));
-
-        view.kiHatGespielt(dasSpiel.getAktiverSpieler().getName());
-        if(dasSpiel.getAktiverSpieler().isMauistgesetzt()){
-            view.kiSagteMau();
-        }
-
-
-        anzeigeObersteKarte(dasSpiel);
-        view.leereZeileMitStichen();
 
         return dasSpiel;
     }
@@ -435,18 +424,6 @@ public class SpielControllerImpl implements SpielController {
     }
 
     /**
-     * Diese Methode fragt ab, ob der neue Spieler ein Mensch sein soll, oder sonst ein KI
-     *
-     * @return - boolean, der angibt ob der neuste Spieler ein Mensch sein soll
-     */
-    private boolean sollSpielerMenschSein() {
-        log.debug("sollSpielerMenschSein");
-        view.sollSpielerMenschSein();
-
-        return jaNeinAbfrage();
-    }
-
-    /**
      * Methode fragt den Namen des hinzuzufuegenden Spielers ab
      * und speichert diese Information als String
      *
@@ -474,8 +451,7 @@ public class SpielControllerImpl implements SpielController {
             view.anzeigenRegeln();
         }
         view.sollNachErweitertenRegelnGespieltWerden();
-        antwort=jaNeinAbfrage();
-        return antwort;
+        return jaNeinAbfrage();
     }
 
     private boolean weitereRunde() {
@@ -500,38 +476,8 @@ public class SpielControllerImpl implements SpielController {
                 view.eingabeZahlFehlerhaft(mininaleZahl, maximaleZahl);
                 fehler = true;
             }
-//            if(eingeleseneZahl>maximaleZahl){
-//                view.eingabeZahlFehlerhaft(mininaleZahl, maximaleZahl);
-//                fehler = true;
-//            }
         }  while(fehler);
 
         return eingeleseneZahl;
     }
-
-//                    try{
-//        antwortAlsZahl = Integer.parseInt(antwort);
-//        if(antwortAlsZahl>=0){
-//            if(antwortAlsZahl<spiel.getAktiverSpieler().getHandkarten().size()){
-//                spielService.legeKarte(spiel.getAktiverSpieler().getHandkarten().get(antwortAlsZahl), spiel.getAktiverSpieler(), spiel);
-//                erneutesFragen=!spiel.isErfolgreichgelegt();
-//                if(erneutesFragen){
-//                    view.falscheKarte();
-//                }else if(spiel.isMussFarbeWuenschen()){
-//                    spiel=farbeWaehlen(spiel);
-//                }
-//            }else{
-//                erneutesFragen=true;
-//                view.kartennummerUnsinnig();
-//            }
-//        }else{
-//
-//            erneutesFragen=true;
-//            view.kartennummerUnsinnig();
-//        }
-//    }catch (java.lang.NumberFormatException e){
-//        view.kartennummerUnsinnig();
-//        erneutesFragen=true;
-//    }
-
 }

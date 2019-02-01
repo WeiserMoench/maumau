@@ -1,5 +1,6 @@
 package de.htwberlin.maumau.virtuellerspielerverwaltung.impl;
 
+import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
 import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
 import de.htwberlin.maumau.virtuellerspielerverwaltung.export.KiService;
@@ -40,5 +41,27 @@ public class KiServiceImpl implements KiService {
         kiZaehler++;
         String spielername = "Computer"+kiZaehler;
         return spielername;
+    }
+
+    @Override
+    public Farbe kiMussFarbeWuenschen() {
+        Farbe neueFarbe = null;
+        Random random =new Random();
+        int zahl = random.nextInt(4);
+        switch (zahl){
+            case 0:
+                neueFarbe = Farbe.PIK;
+                break;
+            case 1:
+                neueFarbe = Farbe.KARO;
+                break;
+            case 2:
+                neueFarbe = Farbe.KREUZ;
+                break;
+            case 3:
+                neueFarbe = Farbe.HERZ;
+                break;
+        }
+        return neueFarbe;
     }
 }
