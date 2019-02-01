@@ -19,7 +19,6 @@ import org.picocontainer.injectors.ConstructorInjection;
 public class Config {
     private static MutablePicoContainer container = new DefaultPicoContainer(new ConstructorInjection());
 
-    //TODO exeption falls fehler drin abfangen
     public static void main(String[] arg) throws TechnischeException {
         try {
             registriereKomponenten();
@@ -29,7 +28,7 @@ public class Config {
 
         try {
             container.getComponent(SpielController.class).run();
-        }catch(Exception e){
+        }catch(java.lang.NullPointerException e){
             throw new TechnischeException("Fehler beim Komponente öffnen");
         }
     }

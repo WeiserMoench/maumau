@@ -95,7 +95,7 @@ public class SpielViewer {
      */
     public void kartennummerUnsinnig() {
         System.out.println(ANSI_RED + "Du hast eine Eingabe getätigt, die bei deinen Handkarten nicht sinnig ist.\n" +
-                "Bitte bitte tätige eine sinnige Eingabe." + ANSI_RESET);
+                "Bitte tätige eine sinnige Eingabe." + ANSI_RESET);
     }
 
     /**

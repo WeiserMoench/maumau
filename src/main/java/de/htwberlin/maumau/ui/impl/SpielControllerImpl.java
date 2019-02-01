@@ -326,7 +326,7 @@ public class SpielControllerImpl implements SpielController {
             }else{
                 try{
                     antwortAlsZahl = Integer.parseInt(antwort);
-                    if(antwortAlsZahl>=0 || antwortAlsZahl<spiel.getAktiverSpieler().getHandkarten().size()){
+                    if(antwortAlsZahl>=0 && antwortAlsZahl<spiel.getAktiverSpieler().getHandkarten().size()){
                         spiel=erfolgreichGelegt(spiel, antwortAlsZahl);
                         erneutesFragen=!spiel.isErfolgreichgelegt();
                         if(erneutesFragen){

@@ -133,24 +133,6 @@ public class SpielServiceImpl implements SpielService {
         return spiel;
     }
 
-    private List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte) {
-        log.debug("entferneGezogendeKarteVomZiehstapel");
-        karteStapel.remove(karte);
-        return karteStapel;
-    }
-
-    private List<Karte> austeilenVonKarten(List<Karte> ziehstapel, List<Spieler> spielerListe, int durchgaenge) {
-        log.debug("austeilenVonKarten");
-        for (int runden = 0; runden < durchgaenge; runden++) {
-            for (int spielerzaehler = 0; spielerzaehler < spielerListe.size(); spielerzaehler++) {
-                Karte karte = ziehstapel.get(ziehstapel.size() - 1);
-                spielerService.karteZuHandblatthinzufuegen(karte, spielerListe.get(spielerzaehler));
-                ziehstapel.remove(karte);
-            }
-        }
-        return ziehstapel;
-    }
-
     @Override
     public List<Karte> karteZiehen(int anzahl, List<Karte> karteStapel, Spieler spieler) {
         log.debug("karteZiehen");
@@ -158,13 +140,6 @@ public class SpielServiceImpl implements SpielService {
         spielerliste.add(spieler);
         austeilenVonKarten(karteStapel, spielerliste, anzahl);
         return karteStapel;
-    }
-
-    private List<Karte> legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte) {
-        log.debug("legenKarteAufAblageStapel");
-        spielerService.karteausHandblattentfernden(karte, spieler);
-        kartenAblagestapel.add(karte);
-        return kartenAblagestapel;
     }
 
     @Override
@@ -186,38 +161,10 @@ public class SpielServiceImpl implements SpielService {
         return spiel;
     }
 
-    /**
-     * Schaut ob Mau von noeten ist
-     *
-     * @param spieler die Aktuellen Spieler
-     * @return Ob ja oder nein
-     */
-    private boolean istMauNoetig(Spieler spieler) {
-        log.debug("istMauNoetig");
-        return spieler.getHandkarten().size() == 1;
-    }
-
     @Override
     public void setzeMau(Spieler spieler, boolean neuerZustand) {
         log.debug("setzeMau");
         spieler.setMauistgesetzt(neuerZustand);
-    }
-
-    /**
-     * Bestimmt die Anzahl der Karten die jeder Spieler bekommt
-     *
-     * @param spielerListe Liste der Spieler
-     * @param ziehstapel   Der Stapel der ausgeteilt wird
-     * @return Gibt die Anzahl der Karten zurueck
-     */
-    private int anzahlStartkartenbestimmen(List<Spieler> spielerListe, List<Karte> ziehstapel) {
-        log.debug("anzahlStartkartenbestimmen");
-        int anzahlkarten;
-        anzahlkarten = (int) Math.floor((ziehstapel.size() - 10) / spielerListe.size());
-        if (anzahlkarten > 6) {
-            anzahlkarten = 6;
-        }
-        return anzahlkarten;
     }
 
     @Override
@@ -238,4 +185,79 @@ public class SpielServiceImpl implements SpielService {
         return spiel;
     }
 
+    /**
+     * Diese Methode entfernt eine bestimmte Karte vom Kartenstapel
+     *
+     * @param karteStapel
+     * @param karte
+     * @return
+     */
+    private List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte) {
+        log.debug("entferneGezogendeKarteVomZiehstapel");
+        karteStapel.remove(karte);
+        return karteStapel;
+    }
+
+    /**
+     * Verteilt karten auf Spielerhaende
+     *
+     * @param ziehstapel - der Stapel von dem die Karten genommen werden sollen
+     * @param spielerListe - Liste der Spieler die die Karten bekommen sollen
+     * @param durchgaenge - Anzahl der neuen Karten pro Spieler
+     * @return - der reduzierte ziehstapel
+     */
+    private List<Karte> austeilenVonKarten(List<Karte> ziehstapel, List<Spieler> spielerListe, int durchgaenge) {
+        log.debug("austeilenVonKarten");
+        for (int runden = 0; runden < durchgaenge; runden++) {
+            for (int spielerzaehler = 0; spielerzaehler < spielerListe.size(); spielerzaehler++) {
+                Karte karte = ziehstapel.get(ziehstapel.size() - 1);
+                spielerService.karteZuHandblatthinzufuegen(karte, spielerListe.get(spielerzaehler));
+                ziehstapel.remove(karte);
+            }
+        }
+        return ziehstapel;
+    }
+
+    /**
+     * Entfernt eine Karte von Spielerhand und legt sie auf den Ablagestapel
+     *
+     * @param spieler - bei dem die Karte entfernt werden soll
+     * @param kartenAblagestapel - Ablagestapel auf den die Karte gelegt werden soll
+     * @param karte - besagte Karte
+     * @return - der veraenderte Ablagestapel
+     */
+    private List<Karte> legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte) {
+        log.debug("legenKarteAufAblageStapel");
+        spielerService.karteausHandblattentfernden(karte, spieler);
+        kartenAblagestapel.add(karte);
+        return kartenAblagestapel;
+    }
+
+    /**
+     * Schaut ob Mau von noeten ist
+     *
+     * @param spieler die Aktuellen Spieler
+     * @return Ob ja oder nein
+     */
+    private boolean istMauNoetig(Spieler spieler) {
+        log.debug("istMauNoetig");
+        return spieler.getHandkarten().size() == 1;
+    }
+
+    /**
+     * Bestimmt die Anzahl der Karten die jeder Spieler bekommt
+     *
+     * @param spielerListe - Liste der Spieler
+     * @param ziehstapel - Der Stapel der ausgeteilt wird
+     * @return - Gibt die Anzahl der Karten zurueck
+     */
+    private int anzahlStartkartenbestimmen(List<Spieler> spielerListe, List<Karte> ziehstapel) {
+        log.debug("anzahlStartkartenbestimmen");
+        int anzahlkarten;
+        anzahlkarten = (int) Math.floor((ziehstapel.size() - 10) / spielerListe.size());
+        if (anzahlkarten > 6) {
+            anzahlkarten = 6;
+        }
+        return anzahlkarten;
+    }
 }
