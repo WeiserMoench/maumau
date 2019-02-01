@@ -1,27 +1,15 @@
 package de.htwberlin.maumau.virtuellerspielerverwaltung.impl;
 
 import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
-import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
 import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
 import de.htwberlin.maumau.virtuellerspielerverwaltung.export.KiService;
 import org.apache.log4j.Logger;
 
-import java.util.List;
 import java.util.Random;
 
 
 public class KiServiceImpl implements KiService {
     private static Logger log = Logger.getRootLogger();
-
-    @Override
-    public Karte kiWaehltKarte(Spieler spieler, int durchgangszaehler) {
-        log.debug("KiServiceImpl - kiWaehltKarte");
-        Karte moeglicheKarte = null;
-        List<Karte> handkarten = spieler.getHandkarten();
-
-        moeglicheKarte=handkarten.get(durchgangszaehler);
-        return moeglicheKarte;
-    }
 
     @Override
     public boolean mauSetzen(Spieler spieler) {

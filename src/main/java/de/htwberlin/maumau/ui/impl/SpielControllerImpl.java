@@ -151,17 +151,20 @@ public class SpielControllerImpl implements SpielController {
                 try{
                     dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
                     view.pchatgezogen(dasSpiel.getAktiverSpieler().getName());
-                } catch (IndexOutOfBoundsException e){
-                    view.spielerBetruegen();
-                }
+                } catch (IndexOutOfBoundsException e){}
                 erneutesFragen=false;
             }else{
-                spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(durchgangszaehler), dasSpiel.getAktiverSpieler(), dasSpiel);
+                dasSpiel=erfolgreichGelegt(dasSpiel, durchgangszaehler);
                 erneutesFragen=!dasSpiel.isErfolgreichgelegt();
                 durchgangszaehler++;
             }
         }while(erneutesFragen);
 
+        return dasSpiel;
+    }
+
+    private Spiel erfolgreichGelegt(Spiel dasSpiel, int gewuenschteKarte) {
+        dasSpiel=spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(gewuenschteKarte), dasSpiel.getAktiverSpieler(), dasSpiel);
         return dasSpiel;
     }
 
@@ -324,7 +327,7 @@ public class SpielControllerImpl implements SpielController {
                 try{
                     antwortAlsZahl = Integer.parseInt(antwort);
                     if(antwortAlsZahl>=0 || antwortAlsZahl<spiel.getAktiverSpieler().getHandkarten().size()){
-                        spielService.legeKarte(spiel.getAktiverSpieler().getHandkarten().get(antwortAlsZahl), spiel.getAktiverSpieler(), spiel);
+                        spiel=erfolgreichGelegt(spiel, antwortAlsZahl);
                         erneutesFragen=!spiel.isErfolgreichgelegt();
                         if(erneutesFragen){
                             view.falscheKarte();

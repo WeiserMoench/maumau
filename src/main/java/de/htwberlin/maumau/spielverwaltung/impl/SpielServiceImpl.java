@@ -220,11 +220,6 @@ public class SpielServiceImpl implements SpielService {
         return anzahlkarten;
     }
 
-    /*TODO
-    Sollten alle Karten auf den Handkarten der Spieler sein, kommt ers zu einer Exception und dem Abbruch des Spieles,
-    da die Wahrscheinlichkeit sehr gering ist, das so gespielt wird, wird dieses Mal die Exception noch nicht gefangen und bearbeitet,
-    dies erfolgt bei der nächsten Abgabe
-    */
     @Override
     public Spiel mussGemischtWerden(Spiel spiel) {
         log.debug("mussGemischtWerden");
