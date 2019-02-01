@@ -7,7 +7,7 @@
 package de.htwberlin.maumau.kartenverwaltung.entity;
 
 
-public class Karte implements Comparable<Karte>{
+public class Karte{
 
 
     private Farbe farbe;
@@ -34,13 +34,5 @@ public class Karte implements Comparable<Karte>{
         this.wert = wert;
     }
 
-    @Override
-    public int compareTo(Karte o) {
-        if(o.farbe.ordinal() < this.farbe.ordinal())
-            return 1;
-        else if(o.farbe.ordinal() > this.farbe.ordinal())
-            return -1;
-        else
-            return 1;
-    }
 }
+

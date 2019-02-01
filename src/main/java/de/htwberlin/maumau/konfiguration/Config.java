@@ -1,5 +1,6 @@
 package de.htwberlin.maumau.konfiguration;
 
+import de.htwberlin.maumau.exeptionverwaltung.technischeexceptions.TechnischeException;
 import de.htwberlin.maumau.kartenverwaltung.impl.KartenServiceImpl;
 import de.htwberlin.maumau.regelnverwaltung.impl.EinfacheRegelnServiceImpl;
 import de.htwberlin.maumau.regelnverwaltung.impl.ErweiterteRegelnServiceImpl;
@@ -19,9 +20,18 @@ public class Config {
     private static MutablePicoContainer container = new DefaultPicoContainer(new ConstructorInjection());
 
     //TODO exeption falls fehler drin abfangen
-    public static void main(String[] arg) {
-        registriereKomponenten();
-        container.getComponent(SpielController.class).run();
+    public static void main(String[] arg) throws TechnischeException {
+        try {
+            registriereKomponenten();
+        }catch(Exception e){
+            throw new TechnischeException("Komponentenregistrierungsfehler");
+        }
+
+        try {
+            container.getComponent(SpielController.class).run();
+        }catch(Exception e){
+            throw new TechnischeException("Fehler beim Komponente öffnen");
+        }
     }
 
     private static void registriereKomponenten() {

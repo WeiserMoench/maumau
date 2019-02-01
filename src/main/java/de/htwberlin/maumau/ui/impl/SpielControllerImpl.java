@@ -10,15 +10,20 @@ import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
 import de.htwberlin.maumau.spielverwaltung.export.SpielService;
 import de.htwberlin.maumau.ui.export.SpielController;
+import de.htwberlin.maumau.util.KarteComperatorByFarbe;
+import de.htwberlin.maumau.util.KarteComperatorByWert;
 import de.htwberlin.maumau.virtuellerspielerverwaltung.export.KiService;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class SpielControllerImpl implements SpielController {
     public SpielControllerImpl(SpielService spielService, KiService kiService) {
+        this.spielService = spielService;
+        this.kiService = kiService;
         this.spielService = spielService;
         this.kiService = kiService;
     }
@@ -34,6 +39,8 @@ public class SpielControllerImpl implements SpielController {
     private boolean erweiterteRegeln;
     private Scanner sc = new Scanner(System.in);
     private static Logger log = Logger.getRootLogger();
+    private KarteComperatorByWert karteComperatorByWert = new KarteComperatorByWert();
+    private KarteComperatorByFarbe karteComperatorByFarbe = new KarteComperatorByFarbe();
 
 
     public void run(){
@@ -62,6 +69,7 @@ public class SpielControllerImpl implements SpielController {
                 spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
 
                 if (!dasSpiel.getAktiverSpieler().isKi()) { //menschlicher Spieler
+
                     dasSpiel = menschlicherSpielerSpielt(dasSpiel);
                 } else {//KI Spieler
                     log.debug("KI Spieler am Zug");
@@ -157,6 +165,8 @@ public class SpielControllerImpl implements SpielController {
     }
 
     private Spiel menschlicherSpielerSpielt(Spiel dasSpiel) {
+        Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComperatorByWert);
+        Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComperatorByFarbe);
         dasSpiel=spielerInfos(dasSpiel);
         dasSpiel=kartelegen(dasSpiel);
         dasSpiel=mauPruefung(dasSpiel);
@@ -480,4 +490,5 @@ public class SpielControllerImpl implements SpielController {
 
         return eingeleseneZahl;
     }
+
 }
