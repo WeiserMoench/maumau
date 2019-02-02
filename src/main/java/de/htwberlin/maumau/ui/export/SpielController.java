@@ -6,10 +6,12 @@
 
 package de.htwberlin.maumau.ui.export;
 
+import de.htwberlin.maumau.exeptionverwaltung.TechnischeException;
+
 public interface SpielController {
 
     /**
      * Die Methode, die den Ablauf des Spieles steuert
      */
-    void run();
+    void run() throws TechnischeException;
 }
