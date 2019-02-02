@@ -20,10 +20,10 @@ public class EinfacheRegelnServiceImpl implements RegelnService {
         String kartenwertlegendeKarte = legendeKarte.getWert();
         Farbe kartenFarbelegendeKarte = legendeKarte.getFarbe();
 
-        if (kartenwertLetzteKarte == kartenwertlegendeKarte) {
+        if (kartenwertLetzteKarte.equals(kartenwertlegendeKarte)) {
             return true;
         } else
-            return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
+            return kartenFarbeLetzteKarte.equals(kartenFarbelegendeKarte);
     }
 
     @Override
