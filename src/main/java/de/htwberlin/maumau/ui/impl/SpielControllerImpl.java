@@ -7,6 +7,7 @@
 package de.htwberlin.maumau.ui.impl;
 
 import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
+import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
 import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
 import de.htwberlin.maumau.spielverwaltung.export.SpielService;
 import de.htwberlin.maumau.ui.export.SpielController;
@@ -15,6 +16,7 @@ import de.htwberlin.maumau.util.KarteComperatorByWert;
 import de.htwberlin.maumau.virtuellerspielerverwaltung.export.KiService;
 import org.apache.log4j.Logger;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +36,6 @@ public class SpielControllerImpl implements SpielController {
     private List<String> spielerliste;
     private Spiel dasSpiel;
     private boolean spielLaeuft;
-    private int spielrundenindex;
     private boolean erweiterteRegeln;
     private Scanner sc = new Scanner(System.in);
     private static Logger log = Logger.getRootLogger();
@@ -43,27 +44,66 @@ public class SpielControllerImpl implements SpielController {
 
 
     public void run(){
-        log.debug("run");
-        do {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("$objectdb/db/p1.odb");
+
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        int spielart = welcheSpielart();
+        if (spielart == 1) {
             dasSpiel = new Spiel();
-            spielLaeuft = true;
+
+
             spielerliste = new ArrayList();
-            spielrundenindex = 0;
-            view.willkommen();
-            //        if(welcheSpielart()==1){ //vorbereitung persistenz
+            dasSpiel.setSpielrundenindex(0);
             erweiterteRegeln = erweiterteRegeln();
 
             spielerliste=kiSpielerAnlegen(spielerliste);
 
             do {
-                    spielerliste.add(spielerHinzufuegen());
+                spielerliste.add(spielerHinzufuegen());
             } while (weitererSpieler() == true);
             dasSpiel = spielService.anlegenSpiel(spielerliste, erweiterteRegeln);
-            while (spielLaeuft) {
-                if (spielrundenindex > 0) {
-                    spielService.naechsterSpieler(dasSpiel);
-                    dasSpiel.setAussetzen(false);
+            try {
+                em.getTransaction().begin();
+
+                TypedQuery<Long> query2 = em.createQuery("Select MAX(p.spielId) from Spiel p", long.class);
+                Long maxId = query2.getSingleResult();
+                Long spielid = maxId + 1;
+                System.out.println("Die SpielID ist " + spielid + " fuer dieses Spiel.");
+
+            } catch (Exception e) {
+                Long spielid = 1L;
+                System.out.println("Die SpielID ist " + spielid + " fuer dieses Spiel.");
+            }
+            em.persist(dasSpiel);
+            em.getTransaction().commit();
+        } else {
+             boolean spielidRichtig = true;
+            while (spielidRichtig) {
+                try {
+                    int spielid = welcheSpielId();
+                    TypedQuery<Spiel> query = em.createQuery("Select p from Spiel p where spielId = " + spielid, Spiel.class);
+                     dasSpiel = query.getSingleResult();
+                    spielidRichtig = false;
+                } catch (Exception e) {
+                    spielidRichtig = true;
+                    System.out.println("Diese ID gibt es nicht!");
                 }
+            }
+        }
+
+
+        log.debug("run");
+        do {
+            //Select max(p.spielId) from Spiel p
+
+            spielLaeuft = true;
+
+            //        if(welcheSpielart()==1){ //vorbereitung persistenz
+
+            while (spielLaeuft) {
+                em.getTransaction().begin();
+
                 //jpa laden objectdb???
                 spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
 
@@ -79,15 +119,23 @@ public class SpielControllerImpl implements SpielController {
                 if (!spielLaeuft) {
                     view.siegerAusgabe(dasSpiel.getAktiverSpieler().getName());
                 }
-                spielrundenindex++;
+                dasSpiel.setSpielrundenindex(dasSpiel.getSpielrundenindex() + 1);
+
+                if (dasSpiel.getSpielrundenindex() > 0) {
+                    spielService.naechsterSpieler(dasSpiel);
+                    dasSpiel.setAussetzen(false);
+                }
+                em.persist(dasSpiel);
+
+                em.getTransaction().commit();
+
                 //jpa speichern
             }
             //        }else{ //vorbereitung persistenz
             //            System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
             //            System.out.println("Bitte komme später wieder");
             //        }
-        }
-        while(weitereRunde());
+        }while(weitereRunde());
         view.spielende();
     }
 
@@ -385,8 +433,18 @@ public class SpielControllerImpl implements SpielController {
         log.debug("welcheSpielart");
         int spielart=0;
         view.willkommen();
+        System.out.println("1 Für neues Spiel, 2 für vorhandenes");
         spielart=zahlEingabe(1, 2);
         return spielart;
+    }
+
+    private Integer welcheSpielId(){
+        log.debug("welcheSpielId");
+        int spielid;
+        System.out.println("Bitte die SpielID eingeben");
+
+        spielid=zahlEingabe(0, 100000000);
+        return spielid;
     }
 
     /**

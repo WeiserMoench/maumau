@@ -14,3 +14,5 @@ Link zu Github\
 https://github.com/morlog47/MauMau
 
 Diagramme sind unter src\Diagramm
+
+C:\Users\Dustin\IdeaProjects\MauMau\src\main\java\de\htwberlin\maumau\konfiguration\Config.java

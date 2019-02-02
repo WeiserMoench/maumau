@@ -9,12 +9,14 @@ import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
 import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Entity
 public class Spiel {
 
+    private Long spielId;
     private Spieler aktiverSpieler;
     private boolean istSpielrichtungRechts = true;
     private int summeZuziehendeKarten;
@@ -25,30 +27,18 @@ public class Spiel {
     private boolean mussFarbeWuenschen = false;
     private boolean erfolgreichgelegt;
     private boolean aussetzen = false;
+    private int spielrundenindex;
 
-    public boolean isAussetzen() {
-        return aussetzen;
+    @Id
+    @GeneratedValue
+    public Long getSpielId() {
+        return spielId;
     }
 
-    public void setAussetzen(boolean aussetzen) {
-        this.aussetzen = aussetzen;
+    public void setSpielId(Long spielId) {
+        this.spielId = spielId;
     }
 
-    public boolean isErfolgreichgelegt() {
-        return erfolgreichgelegt;
-    }
-
-    public void setErfolgreichgelegt(boolean erfolgreichgelegt) {
-        this.erfolgreichgelegt = erfolgreichgelegt;
-    }
-
-    public boolean isMussFarbeWuenschen() {
-        return mussFarbeWuenschen;
-    }
-
-    public void setMussFarbeWuenschen(boolean mussFarbeWuenschen) {
-        this.mussFarbeWuenschen = mussFarbeWuenschen;
-    }
 
     public Spieler getAktiverSpieler() {
         return aktiverSpieler;
@@ -98,12 +88,43 @@ public class Spiel {
         this.spielerDesSpieles = spielerDesSpieles;
     }
 
-
     public Farbe getFarbe() {
         return farbe;
     }
 
     public void setFarbe(Farbe farbe) {
         this.farbe = farbe;
+    }
+
+    public boolean isMussFarbeWuenschen() {
+        return mussFarbeWuenschen;
+    }
+
+    public void setMussFarbeWuenschen(boolean mussFarbeWuenschen) {
+        this.mussFarbeWuenschen = mussFarbeWuenschen;
+    }
+
+    public boolean isErfolgreichgelegt() {
+        return erfolgreichgelegt;
+    }
+
+    public void setErfolgreichgelegt(boolean erfolgreichgelegt) {
+        this.erfolgreichgelegt = erfolgreichgelegt;
+    }
+
+    public boolean isAussetzen() {
+        return aussetzen;
+    }
+
+    public void setAussetzen(boolean aussetzen) {
+        this.aussetzen = aussetzen;
+    }
+
+    public int getSpielrundenindex() {
+        return spielrundenindex;
+    }
+
+    public void setSpielrundenindex(int spielrundenindex) {
+        this.spielrundenindex = spielrundenindex;
     }
 }

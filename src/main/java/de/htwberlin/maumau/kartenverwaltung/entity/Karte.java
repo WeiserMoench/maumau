@@ -6,16 +6,24 @@
 
 package de.htwberlin.maumau.kartenverwaltung.entity;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Embeddable
 public class Karte{
 
-
+//    @Id
+//    private Long kartenID;
     private Farbe farbe;
     private String wert;
 
     public Karte(Farbe farbe, String wert) {
         this.farbe = farbe;
         this.wert = wert;
+    }
+
+    public Karte() {
     }
 
     public Farbe getFarbe() {
