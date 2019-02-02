@@ -31,6 +31,8 @@ public class Spiel {
     private boolean aussetzen = false;
     private int spielrundenindex;
     private boolean erweiterteRegeln;
+    private String sieger;
+
 
     @Id
     @GeneratedValue
@@ -137,5 +139,13 @@ public class Spiel {
 
     public void setErweiterteRegeln(boolean erweiterteRegeln) {
         this.erweiterteRegeln = erweiterteRegeln;
+    }
+
+    public String getSieger() {
+        return sieger;
+    }
+
+    public void setSieger(String sieger) {
+        this.sieger = sieger;
     }
 }

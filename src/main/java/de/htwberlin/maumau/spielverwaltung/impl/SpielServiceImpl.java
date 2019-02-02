@@ -212,6 +212,7 @@ public class SpielServiceImpl implements SpielService {
      * @param durchgaenge - Anzahl der neuen Karten pro Spieler
      * @return - der reduzierte ziehstapel
      */
+
     private List<Karte> austeilenVonKarten(List<Karte> ziehstapel, List<Spieler> spielerListe, int durchgaenge) {
         log.debug("austeilenVonKarten");
         for (int runden = 0; runden < durchgaenge; runden++) {

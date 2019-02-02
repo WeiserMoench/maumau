@@ -288,4 +288,8 @@ public class SpielViewer {
     public void falscheID() {
         System.out.println(ANSI_RED + "Diese ID gibt es nicht!" + ANSI_RESET);
     }
+
+    public void spielBereitsBeendet(String sieger) {
+        System.out.println(ANSI_RED + "Diese ID hat schon einen Sieger! Der Sieger war " + sieger + ANSI_RESET);
+    }
 }

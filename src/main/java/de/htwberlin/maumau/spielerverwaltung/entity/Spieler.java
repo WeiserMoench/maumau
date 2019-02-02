@@ -18,20 +18,12 @@ import java.util.List;
 @Embeddable
 public class Spieler {
 
-//    @Id
-//    private Long spielerId;
+
     private String name;
     private List<Karte> handkarten = new ArrayList<>();
     private boolean mauistgesetzt = false;
     private boolean ki = false;
 
-//    public Long getSpielerId() {
-//        return spielerId;
-//    }
-//
-//    public void setSpielerId(Long spielerId) {
-//        this.spielerId = spielerId;
-//    }
 
     public boolean isMauistgesetzt() {
         return mauistgesetzt;

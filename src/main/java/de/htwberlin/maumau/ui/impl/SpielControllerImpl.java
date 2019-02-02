@@ -84,6 +84,7 @@ public class SpielControllerImpl implements SpielController {
 
             em=speichernDB(dasSpiel, em);
 
+            //Laden aus DB
         } else {
             boolean spielidRichtig = true;
             while (spielidRichtig) {
@@ -91,7 +92,13 @@ public class SpielControllerImpl implements SpielController {
                     int spielid = welcheSpielId();
                     TypedQuery<Spiel> query = em.createQuery("Select p from Spiel p where spielId = " + spielid, Spiel.class);
                      dasSpiel = query.getSingleResult();
-                    spielidRichtig = false;
+                    if (dasSpiel.getSieger() == null) {
+                        spielidRichtig = false;
+                    } else {
+                        view.spielBereitsBeendet(dasSpiel.getSieger());
+                        spielidRichtig = true;
+                    }
+
                 } catch (javax.persistence.NoResultException e) {
                     spielidRichtig = true;
                     view.falscheID();
@@ -105,8 +112,7 @@ public class SpielControllerImpl implements SpielController {
 
         log.debug("run");
 
-            //Select max(p.spielId) from Spiel p
-
+        //Beginn spieldurchlauf
             spielLaeuft = true;
             while (spielLaeuft) {
                 em=verbindungsaufbau(em);
@@ -124,6 +130,7 @@ public class SpielControllerImpl implements SpielController {
                 spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
                 if (!spielLaeuft) {
                     view.siegerAusgabe(dasSpiel.getAktiverSpieler().getName());
+                    dasSpiel.setSieger(dasSpiel.getAktiverSpieler().getName());
                     em=speichernDB(dasSpiel, em);
                     break;
                 }
