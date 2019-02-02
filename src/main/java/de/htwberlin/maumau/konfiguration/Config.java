@@ -1,3 +1,9 @@
+/**
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
+ * @version 20190202
+ *
+ */
+
 package de.htwberlin.maumau.konfiguration;
 
 import de.htwberlin.maumau.exeptionverwaltung.TechnischeException;
@@ -33,6 +39,9 @@ public class Config {
 //        }
     }
 
+    /**
+     * Diese Methode fuegt die benoetigten Klassen dem Kontainer hinzu
+     */
     private static void registriereKomponenten() {
         container.addComponent(KartenServiceImpl.class);
         container.addComponent("einfacheRegeln", EinfacheRegelnServiceImpl.class);
