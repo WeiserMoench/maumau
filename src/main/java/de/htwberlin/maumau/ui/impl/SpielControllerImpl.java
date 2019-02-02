@@ -7,7 +7,6 @@
 package de.htwberlin.maumau.ui.impl;
 
 import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
-import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
 import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
 import de.htwberlin.maumau.spielverwaltung.export.SpielService;
 import de.htwberlin.maumau.ui.export.SpielController;
@@ -16,7 +15,10 @@ import de.htwberlin.maumau.util.KarteComperatorByWert;
 import de.htwberlin.maumau.virtuellerspielerverwaltung.export.KiService;
 import org.apache.log4j.Logger;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -69,11 +71,11 @@ public class SpielControllerImpl implements SpielController {
                 TypedQuery<Long> query2 = em.createQuery("Select MAX(p.spielId) from Spiel p", long.class);
                 Long maxId = query2.getSingleResult();
                 Long spielid = maxId + 1;
-                System.out.println("Die SpielID ist " + spielid + " fuer dieses Spiel.");
+                view.anzeigeSpielID(spielid);
 
             } catch (Exception e) {
                 Long spielid = 1L;
-                System.out.println("Die SpielID ist " + spielid + " fuer dieses Spiel.");
+                view.anzeigeSpielID(spielid);
             }
             em.persist(dasSpiel);
             em.getTransaction().commit();
@@ -87,7 +89,7 @@ public class SpielControllerImpl implements SpielController {
                     spielidRichtig = false;
                 } catch (Exception e) {
                     spielidRichtig = true;
-                    System.out.println("Diese ID gibt es nicht!");
+                    view.falscheID();
                 }
             }
         }
@@ -433,7 +435,7 @@ public class SpielControllerImpl implements SpielController {
         log.debug("welcheSpielart");
         int spielart=0;
         view.willkommen();
-        System.out.println("1 Für neues Spiel, 2 für vorhandenes");
+//        System.out.println("1 Für neues Spiel, 2 für vorhandenes");
         spielart=zahlEingabe(1, 2);
         return spielart;
     }
@@ -441,7 +443,7 @@ public class SpielControllerImpl implements SpielController {
     private Integer welcheSpielId(){
         log.debug("welcheSpielId");
         int spielid;
-        System.out.println("Bitte die SpielID eingeben");
+        view.spielIDeingeben();
 
         spielid=zahlEingabe(0, 100000000);
         return spielid;

@@ -104,9 +104,9 @@ public class SpielViewer {
      */
     public void willkommen() {
         System.out.println("Willkommen beim MauMau Spiel.");
-//        System.out.println("Wenn du ein neues Spiel beginnen willst, gibt bitte die 1 ein"); //Vorbereitung Aufgabe 4
-//        System.out.println("Wenn du ein Spiel fortsetzen möchtest, wähle die 2");
-//        System.out.println("Welche Variante möchtest du spielen?");
+        System.out.println("Wenn du ein neues Spiel beginnen willst, gibt bitte die 1 ein"); //Vorbereitung Aufgabe 4
+        System.out.println("Wenn du ein Spiel fortsetzen möchtest, wähle die 2");
+        System.out.println("Welche Variante möchtest du spielen?");
     }
 
     /**
@@ -274,5 +274,18 @@ public class SpielViewer {
      */
     public void spielende() {
         System.out.println("Es war schön mit dir zu spielen. Bitte schaue bald wieder vorbei.");
+    }
+
+    public void spielIDeingeben() {
+        System.out.println("Bitte die SpielID eingeben");
+    }
+
+    public void anzeigeSpielID(Long spielid) {
+        System.out.println(ANSI_RED +"Für dieses Spiel lautet die SpielID: " + spielid +
+                "\nDiese wird benötigt um das Spiel später fortzusetzen.\n" + ANSI_RESET);
+    }
+
+    public void falscheID() {
+        System.out.println(ANSI_RED + "Diese ID gibt es nicht!" + ANSI_RESET);
     }
 }
