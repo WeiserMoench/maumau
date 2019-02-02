@@ -22,24 +22,24 @@ public class ErweiterteRegelnServiceImpl implements RegelnService {
         String kartenwertlegendeKarte = legendeKarte.getWert();
         Farbe kartenFarbelegendeKarte = legendeKarte.getFarbe();
 
-        if (kartenwertLetzteKarte == "Bube") {
+        if (kartenwertLetzteKarte.equals("Bube")) {
             if (farbe == null) {
-                return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
+                return kartenFarbeLetzteKarte.equals(kartenFarbelegendeKarte);
             } else {
-                return farbe == kartenFarbelegendeKarte;
+                return farbe.equals(kartenFarbelegendeKarte);
             }
         } else {
-            if (kartenwertLetzteKarte == kartenwertlegendeKarte) {
+            if (kartenwertLetzteKarte.equals(kartenwertlegendeKarte)) {
                 return true;
             } else
-                return kartenFarbeLetzteKarte == kartenFarbelegendeKarte;
+                return kartenFarbeLetzteKarte.equals(kartenFarbelegendeKarte);
         }
     }
 
     @Override
     public boolean mussSichFarbeWuenschen(Karte gelegteKarte) {
         kartenwert = gelegteKarte.getWert();
-        return kartenwert == "Bube";
+        return kartenwert.equals("Bube");
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ErweiterteRegelnServiceImpl implements RegelnService {
      */
     public int mussZweiKartenZiehen(Karte gelegteKarte, int zuziehendeKarte) {
         kartenwert = gelegteKarte.getWert();
-        if (kartenwert == "7") {
+        if (kartenwert.equals("7")) {
             int anzahlZuZiehendeKarten = zuziehendeKarte + 2;
             return anzahlZuZiehendeKarten;
         }
@@ -61,7 +61,7 @@ public class ErweiterteRegelnServiceImpl implements RegelnService {
      */
     public boolean mussRundeAussetzen(Karte gelegteKarte) {
         kartenwert = gelegteKarte.getWert();
-        return kartenwert == "8";
+        return kartenwert.equals("8");
     }
 
     @Override
@@ -71,7 +71,7 @@ public class ErweiterteRegelnServiceImpl implements RegelnService {
     public boolean richtungWechsel(Karte gelegteKarte) {
         log.debug("richtungswechsel");
         kartenwert = gelegteKarte.getWert();
-        return kartenwert == "9";
+        return kartenwert.equals("9");
     }
 
 
