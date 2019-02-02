@@ -92,6 +92,7 @@ public class SpielControllerImpl implements SpielController {
                     view.falscheID();
                 }
             }
+            spielService.regelwerkHinzufuegen(dasSpiel.isErweiterteRegeln());
         }
 
 

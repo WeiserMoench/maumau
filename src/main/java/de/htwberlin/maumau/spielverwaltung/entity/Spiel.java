@@ -9,7 +9,9 @@ import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
 import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class Spiel {
     private boolean erfolgreichgelegt;
     private boolean aussetzen = false;
     private int spielrundenindex;
+    private boolean erweiterteRegeln;
 
     @Id
     @GeneratedValue
@@ -126,5 +129,13 @@ public class Spiel {
 
     public void setSpielrundenindex(int spielrundenindex) {
         this.spielrundenindex = spielrundenindex;
+    }
+
+    public boolean isErweiterteRegeln() {
+        return erweiterteRegeln;
+    }
+
+    public void setErweiterteRegeln(boolean erweiterteRegeln) {
+        this.erweiterteRegeln = erweiterteRegeln;
     }
 }

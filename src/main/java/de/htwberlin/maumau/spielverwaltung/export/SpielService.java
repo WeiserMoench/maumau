@@ -7,6 +7,7 @@ package de.htwberlin.maumau.spielverwaltung.export;
 
 import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
+import de.htwberlin.maumau.regelnverwaltung.export.RegelnService;
 import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
 import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
 
@@ -96,5 +97,7 @@ public interface SpielService {
      * @return Das Spiel
      */
     Spiel mussGemischtWerden(Spiel spiel);
+
+    RegelnService regelwerkHinzufuegen(boolean erweiterteRegeln);
 
 }

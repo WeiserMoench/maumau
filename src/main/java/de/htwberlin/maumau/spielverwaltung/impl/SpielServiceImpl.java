@@ -39,15 +39,12 @@ public class SpielServiceImpl implements SpielService {
     public Spiel anlegenSpiel(List<String> spielerliste, boolean erweiterteRegeln) {
         log.debug("anlegenSpiel");
         Spiel spiel = new Spiel();
-        if (erweiterteRegeln) {
-            regeln = regelnErweitert;
-        } else {
-            regeln = regelnEinfach;
-        }
+        regeln=regelwerkHinzufuegen(erweiterteRegeln);
+
         List<Spieler> spielerListe = new ArrayList<>();
         List<Karte> ablagestapel = new ArrayList<>();
 
-
+        spiel.setErweiterteRegeln(erweiterteRegeln);
         for (String wert : spielerliste) {
             Spieler derSpieler =null;
             String kiPruefung;
@@ -67,6 +64,15 @@ public class SpielServiceImpl implements SpielService {
         spiel.setZiehstapelkarten(entferneGezogendeKarteVomZiehstapel(spiel.getZiehstapelkarten(), spiel.getZiehstapelkarten().get(spiel.getZiehstapelkarten().size() - 1)));
         spiel.setAblagestapelkarten(ablagestapel);
         return spiel;
+    }
+
+    public RegelnService regelwerkHinzufuegen(boolean erweiterteRegeln) {
+        if (erweiterteRegeln) {
+            regeln = regelnErweitert;
+        } else {
+            regeln = regelnEinfach;
+        }
+        return regeln;
     }
 
     @Override
