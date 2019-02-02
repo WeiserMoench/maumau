@@ -50,7 +50,7 @@ public class SpielControllerImpl implements SpielController {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("$objectdb/db/p1.odb");
 
         EntityManager em = entityManagerFactory.createEntityManager();
-
+        do {
         int spielart = welcheSpielart();
         if (spielart == 1) {
             dasSpiel = new Spiel();
@@ -104,7 +104,7 @@ public class SpielControllerImpl implements SpielController {
 
 
         log.debug("run");
-        do {
+
             //Select max(p.spielId) from Spiel p
 
             spielLaeuft = true;
@@ -124,6 +124,8 @@ public class SpielControllerImpl implements SpielController {
                 spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
                 if (!spielLaeuft) {
                     view.siegerAusgabe(dasSpiel.getAktiverSpieler().getName());
+                    em=speichernDB(dasSpiel, em);
+                    break;
                 }
                 dasSpiel.setSpielrundenindex(dasSpiel.getSpielrundenindex() + 1);
 
