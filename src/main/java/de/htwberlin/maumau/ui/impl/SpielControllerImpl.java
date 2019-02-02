@@ -454,7 +454,6 @@ public class SpielControllerImpl implements SpielController {
         log.debug("welcheSpielart");
         int spielart=0;
         view.willkommen();
-//        System.out.println("1 Für neues Spiel, 2 für vorhandenes");
         spielart=zahlEingabe(1, 2);
         return spielart;
     }
@@ -555,10 +554,6 @@ public class SpielControllerImpl implements SpielController {
             }catch(java.lang.NumberFormatException e){
                 view.eingabeZahlFehlerhaft(mininaleZahl, maximaleZahl);
                 fehler=true;
-            }
-            if(eingeleseneZahl<mininaleZahl || eingeleseneZahl>maximaleZahl){
-                view.eingabeZahlFehlerhaft(mininaleZahl, maximaleZahl);
-                fehler = true;
             }
         }  while(fehler);
 
