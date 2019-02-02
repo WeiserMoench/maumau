@@ -6,6 +6,7 @@
 
 package de.htwberlin.maumau.ui.impl;
 
+import de.htwberlin.maumau.exeptionverwaltung.TechnischeException;
 import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
 import de.htwberlin.maumau.spielverwaltung.export.SpielService;
@@ -45,7 +46,7 @@ public class SpielControllerImpl implements SpielController {
     private KarteComperatorByFarbe karteComperatorByFarbe = new KarteComperatorByFarbe();
 
 
-    public void run(){
+    public void run() throws TechnischeException {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("$objectdb/db/p1.odb");
 
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -66,30 +67,36 @@ public class SpielControllerImpl implements SpielController {
             } while (weitererSpieler() == true);
             dasSpiel = spielService.anlegenSpiel(spielerliste, erweiterteRegeln);
             try {
-                em.getTransaction().begin();
+                em=verbindungsaufbau(em);
 
                 TypedQuery<Long> query2 = em.createQuery("Select MAX(p.spielId) from Spiel p", long.class);
                 Long maxId = query2.getSingleResult();
                 Long spielid = maxId + 1;
                 view.anzeigeSpielID(spielid);
-
-            } catch (Exception e) {
+//Todo pruefen ob korrekte exception angegeben wurde
+            } catch (javax.persistence.NoResultException e) {//ich glaube, dass ist die richtige Exception
                 Long spielid = 1L;
                 view.anzeigeSpielID(spielid);
             }
-            em.persist(dasSpiel);
-            em.getTransaction().commit();
+//            catch (Exception e){
+//                throw new TechnischeException("Fehler beim Datenbankzugriff");
+//            }
+
+            em=speichernDB(dasSpiel, em);
+
         } else {
-             boolean spielidRichtig = true;
+            boolean spielidRichtig = true;
             while (spielidRichtig) {
                 try {
                     int spielid = welcheSpielId();
                     TypedQuery<Spiel> query = em.createQuery("Select p from Spiel p where spielId = " + spielid, Spiel.class);
                      dasSpiel = query.getSingleResult();
                     spielidRichtig = false;
-                } catch (Exception e) {
+                } catch (javax.persistence.NoResultException e) {
                     spielidRichtig = true;
                     view.falscheID();
+                } catch (Exception e){
+                    throw new TechnischeException("Fehler beim Laden des Spieles");
                 }
             }
             spielService.regelwerkHinzufuegen(dasSpiel.isErweiterteRegeln());
@@ -101,13 +108,9 @@ public class SpielControllerImpl implements SpielController {
             //Select max(p.spielId) from Spiel p
 
             spielLaeuft = true;
-
-            //        if(welcheSpielart()==1){ //vorbereitung persistenz
-
             while (spielLaeuft) {
-                em.getTransaction().begin();
+                em=verbindungsaufbau(em);
 
-                //jpa laden objectdb???
                 spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
 
                 if (!dasSpiel.getAktiverSpieler().isKi()) { //menschlicher Spieler
@@ -128,18 +131,31 @@ public class SpielControllerImpl implements SpielController {
                     spielService.naechsterSpieler(dasSpiel);
                     dasSpiel.setAussetzen(false);
                 }
-                em.persist(dasSpiel);
 
-                em.getTransaction().commit();
-
-                //jpa speichern
+                em=speichernDB(dasSpiel, em);
             }
-            //        }else{ //vorbereitung persistenz
-            //            System.out.println("Danke, dass du ein Spiel fortsetzen möchtest, diese Funktion gibt es noch nicht");
-            //            System.out.println("Bitte komme später wieder");
-            //        }
         }while(weitereRunde());
         view.spielende();
+    }
+
+    private EntityManager verbindungsaufbau(EntityManager em) throws TechnischeException {
+        try {
+            em.getTransaction().begin();
+        }catch (Exception e){
+            throw new TechnischeException("Fehler bei der Datenbank");
+        }
+        return em;
+    }
+
+    private EntityManager speichernDB(Spiel dasSpiel, EntityManager em) throws TechnischeException {
+        try{
+            em.persist(dasSpiel);
+            em.getTransaction().commit();
+        }catch (Exception e){
+            em.getTransaction().rollback();
+            throw new TechnischeException("Fehler beim Speichern");
+        }
+        return em;
     }
 
     private List<String> kiSpielerAnlegen(List<String> spielerliste) {
