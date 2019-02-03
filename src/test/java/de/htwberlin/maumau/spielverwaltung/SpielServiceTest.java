@@ -1,279 +1,200 @@
-/////**
-//// * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
-//// * @version 20181113
-//// *
-//// */
-////
-////package de.htwberlin.maumau.spielverwaltung;
-////
-////import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
-////import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
-////import de.htwberlin.maumau.kartenverwaltung.export.KartenService;
-////import de.htwberlin.maumau.regelnverwaltung.export.RegelnService;
-////import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
-////import de.htwberlin.maumau.spielverwaltung.export.SpielService;
-////import de.htwberlin.maumau.spielverwaltung.impl.SpielServiceImpl;
-////import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
-////import de.htwberlin.maumau.spielerverwaltung.export.SpielerService;
-////import de.htwberlin.maumau.spielerverwaltung.impl.SpielerServiceImpl;
-////import org.junit.Before;
-////import org.junit.Test;
-////import org.mockito.InjectMocks;
-////import org.mockito.Mock;
-////
-////import java.util.ArrayList;
-////import java.util.Arrays;
-////import java.util.List;
-////
-////import static org.junit.Assert.*;
-////import static org.mockito.Mockito.when;
-//
-//import org.junit.runner.RunWith;
-//import org.mockito.runners.MockitoJUnitRunner;
-//
-//@RunWith(MockitoJUnitRunner.class)
-//public class SpielServiceTest {
-//
-////    @InjectMocks
-//    private SpielService spielService;
-//    @Mock
-//    private SpielerService spielerService;
-//    @Mock
-//    private RegelnService regelnService;
-//    @Mock
-//    private KartenService kartenService;
-//
-//
-//    private Karte herz7;
-//    private Karte pik8;
-//    private Karte pik9;
-//    private Karte pikkoenig;
-//    private List<Karte> ziehstapel;
-//    private Spieler paul;
-//    private List<Spieler> spielerliste;
-//    private Spieler sven;
-//    private Spiel spielverwaltung = new Spiel();
-//
-//
-//    @Before
-//    public void initialize() {
-//        spielService = new SpielServiceImpl(spielerService, kartenService, regelnService, regelnService);
-////        spielerService = new SpielerServiceImpl();
-//        herz7 = new Karte((Farbe.HERZ), "7");
-//        pik8 = new Karte(Farbe.PIK, "8");
-//        pik9 = new Karte(Farbe.PIK, "9");
-//        pikkoenig = new Karte(Farbe.PIK, "König");
-//        ziehstapel = new ArrayList<>();
-//        paul = new Spieler();
-//        sven = new Spieler();
-//        spielverwaltung.setFarbe(Farbe.PIK);
-//        spielerliste = new ArrayList<>();
-//        spielerliste.add(paul);
-//        spielerliste.add(sven);
-//        ziehstapel.add(pik8);
-//        ziehstapel.add(pik9);
-//        ziehstapel.add(herz7);
-//
-//        //Spiel vorbereiten
-//        spielverwaltung.setAblagestapelkarten(ziehstapel);
-//        spielverwaltung.setZiehstapelkarten(ziehstapel);
-//        spielverwaltung.setAktiverSpieler(paul);
-//        spielverwaltung.setIstSpielrichtungRechts(true);
-//        spielverwaltung.setFarbe(Farbe.HERZ);
-//        spielverwaltung.setSpielerDesSpieles(spielerliste);
-//
-//    }
-//
-////
-////    @Test
-////    public void testZieheKarteVomZiehStapel() {
-////        ziehstapel.add(pik8);
-////        assertEquals(pik8, service.ziehenKarteVomZiehstapel(ziehstapel));
-////    }
-////
-//////    @Test
-//////    public void testMussGemischtWerden() {
-//////        assertTrue("Es müsste gemischt werden", service.mussGemischtWerden(ziehstapel));
-//////    }
-////
-////    @Test
-////    public void testMussNichtGemischtWerden() {
-////        ziehstapel.add(pik8);
-////        assertFalse("Es muss nicht gemischt werden", service.mussGemischtWerden(ziehstapel));
-////    }
-////
-////    @Test
-////    public void testAnzahlStartkartenBestimmen4SpielerBei32Karten() {
-////        List<Spieler> spielerliste = Arrays.asList(new Spieler(), new Spieler(), new Spieler(), new Spieler());
-////        List<Karte> stapel = new ArrayList<>();
-////        for (int i = 0; i < 32; i++) {
-////            stapel.add(new Karte(Farbe.PIK, "8"));
-////        }
-////        assertEquals(5, service.anzahlStartkartenbestimmen(spielerliste, stapel));
-////    }
-////
-////    @Test
-////    public void testAnzahlStartkartenBestimmen4SpielerBei52Karten() {
-////        List<Spieler> spielerliste = Arrays.asList(new Spieler(), new Spieler(), new Spieler(), new Spieler());
-////        List<Karte> stapel = new ArrayList<>();
-////        for (int i = 0; i < 52; i++) {
-////            stapel.add(new Karte(Farbe.PIK, "8"));
-////        }
-////        assertEquals(6, service.anzahlStartkartenbestimmen(spielerliste, stapel));
-////    }
-////
-////    @Test
-////    public void testAnzahlStartkartenBestimmen6SpielerBei32Karten() {
-////        List<Spieler> spielerliste = Arrays.asList(new Spieler(), new Spieler(), new Spieler(), new Spieler(), new Spieler(), new Spieler());
-////        List<Karte> stapel = new ArrayList<>();
-////        for (int i = 0; i < 32; i++) {
-////            stapel.add(new Karte(Farbe.PIK, "8"));
-////        }
-////        assertEquals(3, service.anzahlStartkartenbestimmen(spielerliste, stapel));
-////    }
-////
-////    @Test
-////    public void testAnzahlStartkartenBestimmen10SpielerBei52Karten() {
-////        List<Spieler> spielerliste = Arrays.asList(new Spieler(), new Spieler(), new Spieler(), new Spieler(), new Spieler(), new Spieler(), new Spieler(), new Spieler(), new Spieler(), new Spieler());
-////        List<Karte> stapel = new ArrayList<>();
-////        for (int i = 0; i < 52; i++) {
-////            stapel.add(new Karte(Farbe.PIK, "8"));
-////        }
-////        assertEquals(4, service.anzahlStartkartenbestimmen(spielerliste, stapel));
-////    }
-////
-////    @Test
-////    public void testEntfernteGezogeneKarteVomStapelRest1() {
-////        ziehstapel.add(pik8);
-////        ziehstapel.add(pik9);
-////
-////        assertEquals(1, service.entferneGezogendeKarteVomZiehstapel(ziehstapel, pik8).size());
-////    }
-////
-////    @Test
-////    public void testEntfernteGezogeneKarteVomStapelRest0() {
-////        ziehstapel.add(pik8);
-////        System.out.println(ziehstapel.get(0).getFarbe());
-////        assertEquals(0, service.entferneGezogendeKarteVomZiehstapel(ziehstapel, pik8).size());
-////    }
-////
-////    @Test
-////    public void testAusteilenStart() {
-////        ziehstapel.add(pik8);
-////        ziehstapel.add(pik9);
-////        ziehstapel.add(pikkoenig);
-////        spielerliste.add(paul);
-////        spielerliste.add(sven);
-////        assertEquals(1, service.austeilenStart(ziehstapel, spielerliste, 1).size());
-////    }
-////
-////    @Test
-////    public void test1ZuZiehendeKarte() {
-////        ziehstapel.add(pik8);
-////        ziehstapel.add(pik9);
-////        spielerliste.add(paul);
-////        assertEquals(1, service.zuZiehendeKarte(1, ziehstapel, paul).size());
-////    }
-////
-////    @Test
-////    public void test2ZuZiehendeKarte() {
-////        ziehstapel.add(pik8);
-////        ziehstapel.add(pik9);
-////        spielerliste.add(paul);
-////        assertEquals(0, service.zuZiehendeKarte(2, ziehstapel, paul).size());
-////    }
-////
-////    @Test
-////    public void testPruefeDasMauGesetzt() {
-////        paul.setMauistgesetzt(true);
-////        assertTrue("Spieler müsste Mau gesetzt haben", service.pruefeAufMau(paul));
-////    }
-////
-////    @Test
-////    public void testPruefeDasMauNichtGesetzt() {
-////        assertFalse("Spieler müsste Mau nicht gesetzt haben", service.pruefeAufMau(paul));
-////    }
-////
-////    @Test
-////    public void testAendereSpielrichtungVonRechts() {
-////        spielverwaltung.setIstSpielrichtungRechts(true);
-////        service.aendernSpielrichtung(spielverwaltung);
-////        assertEquals(false, spielverwaltung.isIstSpielrichtungRechts());
-////    }
-////
-////    @Test
-////    public void testAendereSpielrichtungVonNichtRechts() {
-////        spielverwaltung.setIstSpielrichtungRechts(false);
-////        service.aendernSpielrichtung(spielverwaltung);
-////        assertEquals(true, spielverwaltung.isIstSpielrichtungRechts());
-////    }
-////
-////    @Test
-////    public void testLegeKarteAufAblagestabelBeiVorher0() {
-////        assertEquals(1, service.legenKarteAufAblageStapel(paul, ziehstapel, pik8).size());
-////    }
-////
-////    @Test
-////    public void testLegeKarteAufAblagestabelBeiVorher1() {
-////        ziehstapel.add(pik9);
-////        assertEquals(2, service.legenKarteAufAblageStapel(paul, ziehstapel, pik8).size());
-////    }
-////
-////
-////    @Test
-////    public void testAendernFarbe() {
-////        Spiel testSpiel = service.aendernFarbe(spielverwaltung, Farbe.HERZ);
-////        assertEquals(Farbe.HERZ, testSpiel.getFarbe());
-////    }
-////
-////    @Test
-////    public void testAendernFarbeAberKeineVeraenderung() {
-////        Spiel testSpiel = service.aendernFarbe(spielverwaltung, Farbe.PIK);
-////        assertEquals(Farbe.PIK, testSpiel.getFarbe());
-////    }
-////
-////    @Test
-////    public void testErmittleSpielende() {
-////        assertTrue("das spielverwaltung hätte zu Ende sein müssen", service.ermittleSpielende(paul));
-////    }
-////
-////    @Test
-////    public void testErmittleSpielendeNegativ() {
-////        spielerService.karteZuHandblatthinzufuegen(pik8, paul);
-////        assertFalse("das spielverwaltung hätte nicht zu Ende sein müssen", service.ermittleSpielende(paul));
-////    }
-////
-////    @Test
-////    public void testeSetzeMau() {
-////        service.setzeMau(paul);
-////        assertTrue("Mau hätte gesetzt sein müssen", paul.isMauistgesetzt());
-////    }
-////
-////    @Test
-////    public void testAnlegenSpiel() {
-////        Spiel testSpiel = spielService.anlegenSpiel();
-////        assertEquals(spielverwaltung, testSpiel);
-////
-////    }
-////
-////
-//
-//
+/**
+ * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
+ * @version 20181113
+ *
+ */
+
+package de.htwberlin.maumau.spielverwaltung;
+
+import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
+import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
+import de.htwberlin.maumau.kartenverwaltung.export.KartenService;
+import de.htwberlin.maumau.regelnverwaltung.export.RegelnService;
+import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
+import de.htwberlin.maumau.spielerverwaltung.export.SpielerService;
+import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
+import de.htwberlin.maumau.spielverwaltung.impl.SpielServiceImpl;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
+public class SpielServiceTest {
+
+    @InjectMocks
+    private SpielServiceImpl spielService;
+    @Mock
+    private SpielerService spielerService;
+    @Mock
+    private RegelnService regelnService;
+    @Mock
+    private KartenService kartenService;
+
+
+    private Karte herz7;
+    private Karte pik8;
+    private Karte pik9;
+    private Karte pikkoenig;
+    private List<Karte> ziehstapel;
+    private Spieler paul;
+    private List<Spieler> spielerliste;
+    private Spieler sven;
+    private Spiel spiel = new Spiel();
+
+
+    @Before
+    public void initialize() {
+        herz7 = new Karte((Farbe.HERZ), "7");
+        pik8 = new Karte(Farbe.PIK, "8");
+        pik9 = new Karte(Farbe.PIK, "9");
+        pikkoenig = new Karte(Farbe.PIK, "König");
+        ziehstapel = new ArrayList<>();
+        paul = new Spieler();
+        sven = new Spieler();
+        spiel.setFarbe(Farbe.PIK);
+        spielerliste = new ArrayList<>();
+        spielerliste.add(paul);
+        spielerliste.add(sven);
+        ziehstapel.add(pik8);
+        ziehstapel.add(pik9);
+        ziehstapel.add(herz7);
+
+        //Spiel vorbereiten
+        spiel.setAblagestapelkarten(ziehstapel);
+        spiel.setZiehstapelkarten(ziehstapel);
+        spiel.setAktiverSpieler(paul);
+        spiel.setIstSpielrichtungRechts(true);
+        spiel.setFarbe(Farbe.HERZ);
+        spiel.setSpielerDesSpieles(spielerliste);
+
+    }
+
+
 //    @Test
-//    public void testMussGemischtWerden() {
-//        Spiel inSpiel = new Spiel();
-//        List<Karte> stapel = new ArrayList<>();
-//        stapel.addAll(ziehstapel);
-//        List<Karte> ziehKarten = new ArrayList<>();
-//        inSpiel.setZiehstapelkarten(ziehKarten);
-//        inSpiel.setAblagestapelkarten(stapel);
-//        ziehKarten.add(pikkoenig);
-//        ziehKarten.add(pik8);
-////        when(kartenService.mischenKartenstapel(stapel, false)).thenReturn(ziehKarten);
-//
-//
-//        assertTrue(!spielService.mussGemischtWerden(inSpiel).getZiehstapelkarten().isEmpty());
-//
+//    public void testZieheKarteVomZiehStapel() {
+//        ziehstapel.add(pik8);
+//        assertEquals(pik8, spielService.ziehenKarteVomZiehstapel(ziehstapel));
+//    }
+
+
+//    @Test
+//    public void testMussNichtGemischtWerden() {
+//        ziehstapel.add(pik8);
+//        assertFalse("Es muss nicht gemischt werden", spielService.mussGemischtWerden(spiel));
+//    }
+
+    @Test
+    public void test1ZuZiehendeKarte() {
+        ziehstapel.add(pik8);
+        ziehstapel.add(pik9);
+        spielerliste.add(paul);
+        assertEquals(1, spielService.karteZiehen(1, ziehstapel, paul).size());
+    }
+
+    @Test
+    public void test2ZuZiehendeKarte() {
+        ziehstapel.add(pik8);
+        ziehstapel.add(pik9);
+        spielerliste.add(paul);
+        assertEquals(0, spielService.karteZiehen(2, ziehstapel, paul).size());
+    }
+
+
+    @Test
+    public void testErmittleSpielendeNegativ() {
+        spielerService.karteZuHandblatthinzufuegen(pik8, paul);
+        assertFalse("das spiel hätte nicht zu Ende sein müssen", spielService.ermittleSpielende(paul));
+    }
+
+    @Test
+    public void testeSetzeMau() {
+        spielService.setzeMau(paul, true);
+
+        assertTrue("Mau hätte gesetzt sein müssen", paul.isMauistgesetzt());
+        spielService.setzeMau(paul, false);
+        assertFalse(paul.isMauistgesetzt());
+    }
+
+//    @Test
+//    public void testAnlegenSpiel() {
+//        Spiel testSpiel = spielService.anlegenSpiel();
+//        assertEquals(spiel, testSpiel);
 //
 //    }
-//}
+
+
+    @Test
+    public void testPruefeAufMauTrue() {
+        paul.getHandkarten().add(herz7);
+        spiel.getAktiverSpieler().setMauistgesetzt(true);
+
+
+         spiel = spielService.pruefeAufMau(spiel);
+        assertEquals(1, spiel.getAktiverSpieler().getHandkarten().size());
+    }
+
+
+    @Test
+    public void testMussGemischtWerden() {
+        Spiel inSpiel = new Spiel();
+        List<Karte> stapel = new ArrayList<>();
+        stapel.addAll(ziehstapel);
+        List<Karte> ziehKarten = new ArrayList<>();
+        inSpiel.setZiehstapelkarten(ziehKarten);
+        inSpiel.setAblagestapelkarten(stapel);
+        ziehKarten.add(pikkoenig);
+        when(kartenService.mischenKartenstapel(stapel, false)).thenReturn(ziehKarten);
+
+
+        assertTrue(!spielService.mussGemischtWerden(inSpiel).getZiehstapelkarten().isEmpty());
+
+
+    }
+
+
+    @Test
+    public void testFarbegewaehlt() {
+        spiel.setFarbe(Farbe.HERZ);
+        assertEquals(Farbe.PIK, spielService.farbeGewaehlt(spiel, Farbe.PIK).getFarbe());
+        spiel.setMussFarbeWuenschen(true);
+        assertFalse(spielService.farbeGewaehlt(spiel, Farbe.PIK).isMussFarbeWuenschen());
+
+    }
+
+    @Test
+    public void testNaechsterSpielerRechts() {
+        Spieler hans = new Spieler();
+        spielerliste.add(hans);
+        spiel = spielService.naechsterSpieler(spiel);
+
+        assertEquals(sven, spiel.getAktiverSpieler());
+
+    }
+    @Test
+    public void testNaechsterSpielerLinks() {
+        Spieler hans = new Spieler();
+        spielerliste.add(hans);
+        spiel.setIstSpielrichtungRechts(false);
+        spiel = spielService.naechsterSpieler(spiel);
+
+        assertEquals(hans, spiel.getAktiverSpieler());
+    }
+    @Test
+    public void testNaechsterSpielerRechtsAussetzen() {
+        Spieler hans = new Spieler();
+        spielerliste.add(hans);
+        spiel.setAussetzen(true);
+        spiel = spielService.naechsterSpieler(spiel);
+
+        assertEquals(hans, spiel.getAktiverSpieler());
+    }
+}
