@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181212
+ * @version 20190203
  */
 
 package de.htwberlin.maumau.regelnverwaltung.impl;
@@ -27,12 +27,12 @@ public class EinfacheRegelnServiceImpl implements RegelnService {
     }
 
     @Override
-    public boolean mussSichFarbeWuenschen(Karte gelegteKarte) {//das macht keinen Sinn, da der Name darauf hindeutet, dass geprueft wird ob es noetig ist, dann muss aber ein True oder false erscheinen
+    public boolean mussSichFarbeWuenschen(Karte gelegteKarte) {
         return false;
     }
 
     @Override
-    public int mussZweiKartenZiehen(Karte gelegteKarte, int zuziehendeKarte) {//evtl Int umbenennen in bisherZuZiehendeKarten
+    public int mussZweiKartenZiehen(Karte gelegteKarte, int zuziehendeKarte) {
         return 0;
     }
 

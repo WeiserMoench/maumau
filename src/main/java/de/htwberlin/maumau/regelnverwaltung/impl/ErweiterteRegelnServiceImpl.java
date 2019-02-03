@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181212
+ * @version 20190203
  */
 
 package de.htwberlin.maumau.regelnverwaltung.impl;

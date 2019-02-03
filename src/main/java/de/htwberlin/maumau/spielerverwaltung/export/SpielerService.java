@@ -12,24 +12,25 @@ public interface SpielerService {
 
     /**
      * Diese Methode fuegt einem Spieler eine Karte zu seinen Handkarten hinzu
-     *  @param karte - Die Karte die Hinzugefuegt werden soll
-     * @param spieler - Der Spieler, dem die Karte hinzugefuegt werden soll
+     *
+     *@param karte - Die Karte die Hinzugefuegt werden soll
+     *@param spieler - Der Spieler, dem die Karte hinzugefuegt werden soll
      */
     Spieler karteZuHandblatthinzufuegen(Karte karte, Spieler spieler);
 
     /**
      * Diese Methode entfernt eine Karte aus den Handkarten eines Spielers
      *
-     * @param karte - zu entfernende Karte
-     * @param spieler - Der Spieler, aus dessen Handkarten die Karte entfernt werden soll
+     *@param karte - zu entfernende Karte
+     *@param spieler - Der Spieler, aus dessen Handkarten die Karte entfernt werden soll
      */
     Spieler karteausHandblattentfernden(Karte karte, Spieler spieler);
 
     /**
      * Legt einen neuen spielerverwaltung an
      *
-     * @param name  - Name des neuen spielerverwaltung
-     * @return der neue spielerverwaltung
+     *@param name  - Name des neuen spielerverwaltung
+     *@return der neue spielerverwaltung
      */
     Spieler neuerSpielerAnlegen(String name);
 }

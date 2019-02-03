@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181212
+ * @version 20190203
  */
 
 package de.htwberlin.maumau.spielerverwaltung.entity;
@@ -13,7 +13,6 @@ import java.util.List;
 
 @Embeddable
 public class Spieler {
-
 
     private String name;
     private List<Karte> handkarten = new ArrayList<>();
@@ -36,7 +35,6 @@ public class Spieler {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public List<Karte> getHandkarten() {
         return handkarten;

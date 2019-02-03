@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181212
+ * @version 20190203
  */
 
 package de.htwberlin.maumau.ui.impl;
@@ -10,8 +10,8 @@ import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
 import de.htwberlin.maumau.spielverwaltung.export.SpielService;
 import de.htwberlin.maumau.ui.export.SpielController;
-import de.htwberlin.maumau.util.KarteComperatorByFarbe;
-import de.htwberlin.maumau.util.KarteComperatorByWert;
+import de.htwberlin.maumau.util.KarteComparatorByFarbe;
+import de.htwberlin.maumau.util.KarteComparatorByWert;
 import de.htwberlin.maumau.virtuellerspielerverwaltung.export.KiService;
 import org.apache.log4j.Logger;
 
@@ -41,112 +41,157 @@ public class SpielControllerImpl implements SpielController {
     private boolean erweiterteRegeln;
     private Scanner sc = new Scanner(System.in);
     private static Logger log = Logger.getRootLogger();
-    private KarteComperatorByWert karteComperatorByWert = new KarteComperatorByWert();
-    private KarteComperatorByFarbe karteComperatorByFarbe = new KarteComperatorByFarbe();
+    private KarteComparatorByWert karteComparatorByWert = new KarteComparatorByWert();
+    private KarteComparatorByFarbe karteComparatorByFarbe = new KarteComparatorByFarbe();
 
 
     public void run() throws TechnischeException {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("$objectdb/db/maumau.odb");
-
         EntityManager em = entityManagerFactory.createEntityManager();
+
         do {
             int spielart = welcheSpielart();
             if (spielart == 1) {
-                dasSpiel = new Spiel();
+                dasSpiel=aufbauEinesNeuenSpieles(em);
 
-
-                spielerliste = new ArrayList();
-                dasSpiel.setSpielrundenindex(0);
-                erweiterteRegeln = erweiterteRegeln();
-
-                spielerliste = kiSpielerAnlegen(spielerliste);
-
-                do {
-                    spielerliste.add(spielerHinzufuegen());
-                } while (weitererSpieler() == true);
-                dasSpiel = spielService.anlegenSpiel(spielerliste, erweiterteRegeln);
-                try {
-                    em = verbindungsaufbau(em);
-
-                    TypedQuery<Long> query2 = em.createQuery("Select MAX(p.spielId) from Spiel p", long.class);
-                    Long maxId = query2.getSingleResult();
-                    Long spielid = maxId + 1;
-                    view.anzeigeSpielID(spielid);
-
-                } catch (java.lang.NullPointerException e) {
-                    Long spielid = 1L;
-                    view.anzeigeSpielID(spielid);
-                } catch (javax.persistence.PersistenceException e){
-                    throw new TechnischeException("Fehler beim Datenbankzugriff");
-                } catch (Exception e){
-                    throw new TechnischeException();
-                }
-
-                em = speichernDB(dasSpiel, em);
-
-                //Laden aus DB
             } else {
-                boolean spielidRichtig = true;
-                while (spielidRichtig) {
-                    try {
-                        int spielid = welcheSpielId();
-                        TypedQuery<Spiel> query = em.createQuery("Select p from Spiel p where spielId = " + spielid, Spiel.class);
-                        dasSpiel = query.getSingleResult();
-                        if (dasSpiel.getSieger() == null) {
-                            spielidRichtig = false;
-                        } else {
-                            view.spielBereitsBeendet(dasSpiel.getSieger());
-                            spielidRichtig = true;
-                        }
-
-                    } catch (javax.persistence.NoResultException e) {
-                        spielidRichtig = true;
-                        view.falscheID();
-                    } catch (Exception e) {
-                        throw new TechnischeException("Fehler beim Laden des Spieles");
-                    }
-                }
+                //Laden aus DB
+                dasSpiel=ladenEinesVorhandenenSpieles(em);
                 spielService.regelwerkHinzufuegen(dasSpiel.isErweiterteRegeln());
             }
 
-
             log.debug("run");
-
             //Beginn spieldurchlauf
-            spielLaeuft = true;
-            while (spielLaeuft) {
-                em = verbindungsaufbau(em);
+            spielablauf(em, dasSpiel);
 
-                spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
-
-                if (!dasSpiel.getAktiverSpieler().isKi()) { //menschlicher Spieler
-
-                    dasSpiel = menschlicherSpielerSpielt(dasSpiel);
-                } else {//KI Spieler
-                    log.debug("KI Spieler am Zug");
-                    dasSpiel = kiSpielt(dasSpiel);
-
-                }
-                spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
-                if (!spielLaeuft) {
-                    view.siegerAusgabe(dasSpiel.getAktiverSpieler().getName());
-                    dasSpiel.setSieger(dasSpiel.getAktiverSpieler().getName());
-                    em = speichernDB(dasSpiel, em);
-                    break;
-                }
-                dasSpiel.setSpielrundenindex(dasSpiel.getSpielrundenindex() + 1);
-
-                if (dasSpiel.getSpielrundenindex() > 0) {
-                    spielService.naechsterSpieler(dasSpiel);
-                    dasSpiel.setAussetzen(false);
-                }
-
-                em = speichernDB(dasSpiel, em);
-            }
         } while (weitereRunde());
         view.spielende();
     }
 
+    /**
+     * Diese Methode steuert den eigentlichen Spielablauf
+     * Inklusive noetiger Exceptionbehandlungen
+     *
+     * @param em - EntityManager fuer DB Verbindungen
+     * @param dasSpiel - Das zu spielende Spiel
+     * @throws TechnischeException
+     */
+    private void spielablauf(EntityManager em, Spiel dasSpiel) throws TechnischeException {
+        spielLaeuft = true;
+        while (spielLaeuft) {
+            em = verbindungsaufbau(em);
+
+            spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
+
+            if (!dasSpiel.getAktiverSpieler().isKi()) { //menschlicher Spieler
+
+                dasSpiel = menschlicherSpielerSpielt(dasSpiel);
+            } else {//KI Spieler
+                log.debug("KI Spieler am Zug");
+                dasSpiel = kiSpielt(dasSpiel);
+
+            }
+            spielLaeuft = spielService.ermittleSpielende(dasSpiel.getAktiverSpieler());
+            if (!spielLaeuft) {
+                view.siegerAusgabe(dasSpiel.getAktiverSpieler().getName());
+                dasSpiel.setSieger(dasSpiel.getAktiverSpieler().getName());
+                em = speichernDB(dasSpiel, em);
+                break;
+            }
+            dasSpiel.setSpielrundenindex(dasSpiel.getSpielrundenindex() + 1);
+
+            if (dasSpiel.getSpielrundenindex() > 0) {
+                spielService.naechsterSpieler(dasSpiel);
+                dasSpiel.setAussetzen(false);
+            }
+
+            em = speichernDB(dasSpiel, em);
+        }
+    }
+
+    /**
+     * Laden eines vorhandenen Spieles aus der DB
+     * Dabei werden moegliche Exceptions mitbehandelt
+     *
+     * @param em - Der EntityManager zur DB Kommunikation
+     * @return - Das aus der DB geladene Spiel
+     * @throws TechnischeException
+     */
+    private Spiel ladenEinesVorhandenenSpieles(EntityManager em) throws TechnischeException {
+        boolean spielidRichtig = true;
+        while (spielidRichtig) {
+            try {
+                int spielid = welcheSpielId();
+                TypedQuery<Spiel> query = em.createQuery("Select p from Spiel p where spielId = " + spielid, Spiel.class);
+                dasSpiel = query.getSingleResult();
+                if (dasSpiel.getSieger() == null) {
+                    spielidRichtig = false;
+                } else {
+                    view.spielBereitsBeendet(dasSpiel.getSieger());
+                    spielidRichtig = true;
+                }
+
+            } catch (javax.persistence.NoResultException e) {
+                spielidRichtig = true;
+                view.falscheID();
+            } catch (Exception e) {
+                throw new TechnischeException("Fehler beim Laden des Spieles");
+            }
+        }
+        return dasSpiel;
+    }
+
+    /**
+     * Diese Methode erzeugt ein neues Spiel udn legt dieses auch gleich in der DB an
+     *
+     * Entstehende Exceptions werden behandelt
+     *
+     * @param em - EntityManager zur Kommunikation mit der DB
+     * @return - das neuerzeugte Spiel
+     * @throws TechnischeException
+     */
+    private Spiel aufbauEinesNeuenSpieles(EntityManager em) throws TechnischeException {
+        dasSpiel = new Spiel();
+
+
+        spielerliste = new ArrayList();
+        dasSpiel.setSpielrundenindex(0);
+        erweiterteRegeln = erweiterteRegeln();
+
+        spielerliste = kiSpielerAnlegen(spielerliste);
+
+        do {
+            spielerliste.add(spielerHinzufuegen());
+        } while (weitererSpieler() == true);
+        dasSpiel = spielService.anlegenSpiel(spielerliste, erweiterteRegeln);
+        try {
+            em = verbindungsaufbau(em);
+
+            TypedQuery<Long> query2 = em.createQuery("Select MAX(p.spielId) from Spiel p", long.class);
+            Long maxId = query2.getSingleResult();
+            Long spielid = maxId + 1;
+            view.anzeigeSpielID(spielid);
+
+        } catch (java.lang.NullPointerException e) {
+            Long spielid = 1L;
+            view.anzeigeSpielID(spielid);
+        } catch (javax.persistence.PersistenceException e){
+            throw new TechnischeException("Fehler beim Datenbankzugriff");
+        } catch (Exception e){
+            throw new TechnischeException();
+        }
+
+        em = speichernDB(dasSpiel, em);
+        return dasSpiel;
+    }
+
+    /**
+     * Methode wendet begin() auf den EntityManager an und behandelt gleichzeitig moegliche Exceptions
+     *
+     * @param em - der zuveraendernde EntityManager
+     * @return - den veraenderten EntityManager
+     * @throws TechnischeException
+     */
     private EntityManager verbindungsaufbau(EntityManager em) throws TechnischeException {
         try {
             em.getTransaction().begin();
@@ -156,6 +201,15 @@ public class SpielControllerImpl implements SpielController {
         return em;
     }
 
+    /**
+     * Methode speichert das Spiel und sendet Commit
+     * im Falle eines Fehlers, fuehrt sie das Rollback durch und schmeisst eine eigene Exception
+     *
+     * @param dasSpiel - das zu persistierende Spiel
+     * @param em - der zuveraendernde EntityManager
+     * @return - den veraenderten EntityManager
+     * @throws TechnischeException
+     */
     private EntityManager speichernDB(Spiel dasSpiel, EntityManager em) throws TechnischeException {
         try {
             em.persist(dasSpiel);
@@ -167,6 +221,12 @@ public class SpielControllerImpl implements SpielController {
         return em;
     }
 
+    /**
+     * Methode fragt wie viele KI Spieler hinzugefuegt werden sollen und fuegt deren Namen der Spielerliste hinzu
+     *
+     * @param spielerliste - bekommt die Liste der bisherigen Spielernamen uebergeben
+     * @return - gibt eine Liste mit Spielernamen zurueck, die nun auch die Namen der PC Spieler enthaelt
+     */
     private List<String> kiSpielerAnlegen(List<String> spielerliste) {
         int anzahl;
         int minimaleZahl = 0;
@@ -182,6 +242,12 @@ public class SpielControllerImpl implements SpielController {
         return spielerliste;
     }
 
+    /**
+     * Methode steuert das spielen des KI Spielers
+     *
+     * @param dasSpiel - das laufende Spiel
+     * @return - das Spiel nach Veraenderung
+     */
     private Spiel kiSpielt(Spiel dasSpiel) {
         log.debug("kiSpielt");
 
@@ -206,6 +272,11 @@ public class SpielControllerImpl implements SpielController {
         return dasSpiel;
     }
 
+    /**
+     * Methode steuert die Ausgaben nachdem eine KI gespielt hat
+     *
+     * @param dasSpiel - Das laufende Spiel
+     */
     private void ausgabeNachKiZug(Spiel dasSpiel) {
         view.kiHatGespielt(dasSpiel.getAktiverSpieler().getName());
         if (dasSpiel.getAktiverSpieler().isMauistgesetzt()) {
@@ -216,6 +287,13 @@ public class SpielControllerImpl implements SpielController {
         view.leereZeileMitStichen();
     }
 
+    /**
+     * Methode steuert das legen des KI Spielers, wobei alle Karten durchprobiert werden
+     * und sorgt dafuer das die KI ziehen muss. falls sie nicht legen kann
+     *
+     * @param dasSpiel - Das laufende Spiel
+     * @return - Das veraenderte Spiel
+     */
     private Spiel kiLegt(Spiel dasSpiel) {
         log.debug("kiLegt");
         int durchgangszaehler = 0;
@@ -240,14 +318,27 @@ public class SpielControllerImpl implements SpielController {
         return dasSpiel;
     }
 
+    /**
+     * Methode prueft ob die Karte gelegt werden darf
+     *
+     * @param gewuenschteKarte - die Karte die der Spieler legen will
+     * @param dasSpiel - Das laufende Spiel
+     * @return - Das veraenderte Spiel
+     */
     private Spiel erfolgreichGelegt(Spiel dasSpiel, int gewuenschteKarte) {
         dasSpiel = spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(gewuenschteKarte), dasSpiel.getAktiverSpieler(), dasSpiel);
         return dasSpiel;
     }
 
+    /**
+     * Methode steuert alles, was fuer einen Zug eines realen Spielers noetig ist
+     *
+     * @param dasSpiel - Das laufende Spiel
+     * @return - Das veraenderte Spiel
+     */
     private Spiel menschlicherSpielerSpielt(Spiel dasSpiel) {
-        Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComperatorByWert);
-        Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComperatorByFarbe);
+        Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComparatorByWert);
+        Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComparatorByFarbe);
         dasSpiel = spielerInfos(dasSpiel);
         dasSpiel = kartelegen(dasSpiel);
         dasSpiel = mauPruefung(dasSpiel);
@@ -333,6 +424,12 @@ public class SpielControllerImpl implements SpielController {
         return spiel;
     }
 
+    /**
+     * Methode stellt eine Ausgabe zusammen, die anzeigt, welche Karte oben auf dem Ablagestapel liegt
+     * sofern dies ein Bube ist und nach erweiterten Regeln gespielt wird, gibt sie auch den neuen Farbwunsch aus
+     *
+     * @param dasSpiel - Spiel dem die Infos entnommen werden sollen
+     */
     private void anzeigeObersteKarte(Spiel dasSpiel) {
         Farbe farbeNachBube;
         Farbe obersteKarteAblagestapelFarbe;
@@ -379,6 +476,13 @@ public class SpielControllerImpl implements SpielController {
         return spiel;
     }
 
+    /**
+     * Methode steuert alles notwenige fuer die Eingabe eines Spielers, wenn er aufgefordert wird eine Karte zu legen
+     * Dabei auftretende Exceptions werden gleich mitbehandelt
+     *
+     * @param spiel - Das laufende Spiel
+     * @return - Das veraenderte Spiel
+     */
     private Spiel eingabeZumKartelegen(Spiel spiel) {
         String antwort;
         boolean erneutesFragen;
@@ -468,6 +572,11 @@ public class SpielControllerImpl implements SpielController {
         return spielart;
     }
 
+    /**
+     * Methode fragt, welche SpielID fortgesetzt werden soll
+     *
+     * @return - gewuenschte SpielID
+     */
     private Integer welcheSpielId() {
         log.debug("welcheSpielId");
         int spielid;
@@ -547,11 +656,25 @@ public class SpielControllerImpl implements SpielController {
         return jaNeinAbfrage();
     }
 
+    /**
+     * Methode fragt den Spieler ob er eine weitere Runde spielen will
+     *
+     * @return - Ergebnis ob er es moechte
+     */
     private boolean weitereRunde() {
         view.weitereSpielStarten();
         return jaNeinAbfrage();
     }
 
+    /**
+     * Methode liest eine Zahl ein, dabei darf diese nur aus einem bestimmten Bereich sein
+     *
+     * Methode faengt dabei auftretende Exceptions ab
+     *
+     * @param mininaleZahl - kleinste Zahl die der Benutzer eingeben darf
+     * @param maximaleZahl - groesste Zahl die der Benutzer eingeben darf
+     * @return - eingegebene Zahl
+     */
     private int zahlEingabe(int mininaleZahl, int maximaleZahl) {
         int eingeleseneZahl = 0;
         boolean fehler;

@@ -66,6 +66,7 @@ public class SpielServiceImpl implements SpielService {
         return spiel;
     }
 
+    @Override
     public RegelnService regelwerkHinzufuegen(boolean erweiterteRegeln) {
         if (erweiterteRegeln) {
             regeln = regelnErweitert;
@@ -195,9 +196,9 @@ public class SpielServiceImpl implements SpielService {
     /**
      * Diese Methode entfernt eine bestimmte Karte vom Kartenstapel
      *
-     * @param karteStapel
-     * @param karte
-     * @return
+     * @param karteStapel - Kartenstapel der geaendert werden soll
+     * @param karte - zu entfernende Karte
+     * @return - der neue Kartenstapel
      */
     private List<Karte> entferneGezogendeKarteVomZiehstapel(List<Karte> karteStapel, Karte karte) {
         log.debug("entferneGezogendeKarteVomZiehstapel");
@@ -213,7 +214,6 @@ public class SpielServiceImpl implements SpielService {
      * @param durchgaenge  - Anzahl der neuen Karten pro Spieler
      * @return - der reduzierte ziehstapel
      */
-
     private List<Karte> austeilenVonKarten(List<Karte> ziehstapel, List<Spieler> spielerListe, int durchgaenge) {
         log.debug("austeilenVonKarten");
         for (int runden = 0; runden < durchgaenge; runden++) {

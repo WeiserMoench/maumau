@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181212
+ * @version 20190302
  */
 
 package de.htwberlin.maumau.spielverwaltung.export;
@@ -23,7 +23,6 @@ public interface SpielService {
      * @return Gibt das neu angelegte Spiel zurück
      */
     Spiel anlegenSpiel(List<String> spielerliste, boolean erweiterteRegeln);
-
 
     /**
      * Diese Methode entnimmt eine Karte aus dem Ziehstapel
@@ -103,6 +102,12 @@ public interface SpielService {
      */
     Spiel mussGemischtWerden(Spiel spiel);
 
+    /**
+     * Diese Methode fuegt die gewuenschte Regelfassung dem Spiel hinzu
+     *
+     * @param erweiterteRegeln - gibt an ob mit erweiterten Regeln gespielt werden soll
+     * @return - die Class des gewuenschten Regelsatzes
+     */
     RegelnService regelwerkHinzufuegen(boolean erweiterteRegeln);
 
 }
