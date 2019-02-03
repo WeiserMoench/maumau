@@ -31,11 +31,13 @@ public class Config {
             throw new TechnischeException("Komponentenregistrierungsfehler");
         }
 
-//        try {
+        try {
             container.getComponent(SpielController.class).run();
-//        } catch (java.lang.NullPointerException e) {
-//            throw new TechnischeException("Fehler beim Komponente öffnen");
-//        }
+        } catch (java.lang.NullPointerException e) {
+            throw new TechnischeException("Fehler beim Komponente öffnen");
+        } catch (Exception e){
+            throw new TechnischeException();
+        }
     }
 
     /**
