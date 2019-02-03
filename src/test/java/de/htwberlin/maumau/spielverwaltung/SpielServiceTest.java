@@ -10,6 +10,7 @@ import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
 import de.htwberlin.maumau.kartenverwaltung.export.KartenService;
 import de.htwberlin.maumau.regelnverwaltung.export.RegelnService;
+import de.htwberlin.maumau.regelnverwaltung.impl.ErweiterteRegelnServiceImpl;
 import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
 import de.htwberlin.maumau.spielerverwaltung.export.SpielerService;
 import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
@@ -19,12 +20,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,7 +38,9 @@ public class SpielServiceTest {
     @Mock
     private SpielerService spielerService;
     @Mock
-    private RegelnService regelnService;
+    private RegelnService regelnServiceerw;
+    @Mock
+    private ErweiterteRegelnServiceImpl regelnService;
     @Mock
     private KartenService kartenService;
 
@@ -75,37 +80,6 @@ public class SpielServiceTest {
         spiel.setIstSpielrichtungRechts(true);
         spiel.setFarbe(Farbe.HERZ);
         spiel.setSpielerDesSpieles(spielerliste);
-
-    }
-
-
-//    @Test
-//    public void testZieheKarteVomZiehStapel() {
-//        ziehstapel.add(pik8);
-//        assertEquals(pik8, spielService.ziehenKarteVomZiehstapel(ziehstapel));
-//    }
-
-
-//    @Test
-//    public void testMussNichtGemischtWerden() {
-//        ziehstapel.add(pik8);
-//        assertFalse("Es muss nicht gemischt werden", spielService.mussGemischtWerden(spiel));
-//    }
-
-    @Test
-    public void test1ZuZiehendeKarte() {
-        ziehstapel.add(pik8);
-        ziehstapel.add(pik9);
-        spielerliste.add(paul);
-        assertEquals(1, spielService.karteZiehen(1, ziehstapel, paul).size());
-    }
-
-    @Test
-    public void test2ZuZiehendeKarte() {
-        ziehstapel.add(pik8);
-        ziehstapel.add(pik9);
-        spielerliste.add(paul);
-        assertEquals(0, spielService.karteZiehen(2, ziehstapel, paul).size());
     }
 
 
@@ -123,14 +97,6 @@ public class SpielServiceTest {
         spielService.setzeMau(paul, false);
         assertFalse(paul.isMauistgesetzt());
     }
-
-//    @Test
-//    public void testAnlegenSpiel() {
-//        Spiel testSpiel = spielService.anlegenSpiel();
-//        assertEquals(spiel, testSpiel);
-//
-//    }
-
 
     @Test
     public void testPruefeAufMauTrue() {
@@ -197,4 +163,69 @@ public class SpielServiceTest {
 
         assertEquals(hans, spiel.getAktiverSpieler());
     }
-}
+
+
+    @Test
+    public void testLegeKarte() {
+        spielService.regelwerkHinzufuegen(spiel.isErweiterteRegeln());
+
+        Mockito.when(regelnService.darfKartegelegtwerden(any(), any(), any())).thenReturn(true);
+        Mockito.when(regelnService.mussZweiKartenZiehen(herz7, 0)).thenReturn(2);
+        Mockito.when(regelnService.richtungWechsel(any())).thenReturn(false);
+        Mockito.when(regelnService.mussSichFarbeWuenschen(any())).thenReturn(false);
+        assertEquals(2, spielService.legeKarte(herz7,spiel.getAktiverSpieler(), spiel ).getSummeZuziehendeKarten());
+
+
+    }
+
+    @Test
+    public void testLegeKarteWuenschen() {
+
+        spielService.regelwerkHinzufuegen(spiel.isErweiterteRegeln());
+
+        Mockito.when(regelnService.darfKartegelegtwerden(any(), any(), any())).thenReturn(true);
+        Mockito.when(regelnService.mussZweiKartenZiehen(herz7, 0)).thenReturn(0);
+        Mockito.when(regelnService.richtungWechsel(any())).thenReturn(false);
+        Mockito.when(regelnService.mussSichFarbeWuenschen(any())).thenReturn(true);
+        assertTrue(spielService.legeKarte(herz7, spiel.getAktiverSpieler(), spiel).isMussFarbeWuenschen());
+
+    }
+
+    @Test
+    public void testZiehenKarteVomZiehstapel() {
+
+        assertEquals(spiel.getZiehstapelkarten().size() -1, spielService.ziehenKarteVomZiehstapel(spiel).getZiehstapelkarten().size());
+
+    }
+
+    @Test
+    public void  testAnlegenSpiel() {
+        List<String> listeSpieler = new ArrayList<>();
+        listeSpieler.add("Paul");
+        listeSpieler.add("Sven");
+        paul.setName("Paul");
+        sven.setName("Sven");
+        Mockito.when(spielerService.neuerSpielerAnlegen(any())).thenReturn(paul).thenReturn(sven);
+
+        int i= 0;
+        while (i < 49) {
+            ziehstapel.add(herz7);
+            i++;
+        }
+        Mockito.when(kartenService.anlegenKartenstapel()).thenReturn(ziehstapel);
+        Mockito.when(kartenService.mischenKartenstapel(ziehstapel, false)).thenReturn(ziehstapel);
+
+
+        Spiel zuTestendeSpiel = spielService.anlegenSpiel(listeSpieler, false);
+        assertEquals(39, zuTestendeSpiel.getZiehstapelkarten().size());//52-6*2(2Spieler mit6 Karten) -1 (aufgedeckte Karte)
+    }
+
+
+    @Test
+    public void testKarteZiehen() {
+
+        assertEquals(1, spielService.karteZiehen(2, ziehstapel, paul).size());
+
+    }
+
+    }
