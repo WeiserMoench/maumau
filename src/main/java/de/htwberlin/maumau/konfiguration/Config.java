@@ -20,6 +20,16 @@ import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.MutablePicoContainer;
 import org.picocontainer.injectors.ConstructorInjection;
 
+/**TODO
+ * Folgendes muss noch erledingt werden
+ * - Mocken
+ * - JUnit Tests prüfen und erweitern
+ * - Komponentendiagramm anpassen
+ * - Dokumentation erstellen
+ *
+ * ABGABE: Mittwoch 23:55
+ */
+
 
 public class Config {
     private static MutablePicoContainer container = new DefaultPicoContainer(new ConstructorInjection());
