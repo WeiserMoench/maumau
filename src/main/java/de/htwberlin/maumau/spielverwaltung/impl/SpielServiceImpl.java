@@ -160,6 +160,7 @@ public class SpielServiceImpl implements SpielService {
         List<Spieler> spielerAlsListe = new ArrayList<>();
         spielerAlsListe.add(spiel.getAktiverSpieler());
         if (istMauNoetig(spiel.getAktiverSpieler())) {
+            spiel=mussGemischtWerden(spiel);
             if (!spiel.getAktiverSpieler().isMauistgesetzt()) {
                 austeilenVonKarten(spiel.getZiehstapelkarten(), spielerAlsListe, 2);
             }
@@ -181,7 +182,7 @@ public class SpielServiceImpl implements SpielService {
 
         ziehstapel = spiel.getZiehstapelkarten();
 
-        if (ziehstapel.size() == 0) {
+        if (ziehstapel.size() < 2) {
             ziehstapel = spiel.getAblagestapelkarten();
             ablagestapel.add(ziehstapel.get(ziehstapel.size() - 1));
             ziehstapel.remove(ziehstapel.size() - 1);

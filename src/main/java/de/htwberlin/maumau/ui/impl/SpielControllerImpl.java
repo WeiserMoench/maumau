@@ -73,13 +73,14 @@ public class SpielControllerImpl implements SpielController {
                     Long spielid = maxId + 1;
                     view.anzeigeSpielID(spielid);
 
-                } catch (javax.persistence.PersistenceException e) {
+                } catch (java.lang.NullPointerException e) {
                     Long spielid = 1L;
                     view.anzeigeSpielID(spielid);
+                } catch (javax.persistence.PersistenceException e){
+                    throw new TechnischeException("Fehler beim Datenbankzugriff");
+                } catch (Exception e){
+                    throw new TechnischeException();
                 }
-//            catch (Exception e){
-//                throw new TechnischeException("Fehler beim Datenbankzugriff");
-//            }
 
                 em = speichernDB(dasSpiel, em);
 
@@ -251,7 +252,12 @@ public class SpielControllerImpl implements SpielController {
         dasSpiel = kartelegen(dasSpiel);
         dasSpiel = mauPruefung(dasSpiel);
         spielService.setzeMau(dasSpiel.getAktiverSpieler(), false);
-        spielService.mussGemischtWerden(dasSpiel); // Wenn die Spieler betrügen, kann es zu einer Exception kommen, diese wird bei der nächsten Abgabe gefangen
+        try{
+            spielService.mussGemischtWerden(dasSpiel);
+        }catch (IndexOutOfBoundsException e){
+            view.spielerBetruegen();
+        }
+
         return dasSpiel;
     }
 
@@ -283,7 +289,11 @@ public class SpielControllerImpl implements SpielController {
         int anzahlHandkartenNachPruefung;
 
         anzahlHandkartenVorPruefung = spiel.getAktiverSpieler().getHandkarten().size();
-        spiel = spielService.pruefeAufMau(spiel);
+        try {
+            spiel = spielService.pruefeAufMau(spiel);
+        }catch (IndexOutOfBoundsException e){
+            view.strafkartenNichtMoeglich();
+        }
         anzahlHandkartenNachPruefung = spiel.getAktiverSpieler().getHandkarten().size();
 
 

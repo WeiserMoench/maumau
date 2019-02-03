@@ -291,4 +291,9 @@ public class SpielViewer {
     public void spielBereitsBeendet(String sieger) {
         System.out.println(ANSI_RED + "Diese ID hat schon einen Sieger! Der Sieger war " + sieger + ANSI_RESET);
     }
+
+    public void strafkartenNichtMoeglich() {
+        System.out.println(ANSI_RED + "Das Ziehen von Strafkarten nach vergessem Mau war " +
+                "\nnicht möglich, da es keine Karten mehr gibt" + ANSI_RESET);
+    }
 }
