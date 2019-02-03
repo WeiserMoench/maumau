@@ -168,7 +168,7 @@ public class SpielControllerImpl implements SpielController {
     }
 
     private List<String> kiSpielerAnlegen(List<String> spielerliste) {
-        int anzahl = 0;
+        int anzahl;
         int minimaleZahl = 0;
         int maximaleZahl = 5;
 
@@ -176,7 +176,7 @@ public class SpielControllerImpl implements SpielController {
 
         anzahl = zahlEingabe(minimaleZahl, maximaleZahl);
 
-        for (int i = 0; i < anzahl; i++) {
+        for (int i = 1; i <= anzahl; i++) {
             spielerliste.add(kiService.kiAnlegen(i));
         }
         return spielerliste;

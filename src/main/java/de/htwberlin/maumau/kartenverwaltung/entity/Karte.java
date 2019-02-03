@@ -18,8 +18,6 @@ public class Karte {
         this.wert = wert;
     }
 
-    public Karte() {
-    }
 
     public Farbe getFarbe() {
         return farbe;
