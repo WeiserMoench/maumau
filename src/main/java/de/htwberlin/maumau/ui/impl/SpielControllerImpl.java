@@ -47,7 +47,7 @@ public class SpielControllerImpl implements SpielController {
 
 
     public void run() throws TechnischeException {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("$objectdb/db/p1.odb");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("$objectdb/db/maumau.odb");
 
         EntityManager em = entityManagerFactory.createEntityManager();
         do {
@@ -74,7 +74,7 @@ public class SpielControllerImpl implements SpielController {
                 Long spielid = maxId + 1;
                 view.anzeigeSpielID(spielid);
 //Todo pruefen ob korrekte exception angegeben wurde
-            } catch (javax.persistence.NoResultException e) {//ich glaube, dass ist die richtige Exception
+            } catch (javax.persistence.PersistenceException e) {//ich glaube, dass ist die richtige Exception
                 Long spielid = 1L;
                 view.anzeigeSpielID(spielid);
             }
