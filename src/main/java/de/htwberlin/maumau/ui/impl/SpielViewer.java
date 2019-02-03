@@ -104,7 +104,7 @@ public class SpielViewer {
     public void willkommen() {
         System.out.println("\n" +
                 "-----------------------------------------------------------" +
-                "Willkommen beim MauMau Spiel.");
+                "\nWillkommen beim MauMau Spiel.");
         System.out.println("Wenn du ein neues Spiel beginnen willst, gibt bitte die 1 ein"); //Vorbereitung Aufgabe 4
         System.out.println("Wenn du ein Spiel fortsetzen möchtest, wähle die 2");
         System.out.println("Welche Variante möchtest du spielen?");
