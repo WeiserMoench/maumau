@@ -47,14 +47,14 @@ public class SpielViewer {
                 "Es darf nur eine Karte gelegt werden, wenn diese entweder in Farbe (Herz, Kreuz, Pik, Karo) \n" +
                 "oder in Wert (zum Beispiel: König oder 7) übereinstimmen.\n" +
                 "Sollte ein Spieler nicht legen können, so muss der eine Karte ziehen und der nächste ist an der Reihe.\n\n" +
-                "Wenn ein Spieler seine vorletzte Karte legen will, muss er zuvor \"Mau\" eingeben.\n" +
+                "Wenn ein Spieler seine vorletzte Karte legen will, muss er zuvor \"m\" für Mau eingeben.\n" +
                 "Wird \"Mau\" vergessen, bekommt der Spieler 2 Strafkarten auf die Hand.");
         System.out.println("\n" +
                 "- Die erweiterten Regeln - \n" +
                 "Die nachfolgenden Reglen gelten zusätzlich zu den einfachen Regeln.\n" +
                 "Wenn ein Spieler einen \"Buben\" legt, muss er sich eine Farbe wünschen, dabei spielt es keine Rolle,\n" +
                 "um welche Farbe es sich handelt.\n" +
-                "Aber auf einen Buben darf kein weiterer gelegt werden." +
+                "Aber auf einen Buben darf kein weiterer gelegt werden.\n" +
                 "Legt ein Spieler eine \"7\", so muss der nächste Spieler 2 Karten ziehen.\n" +
                 "Legt ein Spieler eine \"8\", so muss der nachfolgende Aussetzen.\n" +
                 "Legt hingegen ein Spieler eine \"9\" so wird die Spielrichtung umgedreht.\n");
