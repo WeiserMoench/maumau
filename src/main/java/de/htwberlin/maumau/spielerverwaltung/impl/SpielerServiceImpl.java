@@ -1,7 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  * @version 20181212
- *
  */
 
 package de.htwberlin.maumau.spielerverwaltung.impl;

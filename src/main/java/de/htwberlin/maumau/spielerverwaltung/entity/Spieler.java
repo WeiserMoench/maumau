@@ -1,7 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  * @version 20181212
- *
  */
 
 package de.htwberlin.maumau.spielerverwaltung.entity;
@@ -9,9 +8,6 @@ package de.htwberlin.maumau.spielerverwaltung.entity;
 import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 

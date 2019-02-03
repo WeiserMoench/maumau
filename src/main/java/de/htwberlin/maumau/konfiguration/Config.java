@@ -1,7 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  * @version 20190202
- *
  */
 
 package de.htwberlin.maumau.konfiguration;
@@ -28,13 +27,13 @@ public class Config {
     public static void main(String[] arg) throws TechnischeException {
         try {
             registriereKomponenten();
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new TechnischeException("Komponentenregistrierungsfehler");
         }
 
         try {
             container.getComponent(SpielController.class).run();
-        }catch(java.lang.NullPointerException e){
+        } catch (java.lang.NullPointerException e) {
             throw new TechnischeException("Fehler beim Komponente öffnen");
         }
     }

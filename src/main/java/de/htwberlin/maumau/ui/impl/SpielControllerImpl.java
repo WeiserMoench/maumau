@@ -1,7 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  * @version 20181212
- *
  */
 
 package de.htwberlin.maumau.ui.impl;
@@ -51,71 +50,71 @@ public class SpielControllerImpl implements SpielController {
 
         EntityManager em = entityManagerFactory.createEntityManager();
         do {
-        int spielart = welcheSpielart();
-        if (spielart == 1) {
-            dasSpiel = new Spiel();
+            int spielart = welcheSpielart();
+            if (spielart == 1) {
+                dasSpiel = new Spiel();
 
 
-            spielerliste = new ArrayList();
-            dasSpiel.setSpielrundenindex(0);
-            erweiterteRegeln = erweiterteRegeln();
+                spielerliste = new ArrayList();
+                dasSpiel.setSpielrundenindex(0);
+                erweiterteRegeln = erweiterteRegeln();
 
-            spielerliste=kiSpielerAnlegen(spielerliste);
+                spielerliste = kiSpielerAnlegen(spielerliste);
 
-            do {
-                spielerliste.add(spielerHinzufuegen());
-            } while (weitererSpieler() == true);
-            dasSpiel = spielService.anlegenSpiel(spielerliste, erweiterteRegeln);
-            try {
-                em=verbindungsaufbau(em);
+                do {
+                    spielerliste.add(spielerHinzufuegen());
+                } while (weitererSpieler() == true);
+                dasSpiel = spielService.anlegenSpiel(spielerliste, erweiterteRegeln);
+                try {
+                    em = verbindungsaufbau(em);
 
-                TypedQuery<Long> query2 = em.createQuery("Select MAX(p.spielId) from Spiel p", long.class);
-                Long maxId = query2.getSingleResult();
-                Long spielid = maxId + 1;
-                view.anzeigeSpielID(spielid);
-//Todo pruefen ob korrekte exception angegeben wurde
-            } catch (javax.persistence.PersistenceException e) {//ich glaube, dass ist die richtige Exception
-                Long spielid = 1L;
-                view.anzeigeSpielID(spielid);
-            }
+                    TypedQuery<Long> query2 = em.createQuery("Select MAX(p.spielId) from Spiel p", long.class);
+                    Long maxId = query2.getSingleResult();
+                    Long spielid = maxId + 1;
+                    view.anzeigeSpielID(spielid);
+
+                } catch (javax.persistence.PersistenceException e) {
+                    Long spielid = 1L;
+                    view.anzeigeSpielID(spielid);
+                }
 //            catch (Exception e){
 //                throw new TechnischeException("Fehler beim Datenbankzugriff");
 //            }
 
-            em=speichernDB(dasSpiel, em);
+                em = speichernDB(dasSpiel, em);
 
-            //Laden aus DB
-        } else {
-            boolean spielidRichtig = true;
-            while (spielidRichtig) {
-                try {
-                    int spielid = welcheSpielId();
-                    TypedQuery<Spiel> query = em.createQuery("Select p from Spiel p where spielId = " + spielid, Spiel.class);
-                     dasSpiel = query.getSingleResult();
-                    if (dasSpiel.getSieger() == null) {
-                        spielidRichtig = false;
-                    } else {
-                        view.spielBereitsBeendet(dasSpiel.getSieger());
+                //Laden aus DB
+            } else {
+                boolean spielidRichtig = true;
+                while (spielidRichtig) {
+                    try {
+                        int spielid = welcheSpielId();
+                        TypedQuery<Spiel> query = em.createQuery("Select p from Spiel p where spielId = " + spielid, Spiel.class);
+                        dasSpiel = query.getSingleResult();
+                        if (dasSpiel.getSieger() == null) {
+                            spielidRichtig = false;
+                        } else {
+                            view.spielBereitsBeendet(dasSpiel.getSieger());
+                            spielidRichtig = true;
+                        }
+
+                    } catch (javax.persistence.NoResultException e) {
                         spielidRichtig = true;
+                        view.falscheID();
+                    } catch (Exception e) {
+                        throw new TechnischeException("Fehler beim Laden des Spieles");
                     }
-
-                } catch (javax.persistence.NoResultException e) {
-                    spielidRichtig = true;
-                    view.falscheID();
-                } catch (Exception e){
-                    throw new TechnischeException("Fehler beim Laden des Spieles");
                 }
+                spielService.regelwerkHinzufuegen(dasSpiel.isErweiterteRegeln());
             }
-            spielService.regelwerkHinzufuegen(dasSpiel.isErweiterteRegeln());
-        }
 
 
-        log.debug("run");
+            log.debug("run");
 
-        //Beginn spieldurchlauf
+            //Beginn spieldurchlauf
             spielLaeuft = true;
             while (spielLaeuft) {
-                em=verbindungsaufbau(em);
+                em = verbindungsaufbau(em);
 
                 spielService.karteZiehen(dasSpiel.getSummeZuziehendeKarten(), dasSpiel.getZiehstapelkarten(), dasSpiel.getAktiverSpieler());
 
@@ -131,7 +130,7 @@ public class SpielControllerImpl implements SpielController {
                 if (!spielLaeuft) {
                     view.siegerAusgabe(dasSpiel.getAktiverSpieler().getName());
                     dasSpiel.setSieger(dasSpiel.getAktiverSpieler().getName());
-                    em=speichernDB(dasSpiel, em);
+                    em = speichernDB(dasSpiel, em);
                     break;
                 }
                 dasSpiel.setSpielrundenindex(dasSpiel.getSpielrundenindex() + 1);
@@ -141,26 +140,26 @@ public class SpielControllerImpl implements SpielController {
                     dasSpiel.setAussetzen(false);
                 }
 
-                em=speichernDB(dasSpiel, em);
+                em = speichernDB(dasSpiel, em);
             }
-        }while(weitereRunde());
+        } while (weitereRunde());
         view.spielende();
     }
 
     private EntityManager verbindungsaufbau(EntityManager em) throws TechnischeException {
         try {
             em.getTransaction().begin();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new TechnischeException("Fehler bei der Datenbank");
         }
         return em;
     }
 
     private EntityManager speichernDB(Spiel dasSpiel, EntityManager em) throws TechnischeException {
-        try{
+        try {
             em.persist(dasSpiel);
             em.getTransaction().commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             em.getTransaction().rollback();
             throw new TechnischeException("Fehler beim Speichern");
         }
@@ -174,9 +173,9 @@ public class SpielControllerImpl implements SpielController {
 
         view.anzahlKI();
 
-        anzahl=zahlEingabe(minimaleZahl, maximaleZahl);
+        anzahl = zahlEingabe(minimaleZahl, maximaleZahl);
 
-        for(int i = 0; i<anzahl;i++){
+        for (int i = 0; i < anzahl; i++) {
             spielerliste.add(kiService.kiAnlegen(i));
         }
         return spielerliste;
@@ -190,7 +189,7 @@ public class SpielControllerImpl implements SpielController {
 
         dasSpiel = kiLegt(dasSpiel);
 
-        if(dasSpiel.isMussFarbeWuenschen()){
+        if (dasSpiel.isMussFarbeWuenschen()) {
             log.debug("if schleife Farbe wünschen");
 
             dasSpiel.setFarbe(kiService.kiMussFarbeWuenschen());
@@ -208,7 +207,7 @@ public class SpielControllerImpl implements SpielController {
 
     private void ausgabeNachKiZug(Spiel dasSpiel) {
         view.kiHatGespielt(dasSpiel.getAktiverSpieler().getName());
-        if(dasSpiel.getAktiverSpieler().isMauistgesetzt()){
+        if (dasSpiel.getAktiverSpieler().isMauistgesetzt()) {
             view.spielerSagteMau();
         }
 
@@ -221,36 +220,37 @@ public class SpielControllerImpl implements SpielController {
         int durchgangszaehler = 0;
         boolean erneutesFragen;
 
-        do{
-            if(durchgangszaehler>dasSpiel.getAktiverSpieler().getHandkarten().size()-1){
+        do {
+            if (durchgangszaehler > dasSpiel.getAktiverSpieler().getHandkarten().size() - 1) {
                 log.debug("Ki muss Karte ziehen, da legen nicht möglich");
-                try{
-                    dasSpiel=spielService.ziehenKarteVomZiehstapel(dasSpiel);
+                try {
+                    dasSpiel = spielService.ziehenKarteVomZiehstapel(dasSpiel);
                     view.pchatgezogen(dasSpiel.getAktiverSpieler().getName());
-                } catch (IndexOutOfBoundsException e){}
-                erneutesFragen=false;
-            }else{
-                dasSpiel=erfolgreichGelegt(dasSpiel, durchgangszaehler);
-                erneutesFragen=!dasSpiel.isErfolgreichgelegt();
+                } catch (IndexOutOfBoundsException e) {
+                }
+                erneutesFragen = false;
+            } else {
+                dasSpiel = erfolgreichGelegt(dasSpiel, durchgangszaehler);
+                erneutesFragen = !dasSpiel.isErfolgreichgelegt();
                 durchgangszaehler++;
             }
-        }while(erneutesFragen);
+        } while (erneutesFragen);
 
         return dasSpiel;
     }
 
     private Spiel erfolgreichGelegt(Spiel dasSpiel, int gewuenschteKarte) {
-        dasSpiel=spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(gewuenschteKarte), dasSpiel.getAktiverSpieler(), dasSpiel);
+        dasSpiel = spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(gewuenschteKarte), dasSpiel.getAktiverSpieler(), dasSpiel);
         return dasSpiel;
     }
 
     private Spiel menschlicherSpielerSpielt(Spiel dasSpiel) {
         Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComperatorByWert);
         Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComperatorByFarbe);
-        dasSpiel=spielerInfos(dasSpiel);
-        dasSpiel=kartelegen(dasSpiel);
-        dasSpiel=mauPruefung(dasSpiel);
-        spielService.setzeMau(dasSpiel.getAktiverSpieler(),false);
+        dasSpiel = spielerInfos(dasSpiel);
+        dasSpiel = kartelegen(dasSpiel);
+        dasSpiel = mauPruefung(dasSpiel);
+        spielService.setzeMau(dasSpiel.getAktiverSpieler(), false);
         spielService.mussGemischtWerden(dasSpiel); // Wenn die Spieler betrügen, kann es zu einer Exception kommen, diese wird bei der nächsten Abgabe gefangen
         return dasSpiel;
     }
@@ -260,12 +260,12 @@ public class SpielControllerImpl implements SpielController {
      *
      * @return boolean - der angibt, ob es einen weiteren Spieler geben soll
      */
-    private boolean weitererSpieler(){
+    private boolean weitererSpieler() {
         log.debug("weitererSpieler");
-        if(spielerliste.size()<2){
+        if (spielerliste.size() < 2) {
             view.weitererSpielerNoetig();
             return true;
-        }else{
+        } else {
             return sollSpielerHinzugefuegtWerden();
         }
     }
@@ -282,12 +282,12 @@ public class SpielControllerImpl implements SpielController {
         int anzahlHandkartenVorPruefung;
         int anzahlHandkartenNachPruefung;
 
-        anzahlHandkartenVorPruefung=spiel.getAktiverSpieler().getHandkarten().size();
+        anzahlHandkartenVorPruefung = spiel.getAktiverSpieler().getHandkarten().size();
         spiel = spielService.pruefeAufMau(spiel);
-        anzahlHandkartenNachPruefung=spiel.getAktiverSpieler().getHandkarten().size();
+        anzahlHandkartenNachPruefung = spiel.getAktiverSpieler().getHandkarten().size();
 
 
-        if (anzahlHandkartenNachPruefung>anzahlHandkartenVorPruefung){
+        if (anzahlHandkartenNachPruefung > anzahlHandkartenVorPruefung) {
             view.strafkartenVergessenesMau(dasSpiel.getAktiverSpieler().getName());
         }
         return spiel;
@@ -304,33 +304,22 @@ public class SpielControllerImpl implements SpielController {
      */
     private Spiel spielerInfos(Spiel spiel) {
         log.debug("spielerInfos");
-
         String spielername;
-
         int anzahlGezogenerKarten;
-
-
         spielername = spiel.getAktiverSpieler().getName();
         anzahlGezogenerKarten = spiel.getSummeZuziehendeKarten();
 
-
-
         view.infosfuerNaechstenSpieler(spielername, anzahlGezogenerKarten);
-
-
         anzeigeObersteKarte(dasSpiel);
 
-
         for (int i = 0; i < spiel.getSpielerDesSpieles().size(); i++) {
-            if(!spiel.getSpielerDesSpieles().get(i).equals(spiel.getAktiverSpieler())){
+            if (!spiel.getSpielerDesSpieles().get(i).equals(spiel.getAktiverSpieler())) {
                 String mitspielername = spiel.getSpielerDesSpieles().get(i).getName();
                 int mitspielerhandkarten = spiel.getSpielerDesSpieles().get(i).getHandkarten().size();
                 view.infosUeberAndereSpieler(mitspielername, mitspielerhandkarten);
             }
-
         }
         dasSpiel.setSummeZuziehendeKarten(0);
-
         return spiel;
     }
 
@@ -339,12 +328,12 @@ public class SpielControllerImpl implements SpielController {
         Farbe obersteKarteAblagestapelFarbe;
         String obersteKarteAblagestapelWert;
 
-        obersteKarteAblagestapelFarbe = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getFarbe();
-        obersteKarteAblagestapelWert = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size()-1).getWert();
+        obersteKarteAblagestapelFarbe = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size() - 1).getFarbe();
+        obersteKarteAblagestapelWert = dasSpiel.getAblagestapelkarten().get(dasSpiel.getAblagestapelkarten().size() - 1).getWert();
         farbeNachBube = dasSpiel.getFarbe();
 
-        if(obersteKarteAblagestapelWert.equals("Bube")){
-            if(dasSpiel.getFarbe()!=null) {
+        if (obersteKarteAblagestapelWert.equals("Bube")) {
+            if (dasSpiel.getFarbe() != null) {
                 view.spielerInfoNachBube(farbeNachBube);
             }
         }
@@ -360,21 +349,21 @@ public class SpielControllerImpl implements SpielController {
      * @param spiel - das zu aendernde Spiel
      * @return - das Spiel in neuer Form
      */
-    private Spiel kartelegen(Spiel spiel){
+    private Spiel kartelegen(Spiel spiel) {
         log.debug("kartelegen");
 
 
         view.welcheKarteAblegen();
-        for (int kartennummer = 0; kartennummer<spiel.getAktiverSpieler().getHandkarten().size();kartennummer++){
+        for (int kartennummer = 0; kartennummer < spiel.getAktiverSpieler().getHandkarten().size(); kartennummer++) {
             Farbe farbe = spiel.getAktiverSpieler().getHandkarten().get(kartennummer).getFarbe();
             String wert = spiel.getAktiverSpieler().getHandkarten().get(kartennummer).getWert();
-            view.ausgabeKarte(kartennummer,farbe,wert);
+            view.ausgabeKarte(kartennummer, farbe, wert);
         }
 
-        spiel=eingabeZumKartelegen(spiel);
+        spiel = eingabeZumKartelegen(spiel);
 
-        if(spiel.isMussFarbeWuenschen()){
-            spiel=farbeWaehlen(spiel);
+        if (spiel.isMussFarbeWuenschen()) {
+            spiel = farbeWaehlen(spiel);
         }
 
         return spiel;
@@ -385,39 +374,39 @@ public class SpielControllerImpl implements SpielController {
         boolean erneutesFragen;
         int antwortAlsZahl;
 
-        do{
-            antwort=sc.next();
-            antwort=antwort.toLowerCase();
-            if(antwort.equals("m")){
+        do {
+            antwort = sc.next();
+            antwort = antwort.toLowerCase();
+            if (antwort.equals("m")) {
                 view.maugesagt();
                 spielService.setzeMau(spiel.getAktiverSpieler(), true);
-                erneutesFragen=true;
-            }else if(antwort.equals("z")){
+                erneutesFragen = true;
+            } else if (antwort.equals("z")) {
                 try {
                     spiel = spielService.ziehenKarteVomZiehstapel(spiel);
-                } catch(IndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException e) {
                     view.spielerBetruegen();
                 }
-                erneutesFragen=false;
-            }else{
-                try{
+                erneutesFragen = false;
+            } else {
+                try {
                     antwortAlsZahl = Integer.parseInt(antwort);
-                    if(antwortAlsZahl>=0 && antwortAlsZahl<spiel.getAktiverSpieler().getHandkarten().size()){
-                        spiel=erfolgreichGelegt(spiel, antwortAlsZahl);
-                        erneutesFragen=!spiel.isErfolgreichgelegt();
-                        if(erneutesFragen){
+                    if (antwortAlsZahl >= 0 && antwortAlsZahl < spiel.getAktiverSpieler().getHandkarten().size()) {
+                        spiel = erfolgreichGelegt(spiel, antwortAlsZahl);
+                        erneutesFragen = !spiel.isErfolgreichgelegt();
+                        if (erneutesFragen) {
                             view.falscheKarte();
-                            }
-                    }else{
-                        erneutesFragen=true;
+                        }
+                    } else {
+                        erneutesFragen = true;
                         view.kartennummerUnsinnig();
                     }
-                }catch (java.lang.NumberFormatException e){
+                } catch (java.lang.NumberFormatException e) {
                     view.kartennummerUnsinnig();
-                    erneutesFragen=true;
+                    erneutesFragen = true;
                 }
             }
-        }while (erneutesFragen);
+        } while (erneutesFragen);
 
         return spiel;
     }
@@ -433,19 +422,23 @@ public class SpielControllerImpl implements SpielController {
         int antwort;
         Farbe farbe = null;
 
-            view.farbeWaehlen();
+        view.farbeWaehlen();
 
-            antwort=zahlEingabe(1, 4);
-            switch (antwort){
-                case 1:   farbe=Farbe.HERZ;
-                            break;
-                case 2:   farbe=Farbe.KREUZ;
-                            break;
-                case 3:   farbe=Farbe.KARO;
-                            break;
-                case 4:   farbe=Farbe.PIK;
-                            break;
-            }
+        antwort = zahlEingabe(1, 4);
+        switch (antwort) {
+            case 1:
+                farbe = Farbe.HERZ;
+                break;
+            case 2:
+                farbe = Farbe.KREUZ;
+                break;
+            case 3:
+                farbe = Farbe.KARO;
+                break;
+            case 4:
+                farbe = Farbe.PIK;
+                break;
+        }
 
         spielService.farbeGewaehlt(spiel, farbe);
 
@@ -457,20 +450,20 @@ public class SpielControllerImpl implements SpielController {
      *
      * @return - 1 fuer neues Spiel, 2 fuer fortsetzen
      */
-    private Integer welcheSpielart(){
+    private Integer welcheSpielart() {
         log.debug("welcheSpielart");
-        int spielart=0;
+        int spielart = 0;
         view.willkommen();
-        spielart=zahlEingabe(1, 2);
+        spielart = zahlEingabe(1, 2);
         return spielart;
     }
 
-    private Integer welcheSpielId(){
+    private Integer welcheSpielId() {
         log.debug("welcheSpielId");
         int spielid;
         view.spielIDeingeben();
 
-        spielid=zahlEingabe(0, 100000000);
+        spielid = zahlEingabe(0, 100000000);
         return spielid;
     }
 
@@ -492,21 +485,21 @@ public class SpielControllerImpl implements SpielController {
      *
      * @return - boolean: true fuer ja, false fuer nein
      */
-    private boolean jaNeinAbfrage(){
+    private boolean jaNeinAbfrage() {
         log.debug("jaNeinAbfrage");
-        boolean weitererDurchgang=true;
-        boolean rueckgabe=false;
+        boolean weitererDurchgang = true;
+        boolean rueckgabe = false;
 
-        while(weitererDurchgang){
+        while (weitererDurchgang) {
             String antwort = sc.next();
-            antwort=antwort.toLowerCase();
-            if(antwort.equals("ja")){
+            antwort = antwort.toLowerCase();
+            if (antwort.equals("ja")) {
                 rueckgabe = true;
-                weitererDurchgang=false;
-            }else if(antwort.equals("nein")){
+                weitererDurchgang = false;
+            } else if (antwort.equals("nein")) {
                 rueckgabe = false;
-                weitererDurchgang=false;
-            }else{
+                weitererDurchgang = false;
+            } else {
                 view.jaNeinAbfrageFehlermeldung();
             }
         }
@@ -519,7 +512,7 @@ public class SpielControllerImpl implements SpielController {
      *
      * @return - String mit dem Name des Spielers
      */
-    private String spielerHinzufuegen(){
+    private String spielerHinzufuegen() {
         log.debug("spielerHinzufuegen");
         view.spielerNamenAnfragen();
         String name = sc.next();
@@ -532,12 +525,12 @@ public class SpielControllerImpl implements SpielController {
      *
      * @return - boolean, der angibt ob die erweiterten Regeln gewuenscht sind
      */
-    private boolean erweiterteRegeln(){
+    private boolean erweiterteRegeln() {
         log.debug("erweiterteRegeln");
         boolean antwort;
         view.sollenRegelnAngezeigtWerden();
-        antwort=jaNeinAbfrage();
-        if(antwort==true){
+        antwort = jaNeinAbfrage();
+        if (antwort == true) {
             view.anzeigenRegeln();
         }
         view.sollNachErweitertenRegelnGespieltWerden();
@@ -549,20 +542,20 @@ public class SpielControllerImpl implements SpielController {
         return jaNeinAbfrage();
     }
 
-    private int zahlEingabe(int mininaleZahl, int maximaleZahl){
+    private int zahlEingabe(int mininaleZahl, int maximaleZahl) {
         int eingeleseneZahl = 0;
         boolean fehler;
         String eingabe;
         do {
-                eingabe = sc.next();
+            eingabe = sc.next();
             try {
                 eingeleseneZahl = Integer.parseInt(eingabe);
                 fehler = false;
-            }catch(java.lang.NumberFormatException e){
+            } catch (java.lang.NumberFormatException e) {
                 view.eingabeZahlFehlerhaft(mininaleZahl, maximaleZahl);
-                fehler=true;
+                fehler = true;
             }
-        }  while(fehler);
+        } while (fehler);
 
         return eingeleseneZahl;
     }

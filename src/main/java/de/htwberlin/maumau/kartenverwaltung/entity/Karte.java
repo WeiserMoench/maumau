@@ -1,7 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  * @version 20190202
- *
  */
 
 package de.htwberlin.maumau.kartenverwaltung.entity;
@@ -9,7 +8,7 @@ package de.htwberlin.maumau.kartenverwaltung.entity;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Karte{
+public class Karte {
 
     private Farbe farbe;
     private String wert;

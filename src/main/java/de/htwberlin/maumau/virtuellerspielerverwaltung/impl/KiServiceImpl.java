@@ -1,7 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  * @version 20190201
- *
  */
 package de.htwberlin.maumau.virtuellerspielerverwaltung.impl;
 
@@ -19,7 +18,7 @@ public class KiServiceImpl implements KiService {
     @Override
     public boolean mauSetzen(Spieler spieler) {
         log.debug("KiServiceImpl - mauSetzen");
-        if(spieler.getHandkarten().size()==1){
+        if (spieler.getHandkarten().size() == 1) {
             Random rand = new Random();
             int randomNum = rand.nextInt((10 - 0) + 1) + 0;
 
@@ -32,16 +31,16 @@ public class KiServiceImpl implements KiService {
     public String kiAnlegen(int kiZaehler) {
         log.debug("KiServiceImpl - kiAnlegen");
         kiZaehler++;
-        String spielername = "Computer"+kiZaehler;
+        String spielername = "Computer" + kiZaehler;
         return spielername;
     }
 
     @Override
     public Farbe kiMussFarbeWuenschen() {
         Farbe neueFarbe = null;
-        Random random =new Random();
+        Random random = new Random();
         int zahl = random.nextInt(4);
-        switch (zahl){
+        switch (zahl) {
             case 0:
                 neueFarbe = Farbe.PIK;
                 break;

@@ -1,7 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
  * @version 20190201
- *
  */
 package de.htwberlin.maumau.ui.impl;
 
@@ -25,7 +24,7 @@ public class SpielViewer {
     /**
      * Diese Methode gibt erst eine gestrichelte Linie und im Anschluss eine leere Zeile aus
      */
-    public void leereZeileMitStichen(){
+    public void leereZeileMitStichen() {
         System.out.println("-------------------------------------------------------");
         System.out.println();
     }
@@ -34,14 +33,14 @@ public class SpielViewer {
      * Diese Methode fordert den Spieler nach fehlerhafter ja nein Eingabe auf,
      * entweder ja oder nein einzugeben
      */
-    public void jaNeinAbfrageFehlermeldung(){
+    public void jaNeinAbfrageFehlermeldung() {
         System.out.println(ANSI_RED + "Deine Eingabe war fehlerhaft, bitte gib \"ja\" oder \"nein\" ein." + ANSI_RESET);
     }
 
     /**
      * Diese Methode zeigt die Regeln des Spieles an.
      */
-    public void anzeigenRegeln(){
+    public void anzeigenRegeln() {
         System.out.println("\n----  DIE REGELN ----\n" +
                 "- Die einfachen Regeln -\n" +
                 "Jeder Spieler darf im Uhrzeigersinn der Reihe nach jeweils eine Karte ablegen.\n" +
@@ -64,7 +63,7 @@ public class SpielViewer {
     /**
      * Feedback, wenn der Spieler Mau gesagt hat
      */
-    public void maugesagt(){
+    public void maugesagt() {
         System.out.println("Du hast soeben \"Mau\" gesagt.");
         System.out.println("Welche Karte möchtest du legen?");
     }
@@ -86,7 +85,7 @@ public class SpielViewer {
      */
     public void welcheKarteAblegen() {
         System.out.println("\nWelche Karte möchtest du legen? (Sollte Mau nötig sein, gib es zuerst ein \"m\" \nund bestätige dies mit ENTER.)\n" +
-                "Wenn keine Karte möglich ist, einfach \"z\" für ziehen eingeben. \n"+
+                "Wenn keine Karte möglich ist, einfach \"z\" für ziehen eingeben. \n" +
                 "Gib bitte die Kartennummer ein.");
     }
 
@@ -140,7 +139,7 @@ public class SpielViewer {
      * @param spielername - Name des Spielers
      * @param anzahlGezogenerKarten - Anzahl der Karten die er zu beginn seines Zuges ziehen musste
      */
-    public void infosfuerNaechstenSpieler( String spielername, int anzahlGezogenerKarten) {
+    public void infosfuerNaechstenSpieler(String spielername, int anzahlGezogenerKarten) {
         System.out.println("\n\n-- Aktueller Spieler --");
         System.out.println(spielername);
         System.out.println("\nDu musstest " + anzahlGezogenerKarten + " Karten ziehen.");
@@ -153,7 +152,7 @@ public class SpielViewer {
      * @param obersteKarteAblagestapelFarbe - Farbe der obersten Karte auf dem Ablagestapel
      * @param obersteKarteAblagestapelWert - Wert der obersten Karte auf dem Ablagestapel
      */
-    public void ablagestapelZeigt(Farbe obersteKarteAblagestapelFarbe, String obersteKarteAblagestapelWert){
+    public void ablagestapelZeigt(Farbe obersteKarteAblagestapelFarbe, String obersteKarteAblagestapelWert) {
         System.out.println("Die obsterste Karte des Ablagestapels zeigt: " + obersteKarteAblagestapelFarbe + " " + obersteKarteAblagestapelWert);
     }
 
@@ -266,7 +265,7 @@ public class SpielViewer {
      */
     public void eingabeZahlFehlerhaft(int mininaleZahl, int maximaleZahl) {
         System.out.println("Deine Eingabe war fehlerhaft, bitte gib eine Zahl zwischen " + mininaleZahl + " und "
-        + maximaleZahl + " ein.");
+                + maximaleZahl + " ein.");
     }
 
     /**
@@ -281,7 +280,7 @@ public class SpielViewer {
     }
 
     public void anzeigeSpielID(Long spielid) {
-        System.out.println(ANSI_RED +"Für dieses Spiel lautet die SpielID: " + spielid +
+        System.out.println(ANSI_RED + "Für dieses Spiel lautet die SpielID: " + spielid +
                 "\nDiese wird benötigt um das Spiel später fortzusetzen.\n" + ANSI_RESET);
     }
 

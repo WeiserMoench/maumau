@@ -39,18 +39,18 @@ public class SpielServiceImpl implements SpielService {
     public Spiel anlegenSpiel(List<String> spielerliste, boolean erweiterteRegeln) {
         log.debug("anlegenSpiel");
         Spiel spiel = new Spiel();
-        regeln=regelwerkHinzufuegen(erweiterteRegeln);
+        regeln = regelwerkHinzufuegen(erweiterteRegeln);
 
         List<Spieler> spielerListe = new ArrayList<>();
         List<Karte> ablagestapel = new ArrayList<>();
 
         spiel.setErweiterteRegeln(erweiterteRegeln);
         for (String wert : spielerliste) {
-            Spieler derSpieler =null;
+            Spieler derSpieler = null;
             String kiPruefung;
-            kiPruefung=wert.replaceAll("\\d", "");
+            kiPruefung = wert.replaceAll("\\d", "");
             derSpieler = spielerService.neuerSpielerAnlegen(wert);
-            if(kiPruefung.equals("Computer")){
+            if (kiPruefung.equals("Computer")) {
                 derSpieler.setKi(true);
             }
             spielerListe.add(derSpieler);
@@ -90,7 +90,7 @@ public class SpielServiceImpl implements SpielService {
         if (regeln.darfKartegelegtwerden(spiel.getAblagestapelkarten().get(spiel.getAblagestapelkarten().size() - 1), zulegendeKarte, spiel.getFarbe())) {
             spiel.setAblagestapelkarten(legenKarteAufAblageStapel(spieler, spiel.getAblagestapelkarten(), zulegendeKarte));
             spiel.setSummeZuziehendeKarten(regeln.mussZweiKartenZiehen(zulegendeKarte, spiel.getSummeZuziehendeKarten()));
-            if(regeln.richtungWechsel(zulegendeKarte)){
+            if (regeln.richtungWechsel(zulegendeKarte)) {
                 spiel.setIstSpielrichtungRechts(!spiel.isIstSpielrichtungRechts());
             }
             spiel.setErfolgreichgelegt(true);
@@ -207,9 +207,9 @@ public class SpielServiceImpl implements SpielService {
     /**
      * Verteilt karten auf Spielerhaende
      *
-     * @param ziehstapel - der Stapel von dem die Karten genommen werden sollen
+     * @param ziehstapel   - der Stapel von dem die Karten genommen werden sollen
      * @param spielerListe - Liste der Spieler die die Karten bekommen sollen
-     * @param durchgaenge - Anzahl der neuen Karten pro Spieler
+     * @param durchgaenge  - Anzahl der neuen Karten pro Spieler
      * @return - der reduzierte ziehstapel
      */
 
@@ -228,9 +228,9 @@ public class SpielServiceImpl implements SpielService {
     /**
      * Entfernt eine Karte von Spielerhand und legt sie auf den Ablagestapel
      *
-     * @param spieler - bei dem die Karte entfernt werden soll
+     * @param spieler            - bei dem die Karte entfernt werden soll
      * @param kartenAblagestapel - Ablagestapel auf den die Karte gelegt werden soll
-     * @param karte - besagte Karte
+     * @param karte              - besagte Karte
      * @return - der veraenderte Ablagestapel
      */
     private List<Karte> legenKarteAufAblageStapel(Spieler spieler, List<Karte> kartenAblagestapel, Karte karte) {
@@ -255,7 +255,7 @@ public class SpielServiceImpl implements SpielService {
      * Bestimmt die Anzahl der Karten die jeder Spieler bekommt
      *
      * @param spielerListe - Liste der Spieler
-     * @param ziehstapel - Der Stapel der ausgeteilt wird
+     * @param ziehstapel   - Der Stapel der ausgeteilt wird
      * @return - Gibt die Anzahl der Karten zurueck
      */
     private int anzahlStartkartenbestimmen(List<Spieler> spielerListe, List<Karte> ziehstapel) {

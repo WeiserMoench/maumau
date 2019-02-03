@@ -15,13 +15,13 @@ import java.util.List;
 
 
 public class KartenServiceImpl implements KartenService {
-   private String[] kartenwerte = {"Ass", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Bube", "Dame", "Koenig"};
+    private String[] kartenwerte = {"Ass", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Bube", "Dame", "Koenig"};
 
     @Override
     public List<Karte> anlegenKartenstapel() {
         List<Karte> kartenStapel = new ArrayList();
         for (Farbe farben : Farbe.values()) {
-            for (String werte: kartenwerte) {
+            for (String werte : kartenwerte) {
                 kartenStapel.add(erstellenNeuerKarte(farben, werte));
             }
         }
@@ -32,11 +32,11 @@ public class KartenServiceImpl implements KartenService {
     public List<Karte> mischenKartenstapel(List<Karte> karten, boolean obersteKarteBleibt) {
         if (obersteKarteBleibt) {
             Karte oberstekarte = karten.get(karten.size() - 1);
-            System.out.println(oberstekarte.getWert()+ oberstekarte.getFarbe());
+            System.out.println(oberstekarte.getWert() + oberstekarte.getFarbe());
             karten.remove(karten.size() - 1);
             Collections.shuffle(karten);
-            karten.add( oberstekarte);
-            System.out.println(karten.get(karten.size() -1).getWert()+ oberstekarte.getFarbe());
+            karten.add(oberstekarte);
+            System.out.println(karten.get(karten.size() - 1).getWert() + oberstekarte.getFarbe());
         } else {
             Collections.shuffle(karten);
         }
