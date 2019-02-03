@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20190201
+ * @version 20190203
  */
 package de.htwberlin.maumau.ui.impl;
 
@@ -102,7 +102,9 @@ public class SpielViewer {
      * und fragt ihn ob er ein neues Spiel starten oder ein altes fortsetzen will
      */
     public void willkommen() {
-        System.out.println("Willkommen beim MauMau Spiel.");
+        System.out.println("\n" +
+                "-----------------------------------------------------------" +
+                "Willkommen beim MauMau Spiel.");
         System.out.println("Wenn du ein neues Spiel beginnen willst, gibt bitte die 1 ein"); //Vorbereitung Aufgabe 4
         System.out.println("Wenn du ein Spiel fortsetzen möchtest, wähle die 2");
         System.out.println("Welche Variante möchtest du spielen?");
@@ -275,23 +277,43 @@ public class SpielViewer {
         System.out.println("Es war schön mit dir zu spielen. Bitte schaue bald wieder vorbei.");
     }
 
+    /**
+     * gibt Aufforderung zum Eingeben der SpielID aus.
+     */
     public void spielIDeingeben() {
         System.out.println("Bitte die SpielID eingeben");
     }
 
+    /**
+     * Methode gibt zum laufenden Spiel die Info ueber die aktuelle SpielID aus.
+     *
+     * @param spielid - ID, die ausgegeben wird
+     */
     public void anzeigeSpielID(Long spielid) {
         System.out.println(ANSI_RED + "Für dieses Spiel lautet die SpielID: " + spielid +
                 "\nDiese wird benötigt um das Spiel später fortzusetzen.\n" + ANSI_RESET);
     }
 
+    /**
+     * Methode gibt an, dass die SpielID nicht vorhanden ist
+     */
     public void falscheID() {
-        System.out.println(ANSI_RED + "Diese ID gibt es nicht!" + ANSI_RESET);
+        System.out.println(ANSI_RED + "Diese SpielID gibt es nicht!" + ANSI_RESET);
     }
 
+    /**
+     * Methode gibt an, dass das geswuenschte Spiel bereits beendet ist
+     * Außerdem informiert sie uber den Gewinner
+     *
+     * @param sieger - Name des Gewinners
+     */
     public void spielBereitsBeendet(String sieger) {
         System.out.println(ANSI_RED + "Diese ID hat schon einen Sieger! Der Sieger war " + sieger + ANSI_RESET);
     }
 
+    /**
+     * Methode gibt aus, dass das ziehen von Strafkarten nicht moeglich war
+     */
     public void strafkartenNichtMoeglich() {
         System.out.println(ANSI_RED + "Das Ziehen von Strafkarten nach vergessem Mau war " +
                 "\nnicht möglich, da es keine Karten mehr gibt" + ANSI_RESET);
