@@ -10,8 +10,8 @@ import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
 import de.htwberlin.maumau.spielverwaltung.export.SpielService;
 import de.htwberlin.maumau.ui.export.SpielController;
-import de.htwberlin.maumau.util.KarteComperatorByFarbe;
-import de.htwberlin.maumau.util.KarteComperatorByWert;
+import de.htwberlin.maumau.util.KarteComparatorByFarbe;
+import de.htwberlin.maumau.util.KarteComparatorByWert;
 import de.htwberlin.maumau.virtuellerspielerverwaltung.export.KiService;
 import org.apache.log4j.Logger;
 
@@ -41,8 +41,8 @@ public class SpielControllerImpl implements SpielController {
     private boolean erweiterteRegeln;
     private Scanner sc = new Scanner(System.in);
     private static Logger log = Logger.getRootLogger();
-    private KarteComperatorByWert karteComperatorByWert = new KarteComperatorByWert();
-    private KarteComperatorByFarbe karteComperatorByFarbe = new KarteComperatorByFarbe();
+    private KarteComparatorByWert karteComparatorByWert = new KarteComparatorByWert();
+    private KarteComparatorByFarbe karteComparatorByFarbe = new KarteComparatorByFarbe();
 
 
     public void run() throws TechnischeException {
@@ -337,8 +337,8 @@ public class SpielControllerImpl implements SpielController {
      * @return - Das veraenderte Spiel
      */
     private Spiel menschlicherSpielerSpielt(Spiel dasSpiel) {
-        Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComperatorByWert);
-        Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComperatorByFarbe);
+        Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComparatorByWert);
+        Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComparatorByFarbe);
         dasSpiel = spielerInfos(dasSpiel);
         dasSpiel = kartelegen(dasSpiel);
         dasSpiel = mauPruefung(dasSpiel);
