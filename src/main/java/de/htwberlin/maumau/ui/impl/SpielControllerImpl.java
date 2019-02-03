@@ -1,6 +1,6 @@
 /**
  * @author Joerg Lehmann, Christian Fiebelkorn, Dustin Lange
- * @version 20181212
+ * @version 20190203
  */
 
 package de.htwberlin.maumau.ui.impl;
@@ -147,6 +147,13 @@ public class SpielControllerImpl implements SpielController {
         view.spielende();
     }
 
+    /**
+     * Methode wendet begin() auf den EntityManager an und behandelt gleichzeitig moegliche Exceptions
+     *
+     * @param em - der zuveraendernde EntityManager
+     * @return - den veraenderten EntityManager
+     * @throws TechnischeException
+     */
     private EntityManager verbindungsaufbau(EntityManager em) throws TechnischeException {
         try {
             em.getTransaction().begin();
@@ -156,6 +163,15 @@ public class SpielControllerImpl implements SpielController {
         return em;
     }
 
+    /**
+     * Methode speichert das Spiel und sendet Commit
+     * im Falle eines Fehlers, fuehrt sie das Rollback durch und schmeisst eine eigene Exception
+     *
+     * @param dasSpiel - das zu persistierende Spiel
+     * @param em - der zuveraendernde EntityManager
+     * @return - den veraenderten EntityManager
+     * @throws TechnischeException
+     */
     private EntityManager speichernDB(Spiel dasSpiel, EntityManager em) throws TechnischeException {
         try {
             em.persist(dasSpiel);
@@ -167,6 +183,12 @@ public class SpielControllerImpl implements SpielController {
         return em;
     }
 
+    /**
+     * Methode fragt wie viele KI Spieler hinzugefuegt werden sollen und fuegt deren Namen der Spielerliste hinzu
+     *
+     * @param spielerliste - bekommt die Liste der bisherigen Spielernamen uebergeben
+     * @return - gibt eine Liste mit Spielernamen zurueck, die nun auch die Namen der PC Spieler enthaelt
+     */
     private List<String> kiSpielerAnlegen(List<String> spielerliste) {
         int anzahl = 0;
         int minimaleZahl = 0;
@@ -182,6 +204,12 @@ public class SpielControllerImpl implements SpielController {
         return spielerliste;
     }
 
+    /**
+     * Methode steuert das spielen des KI Spielers
+     *
+     * @param dasSpiel - das laufende Spiel
+     * @return - das Spiel nach Veraenderung
+     */
     private Spiel kiSpielt(Spiel dasSpiel) {
         log.debug("kiSpielt");
 
@@ -206,6 +234,11 @@ public class SpielControllerImpl implements SpielController {
         return dasSpiel;
     }
 
+    /**
+     * Methode steuert die Ausgaben nachdem eine KI gespielt hat
+     *
+     * @param dasSpiel - Das laufende Spiel
+     */
     private void ausgabeNachKiZug(Spiel dasSpiel) {
         view.kiHatGespielt(dasSpiel.getAktiverSpieler().getName());
         if (dasSpiel.getAktiverSpieler().isMauistgesetzt()) {
@@ -216,6 +249,13 @@ public class SpielControllerImpl implements SpielController {
         view.leereZeileMitStichen();
     }
 
+    /**
+     * Methode steuert das legen des KI Spielers, wobei alle Karten durchprobiert werden
+     * und sorgt dafuer das die KI ziehen muss. falls sie nicht legen kann
+     *
+     * @param dasSpiel - Das laufende Spiel
+     * @return - Das veraenderte Spiel
+     */
     private Spiel kiLegt(Spiel dasSpiel) {
         log.debug("kiLegt");
         int durchgangszaehler = 0;
@@ -240,11 +280,24 @@ public class SpielControllerImpl implements SpielController {
         return dasSpiel;
     }
 
+    /**
+     * Methode prueft ob die Karte gelegt werden darf
+     *
+     * @param gewuenschteKarte - die Karte die der Spieler legen will
+     * @param dasSpiel - Das laufende Spiel
+     * @return - Das veraenderte Spiel
+     */
     private Spiel erfolgreichGelegt(Spiel dasSpiel, int gewuenschteKarte) {
         dasSpiel = spielService.legeKarte(dasSpiel.getAktiverSpieler().getHandkarten().get(gewuenschteKarte), dasSpiel.getAktiverSpieler(), dasSpiel);
         return dasSpiel;
     }
 
+    /**
+     * Methode steuert alles, was fuer einen Zug eines realen Spielers noetig ist
+     *
+     * @param dasSpiel - Das laufende Spiel
+     * @return - Das veraenderte Spiel
+     */
     private Spiel menschlicherSpielerSpielt(Spiel dasSpiel) {
         Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComperatorByWert);
         Collections.sort(dasSpiel.getAktiverSpieler().getHandkarten(), karteComperatorByFarbe);
@@ -333,6 +386,12 @@ public class SpielControllerImpl implements SpielController {
         return spiel;
     }
 
+    /**
+     * Methode stellt eine Ausgabe zusammen, die anzeigt, welche Karte oben auf dem Ablagestapel liegt
+     * sofern dies ein Bube ist und nach erweiterten Regeln gespielt wird, gibt sie auch den neuen Farbwunsch aus
+     *
+     * @param dasSpiel - Spiel dem die Infos entnommen werden sollen
+     */
     private void anzeigeObersteKarte(Spiel dasSpiel) {
         Farbe farbeNachBube;
         Farbe obersteKarteAblagestapelFarbe;
@@ -379,6 +438,13 @@ public class SpielControllerImpl implements SpielController {
         return spiel;
     }
 
+    /**
+     * Methode steuert alles notwenige fuer die Eingabe eines Spielers, wenn er aufgefordert wird eine Karte zu legen
+     * Dabei auftretende Exceptions werden gleich mitbehandelt
+     *
+     * @param spiel - Das laufende Spiel
+     * @return - Das veraenderte Spiel
+     */
     private Spiel eingabeZumKartelegen(Spiel spiel) {
         String antwort;
         boolean erneutesFragen;
@@ -468,6 +534,11 @@ public class SpielControllerImpl implements SpielController {
         return spielart;
     }
 
+    /**
+     * Methode fragt, welche SpielID fortgesetzt werden soll
+     *
+     * @return - gewuenschte SpielID
+     */
     private Integer welcheSpielId() {
         log.debug("welcheSpielId");
         int spielid;
@@ -547,11 +618,25 @@ public class SpielControllerImpl implements SpielController {
         return jaNeinAbfrage();
     }
 
+    /**
+     * Methode fragt den Spieler ob er eine weitere Runde spielen will
+     *
+     * @return - Ergebnis ob er es moechte
+     */
     private boolean weitereRunde() {
         view.weitereSpielStarten();
         return jaNeinAbfrage();
     }
 
+    /**
+     * Methode liest eine Zahl ein, dabei darf diese nur aus einem bestimmten Bereich sein
+     *
+     * Methode faengt dabei auftretende Exceptions ab
+     *
+     * @param mininaleZahl - kleinste Zahl die der Benutzer eingeben darf
+     * @param maximaleZahl - groesste Zahl die der Benutzer eingeben darf
+     * @return - eingegebene Zahl
+     */
     private int zahlEingabe(int mininaleZahl, int maximaleZahl) {
         int eingeleseneZahl = 0;
         boolean fehler;
