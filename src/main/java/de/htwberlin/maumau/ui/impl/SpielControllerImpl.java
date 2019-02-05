@@ -176,9 +176,11 @@ public class SpielControllerImpl implements SpielController {
             Long spielid = 1L;
             view.anzeigeSpielID(spielid);
         } catch (javax.persistence.PersistenceException e){
-            throw new TechnischeException("Fehler beim Datenbankzugriff");
+            Long spielid = 1L;
+            view.anzeigeSpielID(spielid);
+
         } catch (Exception e){
-            throw new TechnischeException();
+            throw new TechnischeException("Fehler beim Datenbankzugriff");
         }
 
         em = speichernDB(dasSpiel, em);

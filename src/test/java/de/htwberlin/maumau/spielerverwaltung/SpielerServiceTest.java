@@ -8,10 +8,10 @@ package de.htwberlin.maumau.spielerverwaltung;
 
 import de.htwberlin.maumau.kartenverwaltung.entity.Farbe;
 import de.htwberlin.maumau.kartenverwaltung.entity.Karte;
-import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
 import de.htwberlin.maumau.spielerverwaltung.entity.Spieler;
 import de.htwberlin.maumau.spielerverwaltung.export.SpielerService;
 import de.htwberlin.maumau.spielerverwaltung.impl.SpielerServiceImpl;
+import de.htwberlin.maumau.spielverwaltung.entity.Spiel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,5 +61,6 @@ public class SpielerServiceTest {
         spieler.setName("Hans");
         assertEquals(spieler.getName(), spielerHans.getName());
     }
+
 
 }
