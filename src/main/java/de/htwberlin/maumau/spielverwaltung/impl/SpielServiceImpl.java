@@ -57,7 +57,6 @@ public class SpielServiceImpl implements SpielService {
         }
         spiel.setSpielerDesSpieles(spielerListe);
         spiel.setAktiverSpieler(spiel.getSpielerDesSpieles().get(0));
-        //TODO Set Ziehstapel aufraeumen
         spiel.setZiehstapelkarten(kartenService.mischenKartenstapel(kartenService.anlegenKartenstapel(), false));
         spiel.setZiehstapelkarten(austeilenVonKarten(spiel.getZiehstapelkarten(), spiel.getSpielerDesSpieles(), anzahlStartkartenbestimmen(spiel.getSpielerDesSpieles(), spiel.getZiehstapelkarten())));
         ablagestapel.add(spiel.getZiehstapelkarten().get(spiel.getZiehstapelkarten().size() - 1));

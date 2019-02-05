@@ -73,6 +73,4 @@ public class ErweiterteRegelnServiceImpl implements RegelnService {
         kartenwert = gelegteKarte.getWert();
         return kartenwert.equals("9");
     }
-
-
 }
