@@ -24,7 +24,6 @@ import org.picocontainer.injectors.ConstructorInjection;
  * Folgendes muss noch erledingt werden
  * - Mocken
  * - JUnit Tests prüfen und erweitern
- * - Komponentendiagramm anpassen
  * - Dokumentation erstellen
  *
  * ABGABE: Mittwoch 23:55

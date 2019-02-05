@@ -184,10 +184,13 @@ public class SpielServiceImpl implements SpielService {
         ziehstapel = spiel.getZiehstapelkarten();
 
         if (ziehstapel.size() < 2) {
+            Karte karteEinsZiehstapel= ziehstapel.get(0);
             ziehstapel = spiel.getAblagestapelkarten();
             ablagestapel.add(ziehstapel.get(ziehstapel.size() - 1));
             ziehstapel.remove(ziehstapel.size() - 1);
+            ziehstapel.add(karteEinsZiehstapel);
             spiel.setZiehstapelkarten(kartenService.mischenKartenstapel(ziehstapel, false));
+
             spiel.setAblagestapelkarten(ablagestapel);
         }
         return spiel;
