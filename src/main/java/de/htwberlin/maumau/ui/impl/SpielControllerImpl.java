@@ -44,7 +44,7 @@ public class SpielControllerImpl implements SpielController {
     private KarteComparatorByWert karteComparatorByWert = new KarteComparatorByWert();
     private KarteComparatorByFarbe karteComparatorByFarbe = new KarteComparatorByFarbe();
 
-
+    @Override
     public void run() throws TechnischeException {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("$objectdb/db/maumau.odb");
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -65,6 +65,7 @@ public class SpielControllerImpl implements SpielController {
             spielablauf(em, dasSpiel);
 
         } while (weitereRunde());
+        sc.close();
         view.spielende();
     }
 
